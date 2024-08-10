@@ -90,7 +90,7 @@ const AdminDetails = () => {
             type="text"
             name="firstname"
             className="form-control w-100 rounded-2 p-2"
-            value="ELFRIED"
+            value="First Name"
             disabled
           />
         </label>
@@ -100,7 +100,7 @@ const AdminDetails = () => {
             type="text"
             name="lastname"
             className="form-control w-100 rounded-2 p-2"
-            value="KIDJE"
+            value="Last Name"
             disabled
           />
         </label>
@@ -122,7 +122,7 @@ const AdminDetails = () => {
             type="text"
             name="firstname"
             className="form-control w-100 rounded-2 p-2"
-            value="BP 05 Cotonou"
+            value=""
             disabled
           />
         </label>
@@ -189,16 +189,16 @@ const AdminList = () => {
         <tbody>
           <tr className="p-3">
             <td scope="row w-25">{++count}</td>
-            <td className="fw-bold">KIDJE</td>
-            <td className="opacity-75">Fortunatus</td>
+            <td className="fw-bold">Naveen</td>
+            <td className="opacity-75">M R</td>
             <td className="opacity-75">kvmcmart@gmail.com</td>
             <td className="opacity-75">96457545</td>
           </tr>
           <tr className="p-3">
             <td scope="row w-25">{++count}</td>
-            <td className="fw-bold">ALASSANE</td>
-            <td className="opacity-75">Kabirou</td>
-            <td className="opacity-75">kabirou2001@gmail.com</td>
+            <td className="fw-bold">Kailash</td>
+            <td className="opacity-75">G</td>
+            <td className="opacity-75">kailash61203@gmail.com</td>
             <td className="opacity-75">51541210</td>
           </tr>
         </tbody>

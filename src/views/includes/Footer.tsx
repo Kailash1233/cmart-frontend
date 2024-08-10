@@ -1,5 +1,5 @@
 import React from "react";
-import NewsLetter from "../../components/NewsLetter";
+// import NewsLetter from "../../components/NewsLetter";
 import { SocialsNetworks } from "../../components/SocialsNetworks";
 import { Link } from "react-router-dom";
 import RoutePaths from "../../config";
@@ -7,7 +7,7 @@ import RoutePaths from "../../config";
 const Footer = () => {
   return (
     <footer className="mt-5">
-      <NewsLetter />
+      {/* <NewsLetter /> */}
       <div className="footer-content bg-black gap-3 px-3 px-lg-5 py-5">
         <div className="f-content d-flex flex-wrap justify-content-space-between">
           <div className="contacts w-20">

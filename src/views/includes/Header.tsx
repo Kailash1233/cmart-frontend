@@ -3,7 +3,7 @@ import { Link, Route } from "react-router-dom";
 import { SocialsNetworks } from "../../components/SocialsNetworks";
 import ViewCart from "../../components/ViewCart";
 import ViewSearch from "../../components/ViewSearch";
-import Lang from "../../components/Lang";
+// import Lang from "../../components/Lang";
 import RoutePaths from "../../config";
 import {
   cartKeyName,
@@ -27,7 +27,7 @@ const navsBar = [
   { path: RoutePaths.shop, name: "Shop" },
   { path: RoutePaths.blog, name: "Blog" },
   { path: RoutePaths.contact, name: "Contact US" },
-  { path: RoutePaths.team, name: "Teams" },
+  //   { path: RoutePaths.team, name: "Teams" },
 ];
 
 const Header: FC = () => {
@@ -92,7 +92,11 @@ const Header: FC = () => {
         <div className="navigation font-regular d-flex flex-wrap justify-content-between px-3 px-lg-5 py-4">
           <nav className="navbar col-12 col-lg-7 navbar-expand-lg">
             <Link to={"/"} className="navbar-brand me-5">
-              <img src="/img/logo.png" alt="Logo" />
+              <img
+                src="/img/Cmart.png"
+                alt="Logo"
+                style={{ width: "50px", height: "50px" }}
+              />
             </Link>
             <button
               className="navbar-toggler"
