@@ -22,7 +22,7 @@ export const blogInfo = [
   {
     blog_id: 1,
     date: "10 Aug 2024",
-    img: "/img/blog/construction1.jpg",
+    img: "/img/Image1.webp",
     title: "The Future of Sustainable Construction Materials",
     content:
       "As the construction industry evolves, sustainability has become a key focus. Discover the latest eco-friendly materials, such as recycled steel and low-carbon concrete, that are paving the way for greener buildings.",
@@ -32,7 +32,7 @@ export const blogInfo = [
   {
     blog_id: 2,
     date: "12 Aug 2024",
-    img: "/img/blog/construction2.jpg",
+    img: "/img/steel.jpg",
     title: "Why Quality Steel Matters in Modern Construction",
     content:
       "Steel is a crucial material in construction, offering strength and flexibility. Learn why investing in high-quality steel can make a significant difference in the longevity and safety of your projects.",
@@ -42,7 +42,7 @@ export const blogInfo = [
   {
     blog_id: 3,
     date: "15 Aug 2024",
-    img: "/img/blog/construction3.jpg",
+    img: "/img/Brick.webp",
     title: "Top Trends in Brick Manufacturing for 2024",
     content:
       "Brick manufacturing has seen major advancements in recent years. From high-strength bricks to improved thermal insulation, explore the top trends that are revolutionizing the industry.",
@@ -69,7 +69,7 @@ export const testimonialInfo = [
 export const productsTest = [
   {
     id: 1,
-    img: "/img/product/1.png",
+    img: "/img/product/1.jpg",
     reviews: 4,
     name: "Product Name 1",
     price: 90,
@@ -78,7 +78,7 @@ export const productsTest = [
   },
   {
     id: 2,
-    img: "/img/product/2.png",
+    img: "/img/product/2.webp",
     reviews: 4,
     name: "Product Name 2",
     price: 100,
@@ -88,7 +88,7 @@ export const productsTest = [
   },
   {
     id: 3,
-    img: "/img/product/3.png",
+    img: "/img/product/3.jpg",
     reviews: 4,
     name: "Product Name 3",
     price: 120,
@@ -97,7 +97,7 @@ export const productsTest = [
   },
   {
     id: 4,
-    img: "/img/product/4.png",
+    img: "/img/product/4.jpg",
     reviews: 4,
     name: "Product Name 4",
     price: 120,
@@ -106,7 +106,7 @@ export const productsTest = [
   },
   {
     id: 5,
-    img: "/img/product/5.png",
+    img: "/img/product/5.webp",
     reviews: 4,
     name: "Product Name 5",
     price: 120,

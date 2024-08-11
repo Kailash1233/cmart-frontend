@@ -20,12 +20,12 @@ const Category = ({
   category,
   arrow = "left",
 }: {
-  category: any;
+  category: CategoryType;
   arrow?: string;
 }) => {
   return (
     <div key={category.id} className="category text-dark">
-      {arrow === "left" ? (
+      {/* {arrow === "left" ? (
         <i className="bi bi-chevron-double-right me-2"></i>
       ) : null}
       <Link to={"/"} className="text-dark">
@@ -33,7 +33,7 @@ const Category = ({
       </Link>
       {arrow === "right" ? (
         <i className="bi bi-chevron-right float-end opacity-75 me-2"></i>
-      ) : null}
+      ) : null} */}
     </div>
   );
 };
@@ -52,7 +52,7 @@ const AllCategory = () => {
       </h6>
       {!isLoading && !isError ? (
         <div className="category-list d-flex flex-column gap-4 py-2 px-3">
-          {categoryList["data"].map((category: CategoryType) => (
+          {categoryList?.data?.map((category: CategoryType) => (
             <Category category={category} arrow="right" key={category.id} />
           ))}
         </div>
@@ -62,6 +62,8 @@ const AllCategory = () => {
     </div>
   );
 };
+
+export default AllCategory;
 
 const About: FC = () => {
   return (
@@ -189,20 +191,16 @@ const Promotion3 = () => {
           className="position-absolute top-0 end-0 start-0 bottom-0"
           style={{ backgroundColor: "rgba(0,0,0,0.3)" }}
         ></span>
-        <img
-          src="/img/banner2.jpg"
-          alt="banner promo"
-          className="w-100 h-100"
-        />
+        <img src="/img/cons.jpg" alt="banner promo" className="w-100 h-100" />
       </div>
       <div
         className="promotion-text position-absolute w-100 p-2"
         style={{ top: "5%" }}
       >
-        <h4>85% Hat Free</h4>
-        <h3>Low-Fat Meet</h3>
+        <h4>20% Off on All Construction Materials</h4>
+        <h3>Premium Quality Supplies</h3>
         <h4 className="fw-bold my-3">
-          Started at <span className="fd-color-primary">$79.99</span>
+          Starting at <span className="fd-color-primary">₹499.99</span>
         </h4>
         <Link
           to={RoutePaths.shop}
