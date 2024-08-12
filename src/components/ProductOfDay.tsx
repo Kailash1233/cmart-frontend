@@ -63,6 +63,9 @@ interface Product {
   reviews: number;
   desc: string;
   image: string;
+  img: string; // This could be a duplicate if it's the same as `image`
+  total_quantity: number;
+  quantity?: number; // Optional, based on usage in other components
 }
 
 const ProductOfDay = () => {
@@ -74,6 +77,9 @@ const ProductOfDay = () => {
     reviews: 4.5,
     desc: "This is a top-grade construction raw material perfect for any building project.",
     image: "/img/Raw.jpg", // Sample image
+    img: "/img/Raw.jpg", // Sample image (same as `image` for consistency)
+    total_quantity: 100, // Example value
+    quantity: 1, // Example value, optional
   };
 
   return (

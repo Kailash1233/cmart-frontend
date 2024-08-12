@@ -318,29 +318,15 @@ export type ProductType = {
   categorie_id?: number;
 };
 
-// Sample hardcoded product data
-const hardcodedProduct: ProductType = {
-  id: 1,
-  img: "/img/hardcoded-image.jpg",
-  reviews: 4.5,
-  name: "High-Quality Construction Material",
-  price: 1200,
-  old_price: 1500,
-  reduction: "20",
-  type: "list", // Can be "list" or any other type you want to handle differently
-  desc: "This is a premium construction material, perfect for your building projects.",
-  quantity: 50,
-  total_quantity: 100,
-  categorie_id: 2,
-};
+// Define props for ProductCart
+interface ProductCartProps extends ProductType {
+  type?: string;
+}
 
-// Hardcoded image
-const dummyImage = "/img/dummy.png";
+const ProductCart: React.FC<ProductCartProps> = ({ type, ...product }) => {
+  const dummyImage = "/img/dummy.png";
 
-const ProductCart = () => {
-  const product = hardcodedProduct;
-
-  return product.type === "list" ? (
+  return type === "list" ? (
     <div
       className="position-relative bg-white mt-4 border-1 border fd-hover-border-primary product-cart"
       style={{ minHeight: "250px" }}
