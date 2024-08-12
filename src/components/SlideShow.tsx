@@ -54,29 +54,24 @@ import { Link } from "react-router-dom";
 import RoutePaths from "../config";
 import Spinner from "./Spinner";
 
-type SlideProps = {
-  url: string;
-  alt?: string;
-  text?: string;
-}[];
-
-type SlideOptions = {
-  thumbs: boolean;
-  status: boolean;
-};
-
-const SlideShow = (props: { options?: {} }) => {
-  const {
-    isLoading,
-    data: slides,
-    isError,
-  } = useGetAllSlidesQuery("api/slides");
-
-  // Dummy image URLs
-  const dummyImages = [
-    "/img/cons.jpg",
-    "/img/product/2.webp",
-    "/img/ez2.jpg",
+const SlideShow = () => {
+  // Dummy slide data for the frontend
+  const slides = [
+    {
+      id: 1,
+      image: "/img/cons.jpg",
+      text: "High-Quality Construction Materials",
+    },
+    {
+      id: 2,
+      image: "/img/product/2.webp",
+      text: "Modern and Durable Products",
+    },
+    {
+      id: 3,
+      image: "/img/ez2.jpg",
+      text: "Building Your Dream Home",
+    },
   ];
 
   return (
@@ -89,39 +84,28 @@ const SlideShow = (props: { options?: {} }) => {
       infiniteLoop={true}
       interval={3000}
     >
-      {!isLoading && !isError ? (
-        slides["data"].slice(0, 3).map((slide: Slide, index: number) => (
+      {slides.map((slide) => (
+        <div className="f-slide position-relative shadow h-100" key={slide.id}>
+          <img src={slide.image} alt={slide.text} className="w-100 h-100" />
           <div
-            className="f-slide position-relative shadow h-100"
-            key={slide.id}
+            className="f-slide-text position-absolute text-start"
+            style={{ width: "50%", top: "30%", left: "5%" }}
           >
-            <img
-              src={dummyImages[index]}
-              alt={slide.text}
-              className="w-100 h-100"
-            />
-            <div
-              className="f-slide-text position-absolute text-start"
-              style={{ width: "50%", top: "30%", left: "5%" }}
-            >
-              <div>
-                <h1 className="fw-bold">{slide.text}</h1>
-                <h5 className="my-3 fw-bold">
-                  A complete building solution for your Dream
-                </h5>
-                <Link
-                  to={RoutePaths.shop}
-                  className="fd-btn col-12 col-lg-6 text-center p-3"
-                >
-                  SHOP NOW <i className="bi bi-arrow-right"></i>
-                </Link>
-              </div>
+            <div>
+              <h1 className="fw-bold">{slide.text}</h1>
+              <h5 className="my-3 fw-bold">
+                A complete building solution for your Dream
+              </h5>
+              <Link
+                to={RoutePaths.shop}
+                className="fd-btn col-12 col-lg-6 text-center p-3"
+              >
+                SHOP NOW <i className="bi bi-arrow-right"></i>
+              </Link>
             </div>
           </div>
-        ))
-      ) : (
-        <Spinner />
-      )}
+        </div>
+      ))}
     </Carousel>
   );
 };

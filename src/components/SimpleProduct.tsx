@@ -56,7 +56,7 @@ const SimpleProduct = ({ product }: { product: ProductType }) => {
       <div className="w-25 border-1 border fd-hover-border-primary">
         <Link to={"/product/" + product.id}>
           <img
-            src={product.img ? product.img : dummyImage}
+            src={dummyImage}
             alt={product.name}
             className="w-100 h-100"
           />

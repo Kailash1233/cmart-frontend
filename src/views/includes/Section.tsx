@@ -50,7 +50,7 @@ const AllCategory = () => {
       <h6 className="fd-bg-primary p-3 fw-bold rounded-top-3">
         ALL CATEGORIES
       </h6>
-      {!isLoading && !isError ? (
+      {/* {!isLoading && !isError ? (
         <div className="category-list d-flex flex-column gap-4 py-2 px-3">
           {categoryList?.data?.map((category: CategoryType) => (
             <Category category={category} arrow="right" key={category.id} />
@@ -58,7 +58,7 @@ const AllCategory = () => {
         </div>
       ) : (
         <Spinner />
-      )}
+      )} */}
     </div>
   );
 };
@@ -100,7 +100,7 @@ const About: FC = () => {
               <i className="bi bi-shield-lock fa-2x"></i>
             </div>
             <div>
-              <h6 className="fw-bold">Safe Payment</h6>
+              <h6 className="fw-bold">Safe Payment and COD Available</h6>
               <span className="font-light opacity-75">
                 We use secure payment methods.
               </span>
@@ -111,9 +111,9 @@ const About: FC = () => {
               <i className="bi bi-box-seam fa-2x"></i>
             </div>
             <div>
-              <h6 className="fw-bold">Bulk Supply</h6>
+              <h6 className="fw-bold">All type of Supply</h6>
               <span className="font-light opacity-75">
-                Order in bulk and save more on your purchases.
+                You can also order in bulk and save more on your purchases.
               </span>
             </div>
           </div>

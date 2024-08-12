@@ -147,11 +147,162 @@
 
 // export default ProductCart;
 
+// 2nd Dummy
+
+// import Reviews from "./Reviews";
+// import { Link } from "react-router-dom";
+// import AddToCart from "./AddToCart";
+// import AddToWishlist from "./AddToWishlist";
+
+// export type ProductType = {
+//   id: number;
+//   img: string;
+//   reviews: number;
+//   name: string;
+//   price: number;
+//   old_price: number;
+//   reduction?: string;
+//   type?: string;
+//   desc?: string;
+//   quantity?: number;
+//   total_quantity: number;
+//   categorie_id?: number;
+// };
+
+// // Sample dummy image
+// const dummyImage = "/img/dummy.png";
+
+// const ProductCart = (props: ProductType) => {
+//   return props.type === "list" ? (
+//     <div
+//       className="position-relative bg-white mt-4 border-1 border fd-hover-border-primary product-cart"
+//       style={{ minHeight: "250px" }}
+//     >
+//       {!props.reduction ? (
+//         <a className="position-absolute top-0 start-0 fd-btn p-custorm z-1">
+//           SALE
+//         </a>
+//       ) : (
+//         <a className="position-absolute top-0 start-0 fd-btn-red z-1">
+//           {props.reduction} %
+//         </a>
+//       )}
+//       <div className="d-flex gap-3">
+//         <div className="position-relative h-100 col-3 product-img">
+//           <img src={dummyImage} alt={props.name} className="w-100 h-50" />
+//         </div>
+//         <div className="w-75 pt-3">
+//           <div>
+//             <Link
+//               to={"/product/" + props.id}
+//               className="product-name my-2 fw-bold text-dark"
+//             >
+//               {props.name}
+//             </Link>
+//           </div>
+//           <div className="d-flex my-2">
+//             <Reviews rating={props.reviews} />
+//           </div>
+//           <div className="d-flex">
+//             <h5 className="fd-color-primary">₹{props.price}</h5>
+//             <h6
+//               className="align-self-end"
+//               style={{ textDecoration: "line-through" }}
+//             >
+//               ₹{props.old_price}
+//             </h6>
+//           </div>
+//           <p className="desc fw-bold opacity-50">{props.desc}</p>
+//           <div className="d-flex gap-2">
+//             <AddToCart product={props} />
+//             <div>
+//               <Link to={"/product/" + props.id} className="fd-btn rounded-3">
+//                 <i className="bi bi-eye"></i>
+//               </Link>
+//             </div>
+//             <div>
+//               <AddToWishlist product={props} classSup="rounded-3" />
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   ) : (
+//     <div
+//       className="position-relative bg-white mt-4 border-1 border fd-hover-border-primary product-cart"
+//       style={{ height: "400px" }}
+//     >
+//       <div className="position-relative h-75 product-img">
+//         <img src={dummyImage} alt={props.name} className="w-100 h-100" />
+//         <div
+//           className="show d-none position-absolute w-100 animate__animated animate__fadeIn"
+//           style={{ bottom: "10%" }}
+//         >
+//           <AddToCart
+//             product={props}
+//             classSup="bg-white fd-color-primary fd-hover-bg-primary d-block w-75 mx-auto px-3 py-2"
+//           />
+//         </div>
+//       </div>
+//       {!props.reduction ? (
+//         <a
+//           className="position-absolute top-0 start-0 fd-btn"
+//           style={{ padding: "5px 20px" }}
+//         >
+//           SALE
+//         </a>
+//       ) : (
+//         <a
+//           className="position-absolute top-0 start-0 fd-btn-red"
+//           style={{ padding: "5px 20px" }}
+//         >
+//           {props.reduction} %
+//         </a>
+//       )}
+//       <AddToWishlist
+//         product={props}
+//         classSup="position-absolute rounded-5"
+//         supStyle={{ padding: "5px 10px", top: "10%", right: "10%" }}
+//       />
+//       <Link
+//         to={"/product/" + props.id}
+//         className="show position-absolute fd-btn rounded-5 d-none animate__animated animate__fadeInRight"
+//         style={{ padding: "5px 10px", top: "20%", right: "10%" }}
+//       >
+//         <i className="bi bi-eye"></i>
+//       </Link>
+//       <div className="text-center">
+//         <Link
+//           to={"/product/" + props.id}
+//           className="product-name my-2 fw-bold text-dark"
+//         >
+//           {props.name}
+//         </Link>
+//       </div>
+//       <div className="d-flex justify-content-center">
+//         <Reviews rating={props.reviews} />
+//       </div>
+//       <div className="d-flex justify-content-center">
+//         <h5 className="fd-color-primary">₹{props.price}</h5>
+//         <h6
+//           className="align-self-end"
+//           style={{ textDecoration: "line-through" }}
+//         >
+//           ₹{props.old_price}
+//         </h6>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default ProductCart;
+
 import Reviews from "./Reviews";
 import { Link } from "react-router-dom";
 import AddToCart from "./AddToCart";
 import AddToWishlist from "./AddToWishlist";
 
+// Define the ProductType to match the hardcoded data
 export type ProductType = {
   id: number;
   img: string;
@@ -167,59 +318,77 @@ export type ProductType = {
   categorie_id?: number;
 };
 
-// Sample dummy image
+// Sample hardcoded product data
+const hardcodedProduct: ProductType = {
+  id: 1,
+  img: "/img/hardcoded-image.jpg",
+  reviews: 4.5,
+  name: "High-Quality Construction Material",
+  price: 1200,
+  old_price: 1500,
+  reduction: "20",
+  type: "list", // Can be "list" or any other type you want to handle differently
+  desc: "This is a premium construction material, perfect for your building projects.",
+  quantity: 50,
+  total_quantity: 100,
+  categorie_id: 2,
+};
+
+// Hardcoded image
 const dummyImage = "/img/dummy.png";
 
-const ProductCart = (props: ProductType) => {
-  return props.type === "list" ? (
+const ProductCart = () => {
+  const product = hardcodedProduct;
+
+  return product.type === "list" ? (
     <div
       className="position-relative bg-white mt-4 border-1 border fd-hover-border-primary product-cart"
       style={{ minHeight: "250px" }}
     >
-      {!props.reduction ? (
+      {!product.reduction ? (
         <a className="position-absolute top-0 start-0 fd-btn p-custorm z-1">
           SALE
         </a>
       ) : (
         <a className="position-absolute top-0 start-0 fd-btn-red z-1">
-          {props.reduction} %
+          {product.reduction} %
         </a>
       )}
       <div className="d-flex gap-3">
         <div className="position-relative h-100 col-3 product-img">
-          <img src={dummyImage} alt={props.name} className="w-100 h-50" />
+          <img src={dummyImage} alt={product.name} className="w-100 h-50" />
         </div>
         <div className="w-75 pt-3">
           <div>
             <Link
-              to={"/product/" + props.id}
+              to={"/product/" + product.id}
               className="product-name my-2 fw-bold text-dark"
             >
-              {props.name}
+              {product.name}
             </Link>
           </div>
           <div className="d-flex my-2">
-            <Reviews rating={props.reviews} />
+            <Reviews rating={product.reviews} />
           </div>
           <div className="d-flex">
-            <h5 className="fd-color-primary">₹{props.price}</h5>
+            <h5 className="fd-color-primary">₹{product.price}</h5>
             <h6
               className="align-self-end"
               style={{ textDecoration: "line-through" }}
             >
-              ₹{props.old_price}
+              ₹{product.old_price}
             </h6>
           </div>
-          <p className="desc fw-bold opacity-50">{props.desc}</p>
+          <p className="desc fw-bold opacity-50">{product.desc}</p>
           <div className="d-flex gap-2">
-            <AddToCart product={props} />
+            <AddToCart product={product} />
             <div>
-              <Link to={"/product/" + props.id} className="fd-btn rounded-3">
+              <Link to={"/product/" + product.id} className="fd-btn rounded-3">
                 <i className="bi bi-eye"></i>
               </Link>
             </div>
             <div>
-              <AddToWishlist product={props} classSup="rounded-3" />
+              <AddToWishlist product={product} classSup="rounded-3" />
             </div>
           </div>
         </div>
@@ -231,18 +400,18 @@ const ProductCart = (props: ProductType) => {
       style={{ height: "400px" }}
     >
       <div className="position-relative h-75 product-img">
-        <img src={dummyImage} alt={props.name} className="w-100 h-100" />
+        <img src={dummyImage} alt={product.name} className="w-100 h-100" />
         <div
           className="show d-none position-absolute w-100 animate__animated animate__fadeIn"
           style={{ bottom: "10%" }}
         >
           <AddToCart
-            product={props}
+            product={product}
             classSup="bg-white fd-color-primary fd-hover-bg-primary d-block w-75 mx-auto px-3 py-2"
           />
         </div>
       </div>
-      {!props.reduction ? (
+      {!product.reduction ? (
         <a
           className="position-absolute top-0 start-0 fd-btn"
           style={{ padding: "5px 20px" }}
@@ -254,16 +423,16 @@ const ProductCart = (props: ProductType) => {
           className="position-absolute top-0 start-0 fd-btn-red"
           style={{ padding: "5px 20px" }}
         >
-          {props.reduction} %
+          {product.reduction} %
         </a>
       )}
       <AddToWishlist
-        product={props}
+        product={product}
         classSup="position-absolute rounded-5"
         supStyle={{ padding: "5px 10px", top: "10%", right: "10%" }}
       />
       <Link
-        to={"/product/" + props.id}
+        to={"/product/" + product.id}
         className="show position-absolute fd-btn rounded-5 d-none animate__animated animate__fadeInRight"
         style={{ padding: "5px 10px", top: "20%", right: "10%" }}
       >
@@ -271,22 +440,22 @@ const ProductCart = (props: ProductType) => {
       </Link>
       <div className="text-center">
         <Link
-          to={"/product/" + props.id}
+          to={"/product/" + product.id}
           className="product-name my-2 fw-bold text-dark"
         >
-          {props.name}
+          {product.name}
         </Link>
       </div>
       <div className="d-flex justify-content-center">
-        <Reviews rating={props.reviews} />
+        <Reviews rating={product.reviews} />
       </div>
       <div className="d-flex justify-content-center">
-        <h5 className="fd-color-primary">₹{props.price}</h5>
+        <h5 className="fd-color-primary">₹{product.price}</h5>
         <h6
           className="align-self-end"
           style={{ textDecoration: "line-through" }}
         >
-          ₹{props.old_price}
+          ₹{product.old_price}
         </h6>
       </div>
     </div>
