@@ -213,6 +213,92 @@ const Promotion3 = () => {
   );
 };
 
+// const PopularProducts = ({
+//   grid = 3,
+//   type = "grid",
+// }: {
+//   grid?: number | boolean;
+//   type?: string;
+// }) => {
+//   const {
+//     isLoading,
+//     data: productsList,
+//     isSuccess,
+//     isError,
+//   } = useGetAllProductsQuery("api/products");
+
+//   // const productsList : ProductType[] = useAppSelector((state) => state.products);
+
+//   let content: React.ReactNode;
+
+//   content =
+//     isLoading || isError ? (
+//       <Spinner />
+//     ) : isSuccess ? (
+//       productsList["data"].map((product: ProductType) => (
+//         <ProductCart {...product} type={type} key={product.id} />
+//       ))
+//     ) : null;
+
+//   return (
+//     <div
+//       className={
+//         type === "list" ? "test" : "d-grid gap-3 grid-0 grid-lg-" + grid
+//       }
+//     >
+//       {content}
+//     </div>
+//   );
+// };
+
+const hardcodedProducts: ProductType[] = [
+  {
+    id: 1,
+    img: "/img/product/1.jpg",
+    reviews: 4.5,
+    name: "High-Quality Construction Material",
+    price: 1200,
+    old_price: 1500,
+    reduction: "20",
+    type: "list",
+    desc: "This is a premium construction material, perfect for your building projects.",
+    quantity: 50,
+    total_quantity: 100,
+    categorie_id: 2,
+  },
+  {
+    id: 2,
+    img: "/img/hardcoded-image.jpg",
+    reviews: 4.5,
+    name: "High-Quality Construction Material",
+    price: 1200,
+    old_price: 1500,
+    reduction: "20",
+    type: "list",
+    desc: "This is a premium construction material, perfect for your building projects.",
+    quantity: 50,
+    total_quantity: 100,
+    categorie_id: 2,
+  },
+  {
+    id: 3,
+    img: "/img/hardcoded-image.jpg",
+    reviews: 4.5,
+    name: "High-Quality Construction Material",
+    price: 1200,
+    old_price: 1500,
+    reduction: "20",
+    type: "list",
+    desc: "This is a premium construction material, perfect for your building projects.",
+    quantity: 50,
+    total_quantity: 100,
+    categorie_id: 2,
+  },
+
+ 
+  // Add more hardcoded products as needed
+];
+
 const PopularProducts = ({
   grid = 3,
   type = "grid",
@@ -220,25 +306,19 @@ const PopularProducts = ({
   grid?: number | boolean;
   type?: string;
 }) => {
-  const {
-    isLoading,
-    data: productsList,
-    isSuccess,
-    isError,
-  } = useGetAllProductsQuery("api/products");
-
-  // const productsList : ProductType[] = useAppSelector((state) => state.products);
+  // Use hardcoded data instead of fetching from an API
+  const productsList = hardcodedProducts;
 
   let content: React.ReactNode;
 
   content =
-    isLoading || isError ? (
+    productsList.length === 0 ? (
       <Spinner />
-    ) : isSuccess ? (
-      productsList["data"].map((product: ProductType) => (
+    ) : (
+      productsList.map((product: ProductType) => (
         <ProductCart {...product} type={type} key={product.id} />
       ))
-    ) : null;
+    );
 
   return (
     <div
@@ -251,23 +331,39 @@ const PopularProducts = ({
   );
 };
 
+// const SortProducts = () => {
+//   const { data: products, isLoading, isError } = useGetBestProductsQuery("");
+
+//   return (
+//     <>
+//       {!isLoading && !isError ? (
+//         <div>
+//           {products.data.map((product: { products: ProductType }) => (
+//             <ProductSort {...product.products} key={product.products.id} />
+//           ))}
+//         </div>
+//       ) : (
+//         <Spinner />
+//       )}
+//     </>
+//   );
+// };
+
 const SortProducts = () => {
-  const { data: products, isLoading, isError } = useGetBestProductsQuery("");
+  // Use hardcoded data instead of fetching from an API
+  const products = { data: hardcodedProducts };
 
   return (
     <>
-      {!isLoading && !isError ? (
-        <div>
-          {products.data.map((product: { products: ProductType }) => (
-            <ProductSort {...product.products} key={product.products.id} />
-          ))}
-        </div>
-      ) : (
-        <Spinner />
-      )}
+      <div>
+        {products.data.map((product: ProductType) => (
+          <ProductSort {...product} key={product.id} />
+        ))}
+      </div>
     </>
   );
 };
+
 
 const BlogAndNews = ({ grid = 3 }: { grid?: number }) => {
   return (
