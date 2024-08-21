@@ -86,7 +86,6 @@ const Header: FC = () => {
           </div>
           <div className="d-flex justify-content-between header-socials-lang">
             <SocialsNetworks />
-            {/* <Lang /> */}
           </div>
         </div>
         <div className="navigation font-regular d-flex flex-wrap justify-content-between px-3 px-lg-5 py-4">
@@ -119,7 +118,7 @@ const Header: FC = () => {
                         <Link
                           to={link.path}
                           className={
-                            "navbar-link fd-hover-color-primary " +
+                            "navbar-link fd-hover-color-primary" +
                             toggleLinkClass(link.path, "fd-underline") +
                             " text-dark"
                           }

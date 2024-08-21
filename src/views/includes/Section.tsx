@@ -100,9 +100,9 @@ const About: FC = () => {
               <i className="bi bi-shield-lock fa-2x"></i>
             </div>
             <div>
-              <h6 className="fw-bold">Safe Payment and COD Available</h6>
+              <h6 className="fw-bold">COD Available</h6>
               <span className="font-light opacity-75">
-                We use secure payment methods.
+                We use secure payment methods for the payments.
               </span>
             </div>
           </div>
@@ -111,7 +111,7 @@ const About: FC = () => {
               <i className="bi bi-box-seam fa-2x"></i>
             </div>
             <div>
-              <h6 className="fw-bold">All type of Supply</h6>
+              <h6 className="fw-bold">All types of Supply</h6>
               <span className="font-light opacity-75">
                 You can also order in bulk and save more on your purchases.
               </span>
@@ -155,14 +155,14 @@ const Promotion2 = () => {
           style={{ backgroundColor: "rgba(0,0,0,0.3)" }}
         ></span>
         <img
-          src="/img/ez1.jpg"
+          src="/img/constr.jpg"
           alt="banner promo"
           className="w-100 h-100 rounded-4"
         />
       </div>
       <div
         className="promotion-text position-absolute col-5"
-        style={{ top: "25%", right: "2%" }}
+        style={{ top: "25%", left: "2%" }}
       >
         <h2>BUILDING SEASON OFFER</h2>
         <h1 className="fw-bold">
@@ -225,7 +225,7 @@ const Promotion3 = () => {
 //     data: productsList,
 //     isSuccess,
 //     isError,
-//   } = useGetAllProductsQuery("api/products");
+//   } = uy("seGetAllProductsQuerapi/products");
 
 //   // const productsList : ProductType[] = useAppSelector((state) => state.products);
 
@@ -294,9 +294,6 @@ const hardcodedProducts: ProductType[] = [
     total_quantity: 100,
     categorie_id: 2,
   },
-
- 
-  // Add more hardcoded products as needed
 ];
 
 const PopularProducts = ({
@@ -364,7 +361,6 @@ const SortProducts = () => {
   );
 };
 
-
 const BlogAndNews = ({ grid = 3 }: { grid?: number }) => {
   return (
     <div
@@ -381,7 +377,33 @@ const BlogAndNews = ({ grid = 3 }: { grid?: number }) => {
   );
 };
 
+// const Testimonials = () => {
+//   return (
+//     <div className="d-grid grid-lg-2 grid-0 gap-3 my-5">
+//       {testimonialInfo.map((testimonial) => (
+//         <Testimonial {...testimonial} key={testimonial.authorName} />
+//       ))}
+//     </div>
+//   );
+// };
+
 const Testimonials = () => {
+  // Hardcoded testimonial data
+  const testimonialInfo = [
+    {
+      authorName: "Kailash",
+      authorImg: "/img/1.png",
+      rating: 5,
+      text: "Naveen did a fantastic job in delivering my products on time. The entire process was smooth, and I couldn't be happier with the quality and service provided.",
+    },
+    {
+      authorName: "Prem Kumar",
+      authorImg: "/img/profile.webp",
+      rating: 4,
+      text: "The UI of the website was clean and intuitive. Everything was done smoothly, and the quality was excellent. I'm thoroughly impressed with the professionalism and efficiency.",
+    },
+  ];
+
   return (
     <div className="d-grid grid-lg-2 grid-0 gap-3 my-5">
       {testimonialInfo.map((testimonial) => (
@@ -391,40 +413,39 @@ const Testimonials = () => {
   );
 };
 
-const MakeCall = () => {
-  return (
-    <div
-      className="make-call d-flex flex-wrap fw-bold justify-content-between fd-bg-primary w-100 py-4 px-2 px-lg-5 my-5"
-      style={{ minHeight: "60px" }}
-    >
-      <h3>Get A Free Service Or Make A Call</h3>
-      <div className="align-self-center mt-3 mt-lg-0">
-        <a href="#" className="bg-white fd-color-primary py-3 px-4">
-          <i className="bi bi-phone me-1"></i>MAKE A CALL
-        </a>
-      </div>
-    </div>
-  );
-};
+// const MakeCall = () => {
+//   return (
+//     <div
+//       className="make-call d-flex flex-wrap fw-bold justify-content-between fd-bg-primary w-100 py-4 px-2 px-lg-5 my-5"
+//       style={{ minHeight: "60px" }}
+//     >
+//       <h3>Get A Free Service Or Make A Call</h3>
+//       <div className="align-self-center mt-3 mt-lg-0">
+//         <a href="#" className="bg-white fd-color-primary py-3 px-4">
+//           <i className="bi bi-phone me-1"></i>MAKE A CALL
+//         </a>
+//       </div>
+//     </div>
+//   );
+// };
 
 const Section = () => {
   return (
     <section>
       <div className="container-fluid">
         <div
-          className="row px-3 px-lg-5 py-4 my-5 justify-content-between"
+          className="row justify-content-between"
           style={{ height: "400px" }}
         >
-          <AllCategory />
-          <div className="fd-slideshow col-xl-8 col-sm-12 col-md-12 p-0 h-100">
+          <div className="fd-slideshow col-xl-8 col-sm-12 col-md-12 p-0 h-100 w-auto">
             <SlideShow />
           </div>
         </div>
-        <div className="px-3 px-lg-5 py-4">
+        <div className="px-3 px-lg-5">
           <About />
           <Promotion />
           <div className="popular-products text-black my-5">
-            <div className="d-flex flex-wrap justify-content-between mb-5">
+            <div className="d-flex flex-wrap justify-content-between mb-2">
               <h4>Popular Products</h4>
               <div>
                 <Link to={RoutePaths.shop} className="fd-btn fw-bold">
@@ -438,27 +459,22 @@ const Section = () => {
             className="day-deals-rated row justify-content-between text-black"
             style={{ minHeight: "400px" }}
           >
-            <div className="day-deals col-12 col-lg-8 bg-white p-3 mb-2 mb-lg-0 border-1 border">
+            <div className="day-deals col-12 col-lg-8 bg-white p-3 mb-2 mb-lg-0 border-1 border w-auto">
               <div className="d-flex justify-content-between border-bottom-2">
                 <h5>Deals Hot Of The Day</h5>
-                <div className="deals-direction d-flex gap-2">
+                {/* <div className="deals-direction d-flex gap-2">
                   <a href="#" className="text-dark">
                     <i className="bi bi-arrow-left"></i>
                   </a>
                   <a href="#" className="text-dark">
                     <i className="bi bi-arrow-right"></i>
                   </a>
-                </div>
+                </div> */}
               </div>
               <hr />
               <div>
                 <ProductOfDay />
               </div>
-            </div>
-            <div className="top-rated bg-white col-12 col-lg-3 border-1 border fd-hover-border-primary p-3">
-              <h5>Top Rated Products</h5>
-              <hr />
-              <SortProducts />
             </div>
           </div>
           <Promotion2 />
@@ -483,7 +499,7 @@ const Section = () => {
             </div>
             <Promotion3 />
           </div>
-          <div className="featured-products text-black my-5">
+          {/* <div className="featured-products text-black my-5">
             <div className="d-flex justify-content-between mb-5">
               <h4>Featured Products</h4>
               <div>
@@ -493,27 +509,24 @@ const Section = () => {
               </div>
             </div>
             <PopularProducts grid={4} />
-          </div>
+          </div> */}
         </div>
         {/* <MakeCall /> */}
         <div className="blog-news text-black px-3 px-lg-5 my-5">
           <div className="d-flex flex-wrap justify-content-between mb-5">
             <h4>Latest Blog & News</h4>
             <div>
-              <a href="#" className="fd-btn fw-bold">
+              <a href="/blog" className="fd-btn fw-bold">
                 View All <i className="bi bi-arrow-right"></i>
               </a>
             </div>
           </div>
           <BlogAndNews />
         </div>
-        {/* <div className="testimonials text-black px-3 px-lg-5 my-5">
-          <div className="d-flex flex-wrap justify-content-between">
-            <h4>Our Awesome Testimonial</h4>
-            <div><a href="#" className="fd-btn fw-bold">View All <i className="bi bi-arrow-right"></i></a></div>
-          </div>
+        <div className="testimonials text-black px-3 px-lg-5 my-5">
+          <h4>What Our Clients Say?</h4>
           <Testimonials />
-        </div> */}
+        </div>
       </div>
     </section>
   );
@@ -526,4 +539,5 @@ export {
   SortProducts,
   AllCategory,
   Category,
+  Testimonials,
 };

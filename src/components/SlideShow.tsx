@@ -69,7 +69,7 @@ const SlideShow = () => {
     },
     {
       id: 3,
-      image: "/img/ez2.jpg",
+      image: "/img/Construction2.jpg",
       text: "Building Your Dream Home",
     },
   ];
@@ -85,7 +85,10 @@ const SlideShow = () => {
       interval={3000}
     >
       {slides.map((slide) => (
-        <div className="f-slide position-relative shadow h-100" key={slide.id}>
+        <div
+          className="f-slide position-relative shadow h-100 my-3 mx-5"
+          key={slide.id}
+        >
           <img src={slide.image} alt={slide.text} className="w-100 h-100" />
           <div
             className="f-slide-text position-absolute text-start"
