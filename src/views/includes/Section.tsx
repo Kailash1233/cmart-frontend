@@ -5,18 +5,14 @@ import ProductCart, { ProductType } from "../../components/ProductCart";
 import ProductSort from "../../components/ProductSort";
 import ProductOfDay from "../../components/ProductOfDay";
 import Blog from "../../components/Blog";
-import Testimonial from "../../components/Testimonial";
 import { CategoryType, blogInfo, testimonialInfo } from "../VirtualData";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../../hooks/redux-hooks";
-import {
-  useGetAllProductsQuery,
-  useGetBestProductsQuery,
-} from "../../store/apiquery/productApiSlice";
+
 import Spinner from "../../components/Spinner";
-import { useGetAllCategoriesQuery } from "../../store/apiquery/categoryApiSlice";
 import RoutePaths from "../../config";
 import { PROD_URL } from "../../Utils/Generals";
+
+const BASE_URL = PROD_URL;
 
 const Category = ({
   category,
@@ -39,33 +35,6 @@ const Category = ({
     </div>
   );
 };
-
-const AllCategory = () => {
-  const {
-    isLoading,
-    data: categoryList,
-    isError,
-  } = useGetAllCategoriesQuery("api/categories");
-
-  return (
-    <div className="all-category col-3 d-none d-xl-block shadow border-1 border-light p-0">
-      <h6 className="fd-bg-primary p-3 fw-bold rounded-top-3">
-        ALL CATEGORIES
-      </h6>
-      {/* {!isLoading && !isError ? (
-        <div className="category-list d-flex flex-column gap-4 py-2 px-3">
-          {categoryList?.data?.map((category: CategoryType) => (
-            <Category category={category} arrow="right" key={category.id} />
-          ))}
-        </div>
-      ) : (
-        <Spinner />
-      )} */}
-    </div>
-  );
-};
-
-export default AllCategory;
 
 const About: FC = () => {
   return (
@@ -253,367 +222,6 @@ const Promotion3 = () => {
 //   );
 // };
 
-// const hardcodedProducts: ProductType[] = [
-//   // AAC Blocks
-//   {
-//     id: 1,
-//     img: "/img/aac-4inch.jpg",
-//     reviews: 4.5,
-//     name: "4inch AAC Block",
-//     price: 50,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "High-quality 4inch AAC Block for construction.",
-//     quantity: 100,
-//     total_quantity: 100,
-//     categorie_id: 1,
-//   },
-//   {
-//     id: 2,
-//     img: "/img/aac-6inch.jpg",
-//     reviews: 4.5,
-//     name: "6inch AAC Block",
-//     price: 73,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "Durable 6inch AAC Block for construction.",
-//     quantity: 100,
-//     total_quantity: 100,
-//     categorie_id: 1,
-//   },
-//   {
-//     id: 3,
-//     img: "/img/aac-8inch.jpg",
-//     reviews: 4.5,
-//     name: "8inch AAC Block",
-//     price: 95,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "Strong 8inch AAC Block for construction.",
-//     quantity: 100,
-//     total_quantity: 100,
-//     categorie_id: 1,
-//   },
-//   {
-//     id: 4,
-//     img: "/img/aac-9inch.jpg",
-//     reviews: 4.5,
-//     name: "9inch AAC Block",
-//     price: 106,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "Robust 9inch AAC Block for construction.",
-//     quantity: 100,
-//     total_quantity: 100,
-//     categorie_id: 1,
-//   },
-//   // Hollow Blocks
-//   {
-//     id: 5,
-//     img: "/img/hollow-4inch.jpg",
-//     reviews: 4.5,
-//     name: "4inch Hollow Block",
-//     price: 40,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "Affordable 4inch Hollow Block for construction.",
-//     quantity: 100,
-//     total_quantity: 100,
-//     categorie_id: 2,
-//   },
-//   {
-//     id: 6,
-//     img: "/img/hollow-6inch.jpg",
-//     reviews: 4.5,
-//     name: "6inch Hollow Block",
-//     price: 50,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "High-quality 6inch Hollow Block for construction.",
-//     quantity: 100,
-//     total_quantity: 100,
-//     categorie_id: 2,
-//   },
-//   {
-//     id: 7,
-//     img: "/img/hollow-8inch.jpg",
-//     reviews: 4.5,
-//     name: "8inch Hollow Block",
-//     price: 60,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "Sturdy 8inch Hollow Block for construction.",
-//     quantity: 100,
-//     total_quantity: 100,
-//     categorie_id: 2,
-//   },
-//   // Bricks
-//   {
-//     id: 8,
-//     img: "/img/brick-machine.jpg",
-//     reviews: 4.5,
-//     name: "Machine Cut Brick",
-//     price: 10,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "Precise Machine Cut Brick for construction.",
-//     quantity: 1000,
-//     total_quantity: 1000,
-//     categorie_id: 3,
-//   },
-//   {
-//     id: 9,
-//     img: "/img/brick-normal.jpg",
-//     reviews: 4.5,
-//     name: "Normal Brick",
-//     price: 9,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "Standard Normal Brick for construction.",
-//     quantity: 1000,
-//     total_quantity: 1000,
-//     categorie_id: 3,
-//   },
-//   // Sand
-//   {
-//     id: 10,
-//     img: "/img/sand-m.jpg",
-//     reviews: 4.5,
-//     name: "M Sand",
-//     price: 70,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "Quality M Sand for construction.",
-//     quantity: 100,
-//     total_quantity: 100,
-//     categorie_id: 4,
-//   },
-//   {
-//     id: 11,
-//     img: "/img/sand-p.jpg",
-//     reviews: 4.5,
-//     name: "P Sand (Nice)",
-//     price: 90,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "Premium P Sand for construction.",
-//     quantity: 100,
-//     total_quantity: 100,
-//     categorie_id: 4,
-//   },
-//   // Cement Sheets
-//   {
-//     id: 12,
-//     img: "/img/cement-6ft.jpg",
-//     reviews: 4.5,
-//     name: "6ft Cement Sheet",
-//     price: 400,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "6ft Cement Sheet for construction.",
-//     quantity: 50,
-//     total_quantity: 50,
-//     categorie_id: 5,
-//   },
-//   {
-//     id: 13,
-//     img: "/img/cement-8ft.jpg",
-//     reviews: 4.5,
-//     name: "8ft Cement Sheet",
-//     price: 500,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "8ft Cement Sheet for construction.",
-//     quantity: 50,
-//     total_quantity: 50,
-//     categorie_id: 5,
-//   },
-//   {
-//     id: 14,
-//     img: "/img/cement-10ft.jpg",
-//     reviews: 4.5,
-//     name: "10ft Cement Sheet",
-//     price: 600,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "10ft Cement Sheet for construction.",
-//     quantity: 50,
-//     total_quantity: 50,
-//     categorie_id: 5,
-//   },
-//   {
-//     id: 15,
-//     img: "/img/cement-12ft.jpg",
-//     reviews: 4.5,
-//     name: "12ft Cement Sheet",
-//     price: 950,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "12ft Cement Sheet for construction.",
-//     quantity: 50,
-//     total_quantity: 50,
-//     categorie_id: 5,
-//   },
-//   // Wood
-//   {
-//     id: 16,
-//     img: "/img/wood-savuku.jpg",
-//     reviews: 4.5,
-//     name: "Savuku Wood (per kg)",
-//     price: 15,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "Savuku Wood for construction, priced per kg.",
-//     quantity: 100,
-//     total_quantity: 100,
-//     categorie_id: 6,
-//   },
-//   {
-//     id: 17,
-//     img: "/img/wood-thailam.jpg",
-//     reviews: 4.5,
-//     name: "Thailam Wood (per kg)",
-//     price: 10,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "Thailam Wood for construction, priced per kg.",
-//     quantity: 100,
-//     total_quantity: 100,
-//     categorie_id: 6,
-//   },
-//   {
-//     id: 18,
-//     img: "/img/wood-playwood.jpg",
-//     reviews: 4.5,
-//     name: "Playwood",
-//     price: 0, // Placeholder price
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "Playwood for construction.",
-//     quantity: 100,
-//     total_quantity: 100,
-//     categorie_id: 6,
-//   },
-//   // Steel
-//   {
-//     id: 19,
-//     img: "/img/steel-arun-8mm.jpg",
-//     reviews: 4.5,
-//     name: "8mm Arun Steel (per kg)",
-//     price: 61.5,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "8mm Arun Steel, priced per kg.",
-//     quantity: 100,
-//     total_quantity: 100,
-//     categorie_id: 7,
-//   },
-//   {
-//     id: 20,
-//     img: "/img/steel-arun-10mm.jpg",
-//     reviews: 4.5,
-//     name: "10mm Arun Steel (per kg)",
-//     price: 60.5,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "10mm Arun Steel, priced per kg.",
-//     quantity: 100,
-//     total_quantity: 100,
-//     categorie_id: 7,
-//   },
-//   {
-//     id: 21,
-//     img: "/img/steel-arun-12mm.jpg",
-//     reviews: 4.5,
-//     name: "12mm Arun Steel (per kg)",
-//     price: 60,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "12mm Arun Steel, priced per kg.",
-//     quantity: 100,
-//     total_quantity: 100,
-//     categorie_id: 7,
-//   },
-//   {
-//     id: 22,
-//     img: "/img/steel-ars-8mm.jpg",
-//     reviews: 4.5,
-//     name: "8mm Ars Steel (per kg)",
-//     price: 66.5,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "8mm Ars Steel, priced per kg.",
-//     quantity: 100,
-//     total_quantity: 100,
-//     categorie_id: 7,
-//   },
-//   {
-//     id: 23,
-//     img: "/img/steel-ars-10mm.jpg",
-//     reviews: 4.5,
-//     name: "10mm Ars Steel (per kg)",
-//     price: 65.5,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "10mm Ars Steel, priced per kg.",
-//     quantity: 100,
-//     total_quantity: 100,
-//     categorie_id: 7,
-//   },
-//   {
-//     id: 24,
-//     img: "/img/steel-ars-12mm.jpg",
-//     reviews: 4.5,
-//     name: "12mm Ars Steel (per kg)",
-//     price: 65,
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "12mm Ars Steel, priced per kg.",
-//     quantity: 100,
-//     total_quantity: 100,
-//     categorie_id: 7,
-//   },
-//   // Paint
-//   {
-//     id: 25,
-//     img: "/img/paint.jpg",
-//     reviews: 4.5,
-//     name: "Asian Paint",
-//     price: 0, // Placeholder price
-//     old_price: null,
-//     reduction: null,
-//     type: "list",
-//     desc: "Asian Paint for all your painting needs.",
-//     quantity: 100,
-//     total_quantity: 100,
-//     categorie_id: 8,
-//   },
-// ];
-
 // const PopularProducts = ({
 //   grid = 3,
 //   type = "grid",
@@ -677,8 +285,6 @@ interface ProductType {
   total_quantity: number;
   categorie_id: number;
 }
-
-const BASE_URL = PROD_URL;
 
 const PopularProducts = ({
   grid = 3,
@@ -769,10 +375,12 @@ const SortProducts = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(BASE_URL);
-        const fetchedProducts = response.data.data.map((product: { attributes: ProductType }) => ({
-          ...product.attributes,
-          id: product.id,
-        }));
+        const fetchedProducts = response.data.data.map(
+          (product: { attributes: ProductType }) => ({
+            ...product.attributes,
+            id: product.id,
+          })
+        );
         setProducts(fetchedProducts);
       } catch (error) {
         setIsError(true);
@@ -801,7 +409,6 @@ const SortProducts = () => {
   );
 };
 
-
 const BlogAndNews = ({ grid = 3 }: { grid?: number }) => {
   return (
     <div
@@ -817,58 +424,6 @@ const BlogAndNews = ({ grid = 3 }: { grid?: number }) => {
     </div>
   );
 };
-
-// const Testimonials = () => {
-//   return (
-//     <div className="d-grid grid-lg-2 grid-0 gap-3 my-5">
-//       {testimonialInfo.map((testimonial) => (
-//         <Testimonial {...testimonial} key={testimonial.authorName} />
-//       ))}
-//     </div>
-//   );
-// };
-
-const Testimonials = () => {
-  // Hardcoded testimonial data
-  const testimonialInfo = [
-    {
-      authorName: "Kailash",
-      authorImg: "/img/1.png",
-      rating: 5,
-      text: "Naveen did a fantastic job in delivering my products on time. The entire process was smooth, and I couldn't be happier with the quality and service provided.",
-    },
-    {
-      authorName: "Prem Kumar",
-      authorImg: "/img/profile.webp",
-      rating: 4,
-      text: "The UI of the website was clean and intuitive. Everything was done smoothly, and the quality was excellent. I'm thoroughly impressed with the professionalism and efficiency.",
-    },
-  ];
-
-  return (
-    <div className="d-grid grid-lg-2 grid-0 gap-3 my-5">
-      {testimonialInfo.map((testimonial) => (
-        <Testimonial {...testimonial} key={testimonial.authorName} />
-      ))}
-    </div>
-  );
-};
-
-// const MakeCall = () => {
-//   return (
-//     <div
-//       className="make-call d-flex flex-wrap fw-bold justify-content-between fd-bg-primary w-100 py-4 px-2 px-lg-5 my-5"
-//       style={{ minHeight: "60px" }}
-//     >
-//       <h3>Get A Free Service Or Make A Call</h3>
-//       <div className="align-self-center mt-3 mt-lg-0">
-//         <a href="#" className="bg-white fd-color-primary py-3 px-4">
-//           <i className="bi bi-phone me-1"></i>MAKE A CALL
-//         </a>
-//       </div>
-//     </div>
-//   );
-// };
 
 const Section = () => {
   return (
@@ -964,21 +519,9 @@ const Section = () => {
           </div>
           <BlogAndNews />
         </div>
-        <div className="testimonials text-black px-3 px-lg-5 my-5">
-          <h4>What Our Clients Say?</h4>
-          <Testimonials />
-        </div>
       </div>
     </section>
   );
 };
 
-export {
-  Section,
-  BlogAndNews,
-  PopularProducts,
-  SortProducts,
-  AllCategory,
-  Category,
-  Testimonials,
-};
+export { Section, BlogAndNews, PopularProducts, SortProducts, Category };

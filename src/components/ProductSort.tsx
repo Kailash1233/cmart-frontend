@@ -83,7 +83,6 @@ export default ProductSort;
 
 // export default ProductSort;
 
-
 // import Reviews from "./Reviews";
 // import { Link } from "react-router-dom";
 // import { ProductType } from "./ProductCart";

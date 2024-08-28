@@ -39,17 +39,15 @@ const Checkout = () => {
                 type="text"
                 name="firstname"
                 defaultValue={user.firstname || ""}
-                readOnly
                 className="form-control w-100 rounded-0 p-2"
               />
             </label>
             <label className="w-50">
               <span>Last Name *</span>
               <input
-                type="email"
+                type="text"
                 name="lastname"
                 defaultValue={user.lastname || ""}
-                readOnly
                 className="form-control w-100 rounded-0 p-2"
               />
             </label>
@@ -61,7 +59,6 @@ const Checkout = () => {
                 type="email"
                 name="email"
                 defaultValue={user.email || ""}
-                readOnly
                 className="form-control w-100 rounded-0 p-2"
               />
             </label>
@@ -73,7 +70,6 @@ const Checkout = () => {
                 type="text"
                 name="phone"
                 defaultValue={user.phone || ""}
-                readOnly
                 className="form-control w-100 rounded-0 p-2"
               />
             </label>
@@ -92,9 +88,8 @@ const Checkout = () => {
               <span>Address *</span>
               <input
                 type="text"
-                name="firstname"
+                name="address"
                 defaultValue={user.address}
-                readOnly
                 className="form-control w-100 rounded-0 p-2"
               />
             </label>
@@ -102,14 +97,14 @@ const Checkout = () => {
           <div className="my-4">
             <label className="d-flex gap-2 w-100">
               <div>
-                <input type="checkbox" name="adress_skip" />
+                <input type="checkbox" name="address_skip" />
               </div>
               <span>Ship to a different address?</span>
             </label>
           </div>
           <div>
             <label>
-              <span>Orders notes (Optional)</span>
+              <span>Order notes (Optional)</span>
             </label>
             <textarea
               name="orderNotes"
@@ -125,7 +120,7 @@ const Checkout = () => {
             <hr />
             <div className="opacity-75">
               <div>
-                <span className="fw-bold">Sutotal :</span>
+                <span className="fw-bold">Subtotal :</span>
                 <span className="float-end opacity-75">₹{getTotal()}</span>
               </div>
               <hr />
@@ -161,7 +156,7 @@ const Checkout = () => {
                   <span>Cash on delivery</span>
                 </label>
               </div>
-              <div>
+              {/* <div>
                 <label className="d-flex gap-2 w-100">
                   <div>
                     <input type="checkbox" name="check" />
@@ -176,7 +171,7 @@ const Checkout = () => {
                   </div>
                   <span>Direct bank transfer</span>
                 </label>
-              </div>
+              </div> */}
               <LoadingButton loadingState={result.isLoading}>
                 <div>
                   <a

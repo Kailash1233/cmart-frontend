@@ -48,11 +48,11 @@
 
 import React from "react";
 import { Carousel } from "react-responsive-carousel";
-import { useGetAllSlidesQuery } from "../store/apiquery/slideApiSlice";
-import { Slide } from "../views/VirtualData";
+// import { useGetAllSlidesQuery } from "../store/apiquery/slideApiSlice";
+// import { Slide } from "../views/VirtualData";
 import { Link } from "react-router-dom";
 import RoutePaths from "../config";
-import Spinner from "./Spinner";
+// import Spinner from "./Spinner";
 
 const SlideShow = () => {
   // Dummy slide data for the frontend
