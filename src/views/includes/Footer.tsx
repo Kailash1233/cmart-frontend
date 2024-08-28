@@ -14,8 +14,8 @@ const Footer = () => {
             <h5 className="my-5">Our Address</h5>
             <div className="opacity-75">
               <div>
-                <i className="bi bi-geo-alt fd-color-primary me-2"></i>Chennai,
-                TamilNadu
+                <i className="bi bi-geo-alt fd-color-primary me-2"></i>Chennai -
+                Chengalpattu, TamilNadu
               </div>
               <div>
                 <i className="bi bi-phone fd-color-primary me-2"></i>+91 91507

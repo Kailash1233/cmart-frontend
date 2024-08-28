@@ -80,8 +80,8 @@ const Header: FC = () => {
               kvmcmart@gmail.com
             </span>
             <span>
-              <i className="bi bi-geo-alt fd-color-primary"></i>&nbsp; Chennai,
-              TamilNadu
+              <i className="bi bi-geo-alt fd-color-primary"></i>&nbsp; Chennai -
+              Chengalpattu, TamilNadu
             </span>
           </div>
           <div className="d-flex justify-content-between header-socials-lang">

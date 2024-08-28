@@ -56,3 +56,49 @@ export const {
     useCreateCategoryMutation,
     useDeleteCategoryMutation,
  } = categoryApiSlice;
+
+
+//  import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+// const categoryApi = createApi({
+//   reducerPath: 'categoryApi',
+//   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:1337/api' }),
+//   endpoints: (builder) => ({
+//     getCategories: builder.query({
+//       query: () => '/categories',
+//     }),
+//     getCategoryById: builder.query({
+//       query: (id) => `/categories/${id}`,
+//     }),
+//     createCategory: builder.mutation({
+//       query: (newCategory) => ({
+//         url: '/categories',
+//         method: 'POST',
+//         body: newCategory,
+//       }),
+//     }),
+//     updateCategory: builder.mutation({
+//       query: ({ id, ...rest }) => ({
+//         url: `/categories/${id}`,
+//         method: 'PUT',
+//         body: rest,
+//       }),
+//     }),
+//     deleteCategory: builder.mutation({
+//       query: (id) => ({
+//         url: `/categories/${id}`,
+//         method: 'DELETE',
+//       }),
+//     }),
+//   }),
+// });
+
+// export const {
+//   useGetCategoriesQuery,
+//   useGetCategoryByIdQuery,
+//   useCreateCategoryMutation,
+//   useUpdateCategoryMutation,
+//   useDeleteCategoryMutation,
+// } = categoryApi;
+
+// export default categoryApi;

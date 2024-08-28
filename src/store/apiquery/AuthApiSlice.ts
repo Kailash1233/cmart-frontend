@@ -40,3 +40,30 @@ export const {
     useLoginMutation,
     useRegisterMutation
  } = authApiSlice;
+
+
+//  import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+// const AuthApiSlice = createApi({
+//   reducerPath: 'authApi',
+//   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:1337/api' }),
+//   endpoints: (builder) => ({
+//     login: builder.mutation({
+//       query: (credentials) => ({
+//         url: '/auth/local',
+//         method: 'POST',
+//         body: credentials,
+//       }),
+//     }),
+//     register: builder.mutation({
+//       query: (userData) => ({
+//         url: '/auth/local/register',
+//         method: 'POST',
+//         body: userData,
+//       }),
+//     }),
+//   }),
+// });
+
+// export const { useLoginMutation, useRegisterMutation } = AuthApiSlice;
+// export default AuthApiSlice;

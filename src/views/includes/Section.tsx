@@ -1,5 +1,6 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import SlideShow from "../../components/SlideShow";
+import axios from "axios";
 import ProductCart, { ProductType } from "../../components/ProductCart";
 import ProductSort from "../../components/ProductSort";
 import ProductOfDay from "../../components/ProductOfDay";
@@ -15,6 +16,7 @@ import {
 import Spinner from "../../components/Spinner";
 import { useGetAllCategoriesQuery } from "../../store/apiquery/categoryApiSlice";
 import RoutePaths from "../../config";
+import { PROD_URL } from "../../Utils/Generals";
 
 const Category = ({
   category,
@@ -251,82 +253,398 @@ const Promotion3 = () => {
 //   );
 // };
 
-const hardcodedProducts: ProductType[] = [
-  {
-    id: 1,
-    img: "/img/product/1.jpg",
-    reviews: 4.5,
-    name: "High-Quality Construction Material",
-    price: 1200,
-    old_price: 1500,
-    reduction: "20",
-    type: "list",
-    desc: "This is a premium construction material, perfect for your building projects.",
-    quantity: 50,
-    total_quantity: 100,
-    categorie_id: 2,
-  },
-  {
-    id: 2,
-    img: "/img/hardcoded-image.jpg",
-    reviews: 4.5,
-    name: "High-Quality Construction Material",
-    price: 1200,
-    old_price: 1500,
-    reduction: "20",
-    type: "list",
-    desc: "This is a premium construction material, perfect for your building projects.",
-    quantity: 50,
-    total_quantity: 100,
-    categorie_id: 2,
-  },
-  {
-    id: 3,
-    img: "/img/hardcoded-image.jpg",
-    reviews: 4.5,
-    name: "High-Quality Construction Material",
-    price: 1200,
-    old_price: 1500,
-    reduction: "20",
-    type: "list",
-    desc: "This is a premium construction material, perfect for your building projects.",
-    quantity: 50,
-    total_quantity: 100,
-    categorie_id: 2,
-  },
-];
+// const hardcodedProducts: ProductType[] = [
+//   // AAC Blocks
+//   {
+//     id: 1,
+//     img: "/img/aac-4inch.jpg",
+//     reviews: 4.5,
+//     name: "4inch AAC Block",
+//     price: 50,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "High-quality 4inch AAC Block for construction.",
+//     quantity: 100,
+//     total_quantity: 100,
+//     categorie_id: 1,
+//   },
+//   {
+//     id: 2,
+//     img: "/img/aac-6inch.jpg",
+//     reviews: 4.5,
+//     name: "6inch AAC Block",
+//     price: 73,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "Durable 6inch AAC Block for construction.",
+//     quantity: 100,
+//     total_quantity: 100,
+//     categorie_id: 1,
+//   },
+//   {
+//     id: 3,
+//     img: "/img/aac-8inch.jpg",
+//     reviews: 4.5,
+//     name: "8inch AAC Block",
+//     price: 95,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "Strong 8inch AAC Block for construction.",
+//     quantity: 100,
+//     total_quantity: 100,
+//     categorie_id: 1,
+//   },
+//   {
+//     id: 4,
+//     img: "/img/aac-9inch.jpg",
+//     reviews: 4.5,
+//     name: "9inch AAC Block",
+//     price: 106,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "Robust 9inch AAC Block for construction.",
+//     quantity: 100,
+//     total_quantity: 100,
+//     categorie_id: 1,
+//   },
+//   // Hollow Blocks
+//   {
+//     id: 5,
+//     img: "/img/hollow-4inch.jpg",
+//     reviews: 4.5,
+//     name: "4inch Hollow Block",
+//     price: 40,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "Affordable 4inch Hollow Block for construction.",
+//     quantity: 100,
+//     total_quantity: 100,
+//     categorie_id: 2,
+//   },
+//   {
+//     id: 6,
+//     img: "/img/hollow-6inch.jpg",
+//     reviews: 4.5,
+//     name: "6inch Hollow Block",
+//     price: 50,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "High-quality 6inch Hollow Block for construction.",
+//     quantity: 100,
+//     total_quantity: 100,
+//     categorie_id: 2,
+//   },
+//   {
+//     id: 7,
+//     img: "/img/hollow-8inch.jpg",
+//     reviews: 4.5,
+//     name: "8inch Hollow Block",
+//     price: 60,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "Sturdy 8inch Hollow Block for construction.",
+//     quantity: 100,
+//     total_quantity: 100,
+//     categorie_id: 2,
+//   },
+//   // Bricks
+//   {
+//     id: 8,
+//     img: "/img/brick-machine.jpg",
+//     reviews: 4.5,
+//     name: "Machine Cut Brick",
+//     price: 10,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "Precise Machine Cut Brick for construction.",
+//     quantity: 1000,
+//     total_quantity: 1000,
+//     categorie_id: 3,
+//   },
+//   {
+//     id: 9,
+//     img: "/img/brick-normal.jpg",
+//     reviews: 4.5,
+//     name: "Normal Brick",
+//     price: 9,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "Standard Normal Brick for construction.",
+//     quantity: 1000,
+//     total_quantity: 1000,
+//     categorie_id: 3,
+//   },
+//   // Sand
+//   {
+//     id: 10,
+//     img: "/img/sand-m.jpg",
+//     reviews: 4.5,
+//     name: "M Sand",
+//     price: 70,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "Quality M Sand for construction.",
+//     quantity: 100,
+//     total_quantity: 100,
+//     categorie_id: 4,
+//   },
+//   {
+//     id: 11,
+//     img: "/img/sand-p.jpg",
+//     reviews: 4.5,
+//     name: "P Sand (Nice)",
+//     price: 90,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "Premium P Sand for construction.",
+//     quantity: 100,
+//     total_quantity: 100,
+//     categorie_id: 4,
+//   },
+//   // Cement Sheets
+//   {
+//     id: 12,
+//     img: "/img/cement-6ft.jpg",
+//     reviews: 4.5,
+//     name: "6ft Cement Sheet",
+//     price: 400,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "6ft Cement Sheet for construction.",
+//     quantity: 50,
+//     total_quantity: 50,
+//     categorie_id: 5,
+//   },
+//   {
+//     id: 13,
+//     img: "/img/cement-8ft.jpg",
+//     reviews: 4.5,
+//     name: "8ft Cement Sheet",
+//     price: 500,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "8ft Cement Sheet for construction.",
+//     quantity: 50,
+//     total_quantity: 50,
+//     categorie_id: 5,
+//   },
+//   {
+//     id: 14,
+//     img: "/img/cement-10ft.jpg",
+//     reviews: 4.5,
+//     name: "10ft Cement Sheet",
+//     price: 600,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "10ft Cement Sheet for construction.",
+//     quantity: 50,
+//     total_quantity: 50,
+//     categorie_id: 5,
+//   },
+//   {
+//     id: 15,
+//     img: "/img/cement-12ft.jpg",
+//     reviews: 4.5,
+//     name: "12ft Cement Sheet",
+//     price: 950,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "12ft Cement Sheet for construction.",
+//     quantity: 50,
+//     total_quantity: 50,
+//     categorie_id: 5,
+//   },
+//   // Wood
+//   {
+//     id: 16,
+//     img: "/img/wood-savuku.jpg",
+//     reviews: 4.5,
+//     name: "Savuku Wood (per kg)",
+//     price: 15,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "Savuku Wood for construction, priced per kg.",
+//     quantity: 100,
+//     total_quantity: 100,
+//     categorie_id: 6,
+//   },
+//   {
+//     id: 17,
+//     img: "/img/wood-thailam.jpg",
+//     reviews: 4.5,
+//     name: "Thailam Wood (per kg)",
+//     price: 10,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "Thailam Wood for construction, priced per kg.",
+//     quantity: 100,
+//     total_quantity: 100,
+//     categorie_id: 6,
+//   },
+//   {
+//     id: 18,
+//     img: "/img/wood-playwood.jpg",
+//     reviews: 4.5,
+//     name: "Playwood",
+//     price: 0, // Placeholder price
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "Playwood for construction.",
+//     quantity: 100,
+//     total_quantity: 100,
+//     categorie_id: 6,
+//   },
+//   // Steel
+//   {
+//     id: 19,
+//     img: "/img/steel-arun-8mm.jpg",
+//     reviews: 4.5,
+//     name: "8mm Arun Steel (per kg)",
+//     price: 61.5,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "8mm Arun Steel, priced per kg.",
+//     quantity: 100,
+//     total_quantity: 100,
+//     categorie_id: 7,
+//   },
+//   {
+//     id: 20,
+//     img: "/img/steel-arun-10mm.jpg",
+//     reviews: 4.5,
+//     name: "10mm Arun Steel (per kg)",
+//     price: 60.5,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "10mm Arun Steel, priced per kg.",
+//     quantity: 100,
+//     total_quantity: 100,
+//     categorie_id: 7,
+//   },
+//   {
+//     id: 21,
+//     img: "/img/steel-arun-12mm.jpg",
+//     reviews: 4.5,
+//     name: "12mm Arun Steel (per kg)",
+//     price: 60,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "12mm Arun Steel, priced per kg.",
+//     quantity: 100,
+//     total_quantity: 100,
+//     categorie_id: 7,
+//   },
+//   {
+//     id: 22,
+//     img: "/img/steel-ars-8mm.jpg",
+//     reviews: 4.5,
+//     name: "8mm Ars Steel (per kg)",
+//     price: 66.5,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "8mm Ars Steel, priced per kg.",
+//     quantity: 100,
+//     total_quantity: 100,
+//     categorie_id: 7,
+//   },
+//   {
+//     id: 23,
+//     img: "/img/steel-ars-10mm.jpg",
+//     reviews: 4.5,
+//     name: "10mm Ars Steel (per kg)",
+//     price: 65.5,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "10mm Ars Steel, priced per kg.",
+//     quantity: 100,
+//     total_quantity: 100,
+//     categorie_id: 7,
+//   },
+//   {
+//     id: 24,
+//     img: "/img/steel-ars-12mm.jpg",
+//     reviews: 4.5,
+//     name: "12mm Ars Steel (per kg)",
+//     price: 65,
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "12mm Ars Steel, priced per kg.",
+//     quantity: 100,
+//     total_quantity: 100,
+//     categorie_id: 7,
+//   },
+//   // Paint
+//   {
+//     id: 25,
+//     img: "/img/paint.jpg",
+//     reviews: 4.5,
+//     name: "Asian Paint",
+//     price: 0, // Placeholder price
+//     old_price: null,
+//     reduction: null,
+//     type: "list",
+//     desc: "Asian Paint for all your painting needs.",
+//     quantity: 100,
+//     total_quantity: 100,
+//     categorie_id: 8,
+//   },
+// ];
 
-const PopularProducts = ({
-  grid = 3,
-  type = "grid",
-}: {
-  grid?: number | boolean;
-  type?: string;
-}) => {
-  // Use hardcoded data instead of fetching from an API
-  const productsList = hardcodedProducts;
+// const PopularProducts = ({
+//   grid = 3,
+//   type = "grid",
+// }: {
+//   grid?: number | boolean;
+//   type?: string;
+// }) => {
+//   // Use hardcoded data instead of fetching from an API
+//   const productsList = hardcodedProducts;
 
-  let content: React.ReactNode;
+//   let content: React.ReactNode;
 
-  content =
-    productsList.length === 0 ? (
-      <Spinner />
-    ) : (
-      productsList.map((product: ProductType) => (
-        <ProductCart {...product} type={type} key={product.id} />
-      ))
-    );
+//   content =
+//     productsList.length === 0 ? (
+//       <Spinner />
+//     ) : (
+//       productsList.map((product: ProductType) => (
+//         <ProductCart {...product} type={type} key={product.id} />
+//       ))
+//     );
 
-  return (
-    <div
-      className={
-        type === "list" ? "test" : "d-grid gap-3 grid-0 grid-lg-" + grid
-      }
-    >
-      {content}
-    </div>
-  );
-};
+//   return (
+//     <div
+//       className={
+//         type === "list" ? "test" : "d-grid gap-3 grid-0 grid-lg-" + grid
+//       }
+//     >
+//       {content}
+//     </div>
+//   );
+// };
 
 // const SortProducts = () => {
 //   const { data: products, isLoading, isError } = useGetBestProductsQuery("");
@@ -345,21 +663,144 @@ const PopularProducts = ({
 //     </>
 //   );
 // };
+interface ProductType {
+  id: number;
+  img: string;
+  reviews: number;
+  name: string;
+  price: number;
+  old_price?: number;
+  reduction?: string;
+  type: string;
+  desc: string;
+  quantity: number;
+  total_quantity: number;
+  categorie_id: number;
+}
 
-const SortProducts = () => {
-  // Use hardcoded data instead of fetching from an API
-  const products = { data: hardcodedProducts };
+const BASE_URL = PROD_URL;
+
+const PopularProducts = ({
+  grid = 3,
+  type = "grid",
+}: {
+  grid?: number | boolean;
+  type?: string;
+}) => {
+  const [productsList, setProductsList] = useState<ProductType[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(BASE_URL);
+        const products = response.data.data.map((item: any) => ({
+          id: item.id,
+          img: item.attributes.Assert.data.attributes.url,
+          reviews: 4.5,
+          name: item.attributes.ItemName,
+          price: item.attributes.Price,
+          old_price: null,
+          reduction: null,
+          type: "list",
+          desc: item.attributes.ItemName,
+          quantity: 100,
+          total_quantity: 100,
+          categorie_id: 1,
+        }));
+        setProductsList(products);
+      } catch (error) {
+        setError("Failed to fetch products");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  let content: React.ReactNode;
+
+  if (loading) {
+    content = <Spinner />;
+  } else if (error) {
+    content = <div>{error}</div>;
+  } else if (productsList.length === 0) {
+    content = <div>No products available</div>;
+  } else {
+    content = productsList.map((product: ProductType) => (
+      <ProductCart {...product} type={type} key={product.id} />
+    ));
+  }
 
   return (
-    <>
-      <div>
-        {products.data.map((product: ProductType) => (
-          <ProductSort {...product} key={product.id} />
-        ))}
-      </div>
-    </>
+    <div
+      className={
+        type === "list" ? "test" : "d-grid gap-3 grid-0 grid-lg-" + grid
+      }
+    >
+      {content}
+    </div>
   );
 };
+
+// const SortProducts = () => {
+//   // Use hardcoded data instead of fetching from an API
+//   const products = { data: hardcodedProducts };
+
+//   return (
+//     <>
+//       <div>
+//         {products.data.map((product: ProductType) => (
+//           <ProductSort {...product} key={product.id} />
+//         ))}
+//       </div>
+//     </>
+//   );
+// };
+
+const SortProducts = () => {
+  const [products, setProducts] = useState<ProductType[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isError, setIsError] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(BASE_URL);
+        const fetchedProducts = response.data.data.map((product: { attributes: ProductType }) => ({
+          ...product.attributes,
+          id: product.id,
+        }));
+        setProducts(fetchedProducts);
+      } catch (error) {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (isError) {
+    return <div>Error loading products</div>;
+  }
+
+  return (
+    <div>
+      {products.map((product: ProductType) => (
+        <ProductSort {...product} key={product.id} />
+      ))}
+    </div>
+  );
+};
+
 
 const BlogAndNews = ({ grid = 3 }: { grid?: number }) => {
   return (
@@ -478,7 +919,7 @@ const Section = () => {
             </div>
           </div>
           <Promotion2 />
-          <div
+          {/* <div
             className="product-types d-grid grid-lg-4 grid-0 gap-3 my-5"
             style={{ minHeight: "300px" }}
           >
@@ -498,7 +939,7 @@ const Section = () => {
               <SortProducts />
             </div>
             <Promotion3 />
-          </div>
+          </div> */}
           {/* <div className="featured-products text-black my-5">
             <div className="d-flex justify-content-between mb-5">
               <h4>Featured Products</h4>

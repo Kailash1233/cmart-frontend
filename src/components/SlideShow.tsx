@@ -59,17 +59,17 @@ const SlideShow = () => {
   const slides = [
     {
       id: 1,
-      image: "/img/cons.jpg",
+      image: "/img/slide/curousel_01.jpg",
       text: "High-Quality Construction Materials",
     },
     {
       id: 2,
-      image: "/img/product/2.webp",
+      image: "/img/slide/curousel_02.jpg",
       text: "Modern and Durable Products",
     },
     {
       id: 3,
-      image: "/img/Construction2.jpg",
+      image: "/img/slide/curousel_03.jpg",
       text: "Building Your Dream Home",
     },
   ];
@@ -86,7 +86,7 @@ const SlideShow = () => {
     >
       {slides.map((slide) => (
         <div
-          className="f-slide position-relative shadow h-100 my-3 mx-5"
+          className="f-slide position-relative shadow h-100 "
           key={slide.id}
         >
           <img src={slide.image} alt={slide.text} className="w-100 h-100" />

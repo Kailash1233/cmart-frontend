@@ -2,9 +2,8 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { cartKeyName, getItem, setItem, wishlistKeyName } from "../Utils/Generals";
 import { ProductType } from "../components/ProductCart";
 
-
 export const productSlice = createSlice({
-    
+
     name : 'products',
 
     initialState : Array<ProductType>,
@@ -51,7 +50,7 @@ export const productWhishListSlice = createSlice({
 
             state = [action.payload];
 
-            setItem(wishlistKeyName, [action.payload]); 
+            setItem(wishlistKeyName, [action.payload]);
 
             return state;
         },
@@ -96,7 +95,7 @@ export const productCartSlice = createSlice({
 
             state = [action.payload];
 
-            setItem(cartKeyName, [action.payload]); 
+            setItem(cartKeyName, [action.payload]);
 
             return state;
         },
@@ -128,3 +127,23 @@ export const {fillProductsList} = productSlice.actions;
 export const { fillWishList, addToWishlist, deleteProductInWishlist } = productWhishListSlice.actions;
 
 export const {fillShoppingCart, addToShoppingCart, deleteProductInCart, setProductQuantity} = productCartSlice.actions;
+
+// import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+// import { BASE_URL } from "../Utils/Generals";
+
+// const productApi = createApi({
+//   reducerPath: "productApi",
+//   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+//   endpoints: (builder) => ({
+//     getProducts: builder.query({
+//       query: () => "/products",
+//     }),
+//     getProductById: builder.query({
+//       query: (id) => `/products/${id}`,
+//     }),
+//   }),
+// });
+
+// export const { useGetProductsQuery, useGetProductByIdQuery } = productApi;
+
+// export default productApi;
