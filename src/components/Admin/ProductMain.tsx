@@ -64,10 +64,6 @@ const UpdateProduct = ({product}: {product : ProductType}) => {
 					<input type="number" name="price" className="form-control w-100 rounded-0 p-2" value={updateData.price} onChange={handleUpdateValue} />
 				</label>
 				<label>
-					<span>Old Price</span>
-					<input type="number" name="old_price" className="form-control w-100 rounded-0 p-2" value={updateData.old_price} onChange={handleUpdateValue} />
-				</label>
-				<label>
 					<span>Quantity</span>
 					<input type="number" name="total_quantity" className="form-control w-100 rounded-0 p-2" value={updateData.total_quantity} onChange={handleUpdateValue} />
 				</label>
@@ -175,10 +171,7 @@ const AddOrEditProduct = ({ product }: { product: null | ProductType }) => {
 						<span>Price</span>
 						<input type="number" step={0.1} name="price" className="form-control w-100 rounded-0 p-2" placeholder='Product Price' onChange={handleValue} />
 					</label>
-					<label>
-						<span>Old Price</span>
-						<input type="number" step={0.1} name="old_price" className="form-control w-100 rounded-0 p-2" placeholder='Old Price' onChange={handleValue} />
-					</label>
+					
 					<label>
 						<span>Quantity</span>
 						<input type="number" name="total_quantity" className="form-control w-100 rounded-0 p-2" placeholder='Total Quantity' onChange={handleValue} />

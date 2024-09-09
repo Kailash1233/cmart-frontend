@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from "react";
 import SlideShow from "../../components/SlideShow";
 import axios from "axios";
-import ProductCart, { ProductType } from "../../components/ProductCart";
+import ProductCart from "../../components/ProductCart";
 import ProductSort from "../../components/ProductSort";
-import ProductOfDay from "../../components/ProductOfDay";
+// import ProductOfDay from "../../components/ProductOfDay";
 import Blog from "../../components/Blog";
 import { CategoryType, blogInfo, testimonialInfo } from "../VirtualData";
 import { Link } from "react-router-dom";
@@ -277,7 +277,6 @@ interface ProductType {
   reviews: number;
   name: string;
   price: number;
-  old_price?: number;
   reduction?: string;
   type: string;
   desc: string;
@@ -296,21 +295,21 @@ const PopularProducts = ({
   const [productsList, setProductsList] = useState<ProductType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(BASE_URL);
+        const response = await axios.get(
+          "https://informed-flower-65edff8a30.strapiapp.com/api/products?populate=*"
+        );
         const products = response.data.data.map((item: any) => ({
           id: item.id,
           img: item.attributes.Assert.data.attributes.url,
           reviews: 4.5,
-          name: item.attributes.ItemName,
+          name: item.attributes.Name,
           price: item.attributes.Price,
-          old_price: null,
           reduction: null,
           type: "list",
-          desc: item.attributes.ItemName,
+          desc: item.attributes.Desc,
           quantity: 100,
           total_quantity: 100,
           categorie_id: 1,
@@ -375,10 +374,11 @@ const SortProducts = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(BASE_URL);
+        console.log(response.data);
         const fetchedProducts = response.data.data.map(
           (product: { attributes: ProductType }) => ({
             ...product.attributes,
-            id: product.id,
+            id: product.attributes.id,
           })
         );
         setProducts(fetchedProducts);
@@ -449,30 +449,30 @@ const Section = () => {
                 </Link>
               </div>
             </div>
-            <PopularProducts grid={4} />
+            <PopularProducts />
           </div>
-          <div
+          {/* <div
             className="day-deals-rated row justify-content-between text-black"
             style={{ minHeight: "400px" }}
           >
             <div className="day-deals col-12 col-lg-8 bg-white p-3 mb-2 mb-lg-0 border-1 border w-auto">
               <div className="d-flex justify-content-between border-bottom-2">
                 <h5>Deals Hot Of The Day</h5>
-                {/* <div className="deals-direction d-flex gap-2">
+                 <div className="deals-direction d-flex gap-2">
                   <a href="#" className="text-dark">
                     <i className="bi bi-arrow-left"></i>
                   </a>
                   <a href="#" className="text-dark">
                     <i className="bi bi-arrow-right"></i>
                   </a>
-                </div> */}
+                </div> 
               </div>
               <hr />
               <div>
                 <ProductOfDay />
               </div>
             </div>
-          </div>
+          </div> */}
           <Promotion2 />
           {/* <div
             className="product-types d-grid grid-lg-4 grid-0 gap-3 my-5"

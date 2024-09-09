@@ -168,7 +168,7 @@ const ProductDetails = ({ product }: { product: ProductType }) => {
               mixing and masonry. Paint: A range of paints for finishing touches
               that provide both protection and aesthetic appeal. Our commitment
               to quality means you get products that are rigorously tested and
-              compliant with industry standards. Whether you’re working on
+              compliant with industry standards. Whether you are working on
               residential, commercial, or industrial projects, our construction
               mart has the materials you need to build with confidence. Explore
               our offerings and experience the difference of top-tier

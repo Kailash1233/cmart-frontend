@@ -38,7 +38,7 @@ const Checkout = () => {
               <input
                 type="text"
                 name="firstname"
-                defaultValue={user.firstname || ""}
+                defaultValue={user.firstname}
                 className="form-control w-100 rounded-0 p-2"
               />
             </label>
@@ -140,14 +140,14 @@ const Checkout = () => {
             <h5 className="fw-bold">Payment Method</h5>
             <hr />
             <form action="" method="post">
-              <div>
+              {/* <div>
                 <label className="d-flex gap-2 w-100">
                   <div>
                     <input type="checkbox" name="check" />
                   </div>
                   <span>Direct bank transfer</span>
                 </label>
-              </div>
+              </div> */}
               <div className="my-4">
                 <label className="d-flex gap-2 w-100">
                   <div>

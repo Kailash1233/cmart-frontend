@@ -17,7 +17,7 @@ const RoutePaths = {
     productView : '/product/:id',
 
     // USERS PATHS
-
+    userSignIn :'/myaccount/signin',
     userAccount : '/myaccount',
     userOrders : '/myaccount/orders',
     userAdress : '/myaccount/address',

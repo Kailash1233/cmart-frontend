@@ -11,7 +11,6 @@ export type ProductType = {
   reviews: number;
   name: string;
   price: number;
-  old_price: number;
   reduction?: string;
   type?: string;
   desc?: string;
@@ -54,15 +53,7 @@ const ProductCart = (props: ProductType) => {
           <div className="d-flex my-2">
             <Reviews rating={props.reviews} />
           </div>
-          <div className="d-flex">
-            <h5 className="fd-color-primary">₹{props.price}</h5>
-            <h6
-              className="align-self-end"
-              style={{ textDecoration: "line-through" }}
-            >
-              ₹{props.old_price}
-            </h6>
-          </div>
+
           <p className="desc fw-bold opacity-50">{props.desc}</p>
           <div className="d-flex gap-2">
             <AddToCart product={props} />
@@ -132,15 +123,6 @@ const ProductCart = (props: ProductType) => {
       </div>
       <div className="d-flex justify-content-center">
         <Reviews rating={props.reviews} />
-      </div>
-      <div className="d-flex justify-content-center">
-        <h5 className="fd-color-primary">₹{props.price}</h5>
-        <h6
-          className="align-self-end"
-          style={{ textDecoration: "line-through" }}
-        >
-          ₹{props.old_price}
-        </h6>
       </div>
     </div>
   );

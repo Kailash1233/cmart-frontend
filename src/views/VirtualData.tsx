@@ -137,7 +137,6 @@ export const productsTest = [
     reviews: 4,
     name: "Product Name 8",
     price: 120,
-    oldPrice: 200,
     desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos sequi magnam nisi earum, nihil consequuntur harum hic molestias nulla quasi voluptas quae dolor soluta, iusto explicabo, voluptatibus est exercitationem sit.",
   },
 ];
@@ -148,7 +147,6 @@ export const dailyTest = {
   reviews: 4,
   name: "Product Name 1",
   price: 90,
-  old_price: 100,
   desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed earum nemo, officia maiores corporis eveniet ratione magnam facere voluptates consequuntur cumque.",
   total_quantity: 3,
 };
@@ -160,7 +158,6 @@ export const sortProduct = [
     reviews: 4,
     name: "Fresh Red Seedless 1",
     price: 90,
-    oldPrice: 100,
   },
   {
     id: 2,
@@ -168,7 +165,6 @@ export const sortProduct = [
     reviews: 4,
     name: "Fresh Red Seedless 2",
     price: 100,
-    oldPrice: 150,
     reduction: "-33%",
   },
   {

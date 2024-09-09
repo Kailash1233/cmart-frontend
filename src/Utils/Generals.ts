@@ -7,10 +7,10 @@ import { SyntheticEvent } from "react";
 
 // export const BASE_URL = 'http://localhost:8000/api/'; // BASE URL FOR API FETCHING
 export const BASE_URL =
-  "https://capable-blessing-440f216214.strapiapp.com/api/"; // BASE URL FOR API FETCHING
+  "https://informed-flower-65edff8a30.strapiapp.com/api/"; // BASE URL FOR API FETCHING
 
 export const PROD_URL =
-  "https://capable-blessing-440f216214.strapiapp.com/api/products?populate=*";
+  "https://informed-flower-65edff8a30.strapiapp.com/api/products?populate=*";
 
 const active = "d-block p-3 fd-nav-active"; // WHERE MENU IS ACTIVE CLASS
 
@@ -75,7 +75,7 @@ export const buildCheckoutData = () => {
   const user: User = useAppSelector((state) => state.user);
 
   let checkoutData: CheckOut[] = [];
-
+  console.log(checkoutData)
   products.forEach((product: ProductType) => {
     checkoutData.push({
       product_id: product.id,
