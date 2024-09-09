@@ -292,28 +292,34 @@ const PopularProducts = ({
   grid?: number | boolean;
   type?: string;
 }) => {
+  console.log("products");
   const [productsList, setProductsList] = useState<ProductType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
+    console.log("use effect   products");
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
           "https://informed-flower-65edff8a30.strapiapp.com/api/products?populate=*"
         );
-        const products = response.data.data.map((item: any) => ({
-          id: item.id,
-          img: item.attributes.Assert.data.attributes.url,
-          reviews: 4.5,
-          name: item.attributes.Name,
-          price: item.attributes.Price,
-          reduction: null,
-          type: "list",
-          desc: item.attributes.Desc,
-          quantity: 100,
-          total_quantity: 100,
-          categorie_id: 1,
-        }));
+         const data = response.data.data;
+         const products:any = [];
+         for(var i in data){
+            products.push({
+              id: data[i].id,
+              img: data[i].attributes.img.data[0].attributes.url,
+              reviews: 4.5,
+              name: data[i].attributes.Name,
+              price: data[i].attributes.Price,
+              reduction: null,
+              type: "list",
+              desc: data[i].attributes.Desc,
+              quantity: 100,
+              total_quantity: 100,
+              categorie_id: 1,
+            })
+         }
         setProductsList(products);
       } catch (error) {
         setError("Failed to fetch products");
