@@ -31,8 +31,11 @@ const PrivateRoute = ({
   type = 0,
   children,
 }: PropsWithChildren<{ type: number }>) => {
-  // Check if running on localhost and bypass authentication
-  const isLocalhost = window.location.hostname === "localhost";
+  // Check if running on localhost or the correct domain to bypass authentication
+  const isLocalhost =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "kvmcmart.vercel.app";
+
   const isLogged = getItem(RoutePaths.token);
   const user = !isLogged ? null : JSON.parse(getItem("user") || "");
 
