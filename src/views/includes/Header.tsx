@@ -1,9 +1,8 @@
-import React, { FC, SyntheticEvent, useEffect, useRef, useState } from "react";
-import { Link, Route } from "react-router-dom";
+import React, { FC, SyntheticEvent, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { SocialsNetworks } from "../../components/SocialsNetworks";
 import ViewCart from "../../components/ViewCart";
 import ViewSearch from "../../components/ViewSearch";
-// import Lang from "../../components/Lang";
 import RoutePaths from "../../config";
 import {
   cartKeyName,
@@ -18,7 +17,6 @@ import {
   fillWishList,
 } from "../../store/productSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
-import { useGetAllProductsQuery } from "../../store/apiquery/productApiSlice";
 import { setUser } from "../../store/userSlice";
 import { useGetUserQuery } from "../../store/apiquery/usersApiSlice";
 
@@ -27,7 +25,6 @@ const navsBar = [
   { path: RoutePaths.shop, name: "Shop" },
   { path: RoutePaths.blog, name: "Blog" },
   { path: RoutePaths.contact, name: "Contact US" },
-  //   { path: RoutePaths.team, name: "Teams" },
 ];
 
 const Header: FC = () => {
@@ -73,30 +70,82 @@ const Header: FC = () => {
   return (
     <>
       <div className="header bg-white shadow sticky-top">
-        <div className="d-lg-flex justify-content-between font-light fd-bg-secondary px-3 py-2 px-lg-5">
-          <div className="d-flex header-contacts d-none d-lg-block gap-3">
+        {/* Reduced padding for top section and hide on mobile */}
+        <div className="d-lg-flex justify-content-between font-light fd-bg-secondary px-3 py-1 px-lg-4 top-header-section d-none d-lg-flex">
+          <div className="d-flex header-contacts gap-3">
             <span>
               <i className="bi bi-envelope fd-color-primary"></i>&nbsp;
               kvmcmart@gmail.com
             </span>
             <span>
               <i className="bi bi-geo-alt fd-color-primary"></i>&nbsp; Chennai -
-              Chengalpattu, TamilNadu
+              Chengalpet, TamilNadu
             </span>
           </div>
           <div className="d-flex justify-content-between header-socials-lang">
             <SocialsNetworks />
           </div>
         </div>
-        <div className="navigation font-regular d-flex flex-wrap justify-content-between px-3 px-lg-5 py-4">
+
+        {/* Reduced padding for navigation section */}
+        <div className="navigation font-regular d-flex flex-wrap justify-content-between px-3 px-lg-4 py-2">
           <nav className="navbar col-12 col-lg-7 navbar-expand-lg">
-            <Link to={"/"} className="navbar-brand me-5">
+            <Link to={"/"} className="navbar-brand me-3">
               <img
                 src="/img/Cmart.png"
                 alt="Logo"
-                style={{ width: "50px", height: "50px" }}
+                style={{ width: "45px", height: "45px" }}
               />
             </Link>
+
+            {/* Icons displayed between logo and menu in mobile */}
+            <div className="d-lg-none d-flex gap-2 align-self-center ms-auto me-3">
+              <div onClick={viewCart}>
+                <a
+                  href="#"
+                  className="position-relative border-3 shadow border-light py-2 px-3 text-dark fd-hover-bg-primary"
+                >
+                  <i className="bi bi-cart3"></i>
+                  <span className="position-absolute top-0">
+                    {shoppingcart.length}
+                  </span>
+                </a>
+              </div>
+              <div>
+                <Link
+                  to={RoutePaths.wishlist}
+                  className="position-relative border-3 shadow border-light py-2 px-3 text-dark fd-hover-bg-primary"
+                >
+                  <i className="bi bi-heart"></i>
+                  <span className="position-absolute top-0">
+                    {wishlist.length}
+                  </span>
+                </Link>
+              </div>
+              <div onClick={viewSearch}>
+                <a
+                  href="#"
+                  className="position-relative border-3 shadow border-light py-2 px-3 text-dark fd-hover-bg-primary"
+                >
+                  <i className="bi bi-search"></i>
+                </a>
+              </div>
+              <div>
+                <Link
+                  to={
+                    user
+                      ? user.admin
+                        ? RoutePaths.admin
+                        : RoutePaths.userAccount
+                      : RoutePaths.userAccount
+                  }
+                  className="position-relative border-3 shadow border-light py-2 px-3 text-dark fd-hover-bg-primary"
+                >
+                  <i className="bi bi-person"></i>
+                </Link>
+              </div>
+            </div>
+
             <button
               className="navbar-toggler"
               data-bs-toggle="collapse"
@@ -106,9 +155,10 @@ const Header: FC = () => {
                 <i className="bi bi-list"></i>
               </span>
             </button>
+
             <nav className="collapse navbar-collapse" id="headerNavbar">
               <div className="container-fluid d-lg-flex justify-content-between">
-                <ul className="navbar-nav d-lg-flex gap-3">
+                <ul className="navbar-nav d-lg-flex gap-2">
                   {navsBar.map((link) => {
                     return (
                       <li
@@ -132,7 +182,9 @@ const Header: FC = () => {
               </div>
             </nav>
           </nav>
-          <div className="d-flex col-12 col-lg-3 gap-2 my-2 my-lg-0 align-self-center justify-content-end">
+
+          {/* Adjusted cart and account section with smaller padding for large screens */}
+          <div className="d-none d-lg-flex col-lg-3 gap-2 my-2 my-lg-0 align-self-center justify-content-end">
             <div onClick={viewCart}>
               <a
                 href="#"

@@ -3,9 +3,9 @@ import SlideShow from "../../components/SlideShow";
 import axios from "axios";
 import ProductCart from "../../components/ProductCart";
 import ProductSort from "../../components/ProductSort";
-// import ProductOfDay from "../../components/ProductOfDay";
+import ProductOfDay from "../../components/ProductOfDay";
 import Blog from "../../components/Blog";
-import { CategoryType, blogInfo, testimonialInfo } from "../VirtualData";
+import { CategoryType, blogInfo } from "../VirtualData";
 import { Link } from "react-router-dom";
 
 import Spinner from "../../components/Spinner";
@@ -154,35 +154,35 @@ const Promotion2 = () => {
   );
 };
 
-const Promotion3 = () => {
-  return (
-    <div className="promotion-3 position-relative shadow">
-      <div className="position-relative promotion-2-image h-100">
-        <span
-          className="position-absolute top-0 end-0 start-0 bottom-0"
-          style={{ backgroundColor: "rgba(0,0,0,0.3)" }}
-        ></span>
-        <img src="/img/cons.jpg" alt="banner promo" className="w-100 h-100" />
-      </div>
-      <div
-        className="promotion-text position-absolute w-100 p-2"
-        style={{ top: "5%" }}
-      >
-        <h4>20% Off on All Construction Materials</h4>
-        <h3>Premium Quality Supplies</h3>
-        <h4 className="fw-bold my-3">
-          Starting at <span className="fd-color-primary">₹499.99</span>
-        </h4>
-        <Link
-          to={RoutePaths.shop}
-          className="fd-btn w-75 rounded-5 text-center"
-        >
-          Shop now <i className="bi bi-arrow-right"></i>
-        </Link>
-      </div>
-    </div>
-  );
-};
+// const Promotion3 = () => {
+//   return (
+//     <div className="promotion-3 position-relative shadow">
+//       <div className="position-relative promotion-2-image h-100">
+//         <span
+//           className="position-absolute top-0 end-0 start-0 bottom-0"
+//           style={{ backgroundColor: "rgba(0,0,0,0.3)" }}
+//         ></span>
+//         <img src="/img/cons.jpg" alt="banner promo" className="w-100 h-100" />
+//       </div>
+//       <div
+//         className="promotion-text position-absolute w-100 p-2"
+//         style={{ top: "5%" }}
+//       >
+//         <h4>20% Off on All Construction Materials</h4>
+//         <h3>Premium Quality Supplies</h3>
+//         <h4 className="fw-bold my-3">
+//           Starting at <span className="fd-color-primary">₹499.99</span>
+//         </h4>
+//         <Link
+//           to={RoutePaths.shop}
+//           className="fd-btn w-75 rounded-5 text-center"
+//         >
+//           Shop now <i className="bi bi-arrow-right"></i>
+//         </Link>
+//       </div>
+//     </div>
+//   );
+// };
 
 // const PopularProducts = ({
 //   grid = 3,
@@ -286,7 +286,7 @@ interface ProductType {
 }
 
 const PopularProducts = ({
-  grid = 3,
+  grid = 4,
   type = "grid",
 }: {
   grid?: number | boolean;
@@ -340,20 +340,18 @@ const PopularProducts = ({
     content = <div>No products available</div>;
   } else {
     content = productsList.map((product: ProductType) => (
-      <ProductCart {...product} type={type} key={product.id} />
+      <div className="col-6 col-lg-3" key={product.id}>
+        {" "}
+        {/* Responsive grid: 2 in mobile, 4 in larger */}
+        <ProductCart {...product} type={type} />
+      </div>
     ));
   }
 
-  return (
-    <div
-      className={
-        type === "list" ? "test" : "d-grid gap-3 grid-0 grid-lg-" + grid
-      }
-    >
-      {content}
-    </div>
-  );
+  return <div className="row gx-3 gy-4">{content}</div>;
 };
+
+export default PopularProducts;
 
 // const SortProducts = () => {
 //   // Use hardcoded data instead of fetching from an API
@@ -430,103 +428,110 @@ const BlogAndNews = ({ grid = 3 }: { grid?: number }) => {
   );
 };
 
-const Section = () => {
-  return (
-    <section>
-      <div className="container-fluid">
-        <div
-          className="row justify-content-between"
-          style={{ height: "400px" }}
-        >
-          <div className="fd-slideshow col-xl-8 col-sm-12 col-md-12 p-0 h-100 w-auto">
-            <SlideShow />
-          </div>
+const Section = () => (
+  <section>
+    <div className="container-fluid">
+      {/* Dark blue delivery information section */}
+      {/* <div
+        className="d-flex justify-content-center align-items-center fd-bg-secondary"
+        style={{
+          color: "white",
+          padding: "5px 0",
+          fontSize: "16px",
+        }}
+      >
+        <i className="bi bi-truck"></i>&nbsp; Deliverable only to Chennai and
+        Chengalpet
+      </div> */}
+      <div className="row justify-content-between" style={{ height: "400px" }}>
+        <div className="fd-slideshow col-xl-8 col-sm-12 col-md-12 p-0 h-100 w-auto">
+          <SlideShow />
         </div>
-        <div className="px-3 px-lg-5">
-          <About />
-          <Promotion />
-          <div className="popular-products text-black my-5">
-            <div className="d-flex flex-wrap justify-content-between mb-2">
-              <h4>Popular Products</h4>
-              <div>
-                <Link to={RoutePaths.shop} className="fd-btn fw-bold">
-                  View All <i className="bi bi-arrow-right"></i>
-                </Link>
-              </div>
+      </div>
+      <div className="px-3 px-lg-5">
+        <About />
+        {/* <Promotion /> */}
+        <div className="popular-products text-black my-5">
+          <div className="d-flex flex-wrap justify-content-between mb-2">
+            <h4>Popular Products</h4>
+            <div>
+              <Link to={RoutePaths.shop} className="fd-btn fw-bold">
+                View All <i className="bi bi-arrow-right"></i>
+              </Link>
             </div>
-            <PopularProducts />
           </div>
-          {/* <div
-            className="day-deals-rated row justify-content-between text-black"
-            style={{ minHeight: "400px" }}
-          >
-            <div className="day-deals col-12 col-lg-8 bg-white p-3 mb-2 mb-lg-0 border-1 border w-auto">
-              <div className="d-flex justify-content-between border-bottom-2">
-                <h5>Deals Hot Of The Day</h5>
-                 <div className="deals-direction d-flex gap-2">
-                  <a href="#" className="text-dark">
-                    <i className="bi bi-arrow-left"></i>
-                  </a>
-                  <a href="#" className="text-dark">
-                    <i className="bi bi-arrow-right"></i>
-                  </a>
-                </div> 
-              </div>
-              <hr />
-              <div>
-                <ProductOfDay />
-              </div>
-            </div>
-          </div> */}
-          <Promotion2 />
-          {/* <div
-            className="product-types d-grid grid-lg-4 grid-0 gap-3 my-5"
-            style={{ minHeight: "300px" }}
-          >
-            <div className="top-rated text-black bg-white border-1 border fd-hover-border-primary p-3">
-              <h5>Hot Deals</h5>
-              <hr />
-              <SortProducts />
-            </div>
-            <div className="top-rated text-black bg-white border-1 border fd-hover-border-primary p-3">
-              <h5>Top Rated Products</h5>
-              <hr />
-              <SortProducts />
-            </div>
-            <div className="top-rated text-black bg-white border-1 border fd-hover-border-primary p-3">
-              <h5>Best Seller</h5>
-              <hr />
-              <SortProducts />
-            </div>
-            <Promotion3 />
-          </div> */}
-          {/* <div className="featured-products text-black my-5">
-            <div className="d-flex justify-content-between mb-5">
-              <h4>Featured Products</h4>
-              <div>
-                <a href="#" className="fd-btn fw-bold">
-                  View All <i className="bi bi-arrow-right"></i>
+          <PopularProducts />
+        </div>
+        {/* <div
+          className="day-deals-rated row justify-content-between text-black"
+          style={{ minHeight: "400px" }}
+        >
+          <div className="day-deals col-12 col-lg-8 bg-white p-3 mb-2 mb-lg-0 border-1 border w-auto">
+            <div className="d-flex justify-content-between border-bottom-2">
+              <h5>Deals Hot Of The Day</h5>
+               <div className="deals-direction d-flex gap-2">
+                <a href="#" className="text-dark">
+                  <i className="bi bi-arrow-left"></i>
+                </a>
+                <a href="#" className="text-dark">
+                  <i className="bi bi-arrow-right"></i>
                 </a>
               </div>
             </div>
-            <PopularProducts grid={4} />
-          </div> */}
-        </div>
-        {/* <MakeCall /> */}
-        <div className="blog-news text-black px-3 px-lg-5 my-5">
-          <div className="d-flex flex-wrap justify-content-between mb-5">
-            <h4>Latest Blog & News</h4>
+            <hr />
             <div>
-              <a href="/blog" className="fd-btn fw-bold">
+              <ProductOfDay />
+            </div>
+          </div>
+        </div> */}
+        <Promotion2 />
+        {/* <div
+          className="product-types d-grid grid-lg-4 grid-0 gap-3 my-5"
+          style={{ minHeight: "300px" }}
+        >
+          <div className="top-rated text-black bg-white border-1 border fd-hover-border-primary p-3">
+            <h5>Hot Deals</h5>
+            <hr />
+            <SortProducts />
+          </div>
+          <div className="top-rated text-black bg-white border-1 border fd-hover-border-primary p-3">
+            <h5>Top Rated Products</h5>
+            <hr />
+            <SortProducts />
+          </div>
+          <div className="top-rated text-black bg-white border-1 border fd-hover-border-primary p-3">
+            <h5>Best Seller</h5>
+            <hr />
+            <SortProducts />
+          </div>
+          <Promotion3 />
+        </div> */}
+        {/* <div className="featured-products text-black my-5">
+          <div className="d-flex justify-content-between mb-5">
+            <h4>Featured Products</h4>
+            <div>
+              <a href="#" className="fd-btn fw-bold">
                 View All <i className="bi bi-arrow-right"></i>
               </a>
             </div>
           </div>
-          <BlogAndNews />
-        </div>
+          <PopularProducts grid={4} />
+        </div> */}
       </div>
-    </section>
-  );
-};
+      {/* <MakeCall /> */}
+      {/* <div className="blog-news text-black px-3 px-lg-5 my-5">
+        <div className="d-flex flex-wrap justify-content-between mb-5">
+          <h4>Latest Blog & News</h4>
+          <div>
+            <a href="/blog" className="fd-btn fw-bold">
+              View All <i className="bi bi-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        <BlogAndNews />
+      </div> */}
+    </div>
+  </section>
+);
 
 export { Section, BlogAndNews, PopularProducts, SortProducts, Category };

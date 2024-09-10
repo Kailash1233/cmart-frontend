@@ -1,8 +1,8 @@
-import React from "react";
+// import React from "react";
 // import NewsLetter from "../../components/NewsLetter";
 import { SocialsNetworks } from "../../components/SocialsNetworks";
-import { Link } from "react-router-dom";
-import RoutePaths from "../../config";
+// import { Link } from "react-router-dom";
+// import RoutePaths from "../../config";
 
 const Footer = () => {
   return (
@@ -48,7 +48,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="account">
+          {/* <div className="account">
             <h5 className="my-5">My Account</h5>
             <div className="opacity-75">
               <div>
@@ -67,7 +67,7 @@ const Footer = () => {
                 <a href="#">Logout</a>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="help">
             <h5 className="my-5">Need Help?</h5>
             <div className="opacity-75">
@@ -80,9 +80,9 @@ const Footer = () => {
               <div>
                 <a href="#">Shipping Policy</a>
               </div>
-              <div>
+              {/* <div>
                 <a href="#">Returns & Refunds</a>
-              </div>
+              </div> */}
               <div>
                 <a href="#">Contact Us</a>
               </div>
@@ -128,9 +128,9 @@ const Footer = () => {
         </div>
         <hr />
         <div className="d-flex flex-wrap justify-content-between">
-          <p>
+          {/* <p>
             <img src="/img/payment.png" alt="" className="w-100" />
-          </p>
+          </p> */}
           <p className="opacity-75">
             Copyright &copy; 2024 By <span className="fw-bold">Adszoo</span>
           </p>
