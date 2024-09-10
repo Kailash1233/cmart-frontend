@@ -4,7 +4,8 @@ import { addToShoppingCart } from '../store/productSlice';
 import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks';
 
 const AddToCart = ({ product, classSup = '', divClass = '' }: { product: ProductType, classSup?: string, divClass?: string }) => {
-
+  console.log('JSON.stringify(product)');
+  console.log(JSON.stringify(product));
   const dispatch = useAppDispatch();
   const exist: ProductType[] = useAppSelector((state) => state.productCart);
   const isExistInCart = exist.find((stateProduct) => stateProduct.id == product.id);

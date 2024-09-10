@@ -292,18 +292,19 @@ const PopularProducts = ({
   grid?: number | boolean;
   type?: string;
 }) => {
-  console.log("products");
   const [productsList, setProductsList] = useState<ProductType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
-    console.log("use effect   products");
+    // console.log("use effect   products");
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
           "https://informed-flower-65edff8a30.strapiapp.com/api/products?populate=*"
         );
          const data = response.data.data;
+        //  console.log("data");
+        //  console.log(data);
          const products:any = [];
          for(var i in data){
             products.push({
@@ -380,7 +381,7 @@ const SortProducts = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(BASE_URL);
-        console.log(response.data);
+        // console.log(response.data);
         const fetchedProducts = response.data.data.map(
           (product: { attributes: ProductType }) => ({
             ...product.attributes,

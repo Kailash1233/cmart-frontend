@@ -9,8 +9,29 @@ import { link } from "../Utils/Generals";
 import { Link } from "react-router-dom";
 import RoutePaths from "../config";
 
-const ProductDetails = ({ product }: { product: ProductType }) => {
-  console.log(product);
+// const ProductDetails = ({ product } : { product: ProductType }) => {
+const ProductDetails = (tempProduct:any) => {
+  const props : ProductType = tempProduct.product;
+  var product : ProductType = {
+    id: props.id,
+    img: props.attributes.img.data[0].attributes.url,
+    reviews: 1,
+    name: props.name,
+    price: props.price,
+    reduction: "string",
+    type: "string",
+    desc: props.desc,
+    quantity: props.quantity,
+    total_quantity: props.total_quantity,
+    categorie_id: props.categorie_id,
+    attributes: props.attributes,
+  };
+  // console.log('productDetails');
+  // console.log(product);
+  // console.log('productDetailsattributes');
+  // console.log(product.attributes);
+  // console.log('productDetailsattributesimg');
+  // console.log(product.attributes.img);
   const imageUrl = product.attributes.img.data[0].attributes.url;
 
   return (

@@ -21,7 +21,7 @@ export const userSlice = createSlice({
         logoutCurrentUser : (state, action) => {
 
             state = {};
-            console.log('hello')
+            // console.log('hello')
             return state;
         },
     }

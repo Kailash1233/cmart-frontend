@@ -75,7 +75,7 @@ export const buildCheckoutData = () => {
   const user: User = useAppSelector((state) => state.user);
 
   let checkoutData: CheckOut[] = [];
-  console.log(checkoutData)
+  // console.log(checkoutData)
   products.forEach((product: ProductType) => {
     checkoutData.push({
       product_id: product.id,

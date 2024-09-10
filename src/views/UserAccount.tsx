@@ -31,7 +31,7 @@ export const UserSignIn: React.FC = () => {
         email: email,
         password: password,
       };
-      console.log(value);
+      // console.log(value);
       const response = await fetch(`${API}/auth/local`, {
         method: "POST",
         headers: {
