@@ -34,7 +34,7 @@ const ProductCart = (props: ProductType) => {
         </a>
       ) : (
         <a className="position-absolute top-0 start-0 fd-btn-red z-1">
-          {props.reduction} %
+          {props.reduction}
         </a>
       )}
       <div className="d-flex gap-3">
@@ -120,6 +120,14 @@ const ProductCart = (props: ProductType) => {
         >
           {props.name}
         </Link>
+      </div>
+      <div className="">
+        <div
+          className="d-flex justify-content-center"
+          style={{ fontSize: "20px" }}
+        >
+          ₹{props.price}
+        </div>
       </div>
       <div className="d-flex justify-content-center">
         <Reviews rating={props.reviews} />

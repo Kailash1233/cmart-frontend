@@ -10,7 +10,8 @@ import { Link } from "react-router-dom";
 import RoutePaths from "../config";
 
 const ProductDetails = ({ product }: { product: ProductType }) => {
-  const imageUrl = product.attributes.Assert.data.attributes.url;
+  console.log(product);
+  const imageUrl = product.attributes.img.data[0].attributes.url;
 
   return (
     <div className="view-product px-3 px-lg-5">
@@ -31,12 +32,12 @@ const ProductDetails = ({ product }: { product: ProductType }) => {
               <div className="others-img">
                 <img src={link(imageUrl)} alt="Alt" />
               </div>
-              <div className="others-img">
+              {/* <div className="others-img">
                 <img src={link(imageUrl)} alt="Alt" />
               </div>
               <div className="others-img">
                 <img src={link(imageUrl)} alt="Alt" />
-              </div>
+              </div> */}
             </Carousel>
           </div>
         </div>
@@ -45,8 +46,8 @@ const ProductDetails = ({ product }: { product: ProductType }) => {
             <Reviews rating={5} />
             <span className="fd-color-primary">(25 Reviews)</span>
           </div>
-          <h3 className="fw-bold my-4">{product.name}</h3>
-          <p className="fw-bold opacity-75">{product.desc}</p>
+          <h3 className="fw-bold my-4">{product.attributes.Name}</h3>
+          <p className="fw-bold opacity-75">{product.attributes.Desc}</p>
           <div className="d-flex flex-wrap gap-2">
             <h1 className="fw-bold fd-color-primary">
               ₹{product.attributes.Price}
@@ -69,33 +70,10 @@ const ProductDetails = ({ product }: { product: ProductType }) => {
             </div>
           </div>
           <hr />
-          <div className="p-types d-flex flex-wrap gap-2 align-items-center">
-            <h5 className="fw-bold d-flex flex-wrap gap-2 mb-0">Colors : </h5>
-            <div className="d-flex flex-wrap gap-2">
-              <span className="p-color bg-danger"></span>
-              <span className="p-color bg-warning"></span>
-              <span className="p-color bg-info"></span>
-              <span className="p-color bg-primary"></span>
-              <span className="p-color bg-secondary"></span>
-            </div>
-          </div>
-          <div className="p-types d-flex flex-wrap gap-2 align-items-center mt-3">
-            <h5 className="fw-bold d-flex flex-wrap gap-2 mb-0">SIZE : </h5>
-            <div className="d-flex flex-wrap gap-2 opacity-75">
-              <span className="border border-1 p-1 rounded-2 cursor-pointer">
-                Small
-              </span>
-              <span className="border border-1 p-1 rounded-2 cursor-pointer">
-                Medium
-              </span>
-              <span className="border border-1 p-1 rounded-2 cursor-pointer">
-                Large
-              </span>
-              <span className="border border-1 p-1 rounded-2 cursor-pointer">
-                Extra Large
-              </span>
-            </div>
-          </div>
+          <h5 className="fw-bold d-flex flex-wrap gap-2 mb-2">
+            About this Item:
+          </h5>
+          <div className="">{product.attributes.Desc}</div>
           <div className="d-flex flex-wrap gap-2 my-4">
             <NumberCount product={product} min={1} />
             <AddToCart product={product} divClass="align-self-center" />
@@ -106,16 +84,6 @@ const ProductDetails = ({ product }: { product: ProductType }) => {
               <div>
                 <a href="#" className="text-black">
                   <i className="bi bi-facebook"></i>
-                </a>
-              </div>
-              <div>
-                <a href="#" className="text-black">
-                  <i className="bi bi-twitter"></i>
-                </a>
-              </div>
-              <div>
-                <a href="#" className="text-black">
-                  <i className="bi bi-pinterest"></i>
                 </a>
               </div>
               <div>
