@@ -11,7 +11,6 @@ import { useAppSelector } from "../hooks/redux-hooks";
 
 const ViewCart = ({ setShow }: { setShow: Function }) => {
   const productCart = useAppSelector((state) => state.productCart);
-
   const hideCart = () => {
     setShow(false);
     document.body.classList.remove("overflow-hidden");

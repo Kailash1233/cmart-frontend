@@ -295,34 +295,32 @@ const PopularProducts = ({
   const [productsList, setProductsList] = useState<ProductType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
-    // console.log("use effect   products");
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          "https://informed-flower-65edff8a30.strapiapp.com/api/products?populate=*"
+          "https://cozy-bell-fec76d07e6.strapiapp.com/api/products?populate=*"
         );
-         const data = response.data.data;
-        //  console.log("data");
-        //  console.log(data);
-         const products:any = [];
-         for(var i in data){
-            products.push({
-              id: data[i].id,
-              img: data[i].attributes.img.data[0].attributes.url,
-              reviews: 4.5,
-              name: data[i].attributes.Name,
-              price: data[i].attributes.Price,
-              reduction: null,
-              type: "list",
-              desc: data[i].attributes.Desc,
-              quantity: 100,
-              total_quantity: 100,
-              categorie_id: 1,
-            })
-         }
+        const data = response.data.data;
+
+        const products: ProductType[] = data.map((item: any) => ({
+          id: item.id,
+          img: item.attributes.img.data.attributes.url,
+          reviews: 4.5, // Static value for reviews, can be replaced if available
+          name: item.attributes.Name,
+          price: item.attributes.Price,
+          reduction: null, // Can be updated to fetch reduction data if available
+          type: "list", // or "grid" depending on what you're aiming for
+          desc: item.attributes.Desc,
+          quantity: 1,
+          total_quantity: 1, // You can change this based on available data
+          categorie_id: 1, // Static category ID, adjust accordingly
+        }));
+
         setProductsList(products);
       } catch (error) {
+        console.error(error);
         setError("Failed to fetch products");
       } finally {
         setLoading(false);

@@ -7,10 +7,10 @@ import { SyntheticEvent } from "react";
 
 // export const BASE_URL = 'http://localhost:8000/api/'; // BASE URL FOR API FETCHING
 export const BASE_URL =
-  "https://informed-flower-65edff8a30.strapiapp.com/api/"; // BASE URL FOR API FETCHING
+  "https://cozy-bell-fec76d07e6.strapiapp.com/api"; // BASE URL FOR API FETCHING
 
 export const PROD_URL =
-  "https://informed-flower-65edff8a30.strapiapp.com/api/products?populate=*";
+  "https://cozy-bell-fec76d07e6.strapiapp.com/api/products?populate=*";
 
 const active = "d-block p-3 fd-nav-active"; // WHERE MENU IS ACTIVE CLASS
 
@@ -41,8 +41,8 @@ export const toggleLinkClass = (
   return currentLink === path ? activeClass : inactiveClass;
 };
 
-export const getItem = (keymane: string) => {
-  return localStorage.getItem(keymane);
+export const getItem = (keyname: string) => {
+  return localStorage.getItem(keyname);
 };
 
 export const setItem = (keyname: string, value: string | Object) => {

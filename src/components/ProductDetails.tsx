@@ -10,21 +10,22 @@ import { Link } from "react-router-dom";
 import RoutePaths from "../config";
 
 // const ProductDetails = ({ product } : { product: ProductType }) => {
-const ProductDetails = (tempProduct:any) => {
-  const props : ProductType = tempProduct.product;
-  var product : ProductType = {
+const ProductDetails = (tempProduct: any) => {
+  const props: ProductType = tempProduct.product;
+  console.log(props);
+  var product: ProductType = {
     id: props.id,
-    img: props.attributes.img.data[0].attributes.url,
+    img: props.attributes.img.data.attributes.url,
     reviews: 1,
-    name: props.name,
-    price: props.price,
+    name: props.attributes.Name,
+    price: props.attributes.Price,
     reduction: "string",
     type: "string",
-    desc: props.desc,
+    desc: props.attributes.Desc,
     quantity: props.quantity,
     total_quantity: props.total_quantity,
     categorie_id: props.categorie_id,
-    attributes: props.attributes,
+    attributes: props.id,
   };
   // console.log('productDetails');
   // console.log(product);
@@ -32,7 +33,7 @@ const ProductDetails = (tempProduct:any) => {
   // console.log(product.attributes);
   // console.log('productDetailsattributesimg');
   // console.log(product.attributes.img);
-  const imageUrl = product.attributes.img.data[0].attributes.url;
+  // const imageUrl = product.attributes.img.data[0].attributes.url;
 
   return (
     <div className="view-product px-3 px-lg-5">
@@ -48,10 +49,10 @@ const ProductDetails = (tempProduct:any) => {
               swipeable={true}
             >
               <div className="others-img">
-                <img src={link(imageUrl)} alt="Alt" />
+                <img src={link(product.img)} alt="Alt" />
               </div>
               <div className="others-img">
-                <img src={link(imageUrl)} alt="Alt" />
+                <img src={link(product.img)} alt="Alt" />
               </div>
               {/* <div className="others-img">
                 <img src={link(imageUrl)} alt="Alt" />
@@ -67,12 +68,10 @@ const ProductDetails = (tempProduct:any) => {
             <Reviews rating={5} />
             <span className="fd-color-primary">(25 Reviews)</span>
           </div>
-          <h3 className="fw-bold my-4">{product.attributes.Name}</h3>
-          <p className="fw-bold opacity-75">{product.attributes.Desc}</p>
+          <h3 className="fw-bold my-4">{product.name}</h3>
+          <p className="fw-bold opacity-75">{product.desc}</p>
           <div className="d-flex flex-wrap gap-2">
-            <h1 className="fw-bold fd-color-primary">
-              ₹{product.attributes.Price}
-            </h1>
+            <h1 className="fw-bold fd-color-primary">₹ {product.price}</h1>
             {/* <h2
               className="fw-bold align-self-end"
               style={{ textDecoration: "line-through" }}

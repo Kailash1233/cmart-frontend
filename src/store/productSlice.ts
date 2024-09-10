@@ -101,10 +101,11 @@ export const productCartSlice = createSlice({
         },
 
         deleteProductInCart(state, action : PayloadAction<ProductType>) {
-
-            state = state.filter((product) => product.id != action.payload.id);
-            setItem(cartKeyName, state);
-            return state;
+            console.log('Before delete:', state);
+            const updatedState = state.filter((product) => product.id != action.payload.id);
+            console.log('After delete:', updatedState);
+            setItem(cartKeyName, updatedState);
+            return updatedState;
         },
 
         setProductQuantity(state, action : PayloadAction<{product : ProductType, quantitySaved : number}>) {

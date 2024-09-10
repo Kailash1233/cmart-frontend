@@ -4,7 +4,7 @@ import Banner from "../components/Banner";
 import Footer from "./includes/Footer";
 import { productsTest } from "./VirtualData";
 import NumberCount from "../components/NumberCount";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import RoutePaths from "../config";
 import { ProductType } from "../components/ProductCart";
 import { cartKeyName, getItem, getTotal, link } from "../Utils/Generals";
@@ -13,7 +13,6 @@ import { RootState } from "../../store";
 import { deleteProductInCart } from "../store/productSlice";
 import { useDispatch } from "react-redux";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-
 const ShoppingCart = () => {
   const shopping: Array<ProductType> = useAppSelector(
     (state) => state.productCart
@@ -52,7 +51,7 @@ const ShoppingCart = () => {
               </tr>
             </thead>
             <tbody>
-              {shopping && shopping.length > 0 ? (
+              {shopping.length > 0 ? (
                 shopping.map((product) => {
                   return (
                     <tr className="p-3" key={product.id}>
@@ -65,7 +64,7 @@ const ShoppingCart = () => {
                       </td>
                       <td className="fw-bold">{product.name}</td>
                       <td>{product.price}</td>
-                      <td>₹250</td>
+                      <td>{getTotal()}</td>
                       <td className="d-flex justify-content-center">
                         <NumberCount product={product} min={1} />
                       </td>

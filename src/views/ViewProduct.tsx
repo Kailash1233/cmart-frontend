@@ -48,7 +48,7 @@ const ViewProduct = () => {
     const fetchProductDetails = async () => {
       try {
         const response = await axios.get(
-          `https://informed-flower-65edff8a30.strapiapp.com/api/products/${id}?populate=*`
+          `https://cozy-bell-fec76d07e6.strapiapp.com/api/products/${id}?populate=*`
         );
         setDetails(response.data.data);
         setIsLoading(false);
