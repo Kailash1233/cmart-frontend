@@ -64,7 +64,7 @@ const ShoppingCart = () => {
                       </td>
                       <td className="fw-bold">{product.name}</td>
                       <td>{product.price}</td>
-                      <td>{getTotal()}</td>
+                      <td>{product.quantity}</td>
                       <td className="d-flex justify-content-center">
                         <NumberCount product={product} min={1} />
                       </td>
@@ -125,7 +125,7 @@ const ShoppingCart = () => {
               <h5 className="fw-bold">Order Total</h5>
               <hr />
               <div>
-                <span className="fw-bold">Sutotal :</span>
+                <span className="fw-bold">Subtotal :</span>
                 <span className="float-end opacity-75">{total}</span>
               </div>
               <div className="my-3">
