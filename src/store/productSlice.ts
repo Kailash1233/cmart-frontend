@@ -101,9 +101,7 @@ export const productCartSlice = createSlice({
         },
 
         deleteProductInCart(state, action : PayloadAction<ProductType>) {
-            console.log('Before delete:', state);
             const updatedState = state.filter((product) => product.id != action.payload.id);
-            console.log('After delete:', updatedState);
             setItem(cartKeyName, updatedState);
             return updatedState;
         },

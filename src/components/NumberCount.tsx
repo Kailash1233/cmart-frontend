@@ -39,7 +39,6 @@ const Numberquantity = ({
     const quantitySaved = quantity - 1;
     dispatch(setProductQuantity({ product, quantitySaved }));
   };
-  console.log(quantity);
   return (
     <div className="d-flex">
       <div

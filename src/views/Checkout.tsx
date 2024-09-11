@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import Header from "./includes/Header";
 import Banner from "../components/Banner";
 import Footer from "./includes/Footer";
@@ -11,13 +11,13 @@ import LoadingButton from "../components/LoadingButton";
 const Checkout = () => {
   const productCart = useAppSelector((state) => state.productCart);
   const user: User = useAppSelector((state) => state.user);
-
   const data = buildCheckoutData();
   const [sendData, result] = useCreateCommandMutation();
   const submitCheckout = (e: SyntheticEvent) => {
     e.preventDefault();
     sendData(data);
   };
+  console.log(productCart);
   return (
     <>
       <Header />
@@ -115,7 +115,7 @@ const Checkout = () => {
         </form>
 
         <div className="col-12 col-lg-3 checkout-validate">
-          <div className="bg-white p-3 border border-1">
+          <div className="bg-white p-1 border border-1">
             <h5 className="fw-bold">Checkout Summary</h5>
             <hr />
             <div className="">
@@ -126,11 +126,12 @@ const Checkout = () => {
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
-                    gap: "10px",
+                    gap: "5px",
                   }}
                 >
                   <span>{product.name}</span>
                   <span>quantity: {product.quantity}</span>
+                  <span>price: {product.price}</span>
                 </div>
               ))}
             </div>

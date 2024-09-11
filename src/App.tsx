@@ -25,6 +25,7 @@ import AdminAccount from "./components/Admin/AdminAccount"
 import SlidesMain from "./components/Admin/SlidesMain"
 import PrivateRoute from "./components/PrivateRoute"
 import RedirectIfAuthenticate from "./components/RedirectIfAuthenticate"
+import CustomerForm from "./views/CustomerForm"
 
 function App() {
 
@@ -38,7 +39,7 @@ function App() {
       <Route path={RoutePaths.post} element={<PostView />}></Route>
       <Route path={RoutePaths.shopping} element={<ShoppingCart />}></Route>
       <Route element={<PrivateRoute type={0}/>}>
-        <Route path={RoutePaths.checkout} element={<Checkout />}></Route>
+        <Route path={RoutePaths.checkout} element={<CustomerForm />}></Route>
       </Route>
       <Route path={RoutePaths.contact} element={<ContactUs />}></Route>
       <Route path={RoutePaths.team} element={<TeamMembers />}></Route>
