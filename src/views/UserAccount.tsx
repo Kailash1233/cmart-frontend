@@ -307,7 +307,7 @@ const UserAccount = ({
     }).then((r) => {
       if (r.isConfirmed) {
         removeItem(RoutePaths.token);
-        removeItem("user");
+        removeItem("loginjwt");
         // dispatch(logoutCurrentUser)
         navigate(RoutePaths.home);
       }

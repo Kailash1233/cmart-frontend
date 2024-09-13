@@ -3,27 +3,30 @@ import Header from "./includes/Header";
 import Banner from "../components/Banner";
 import Footer from "./includes/Footer";
 import { getTotal, getItem } from "../Utils/Generals";
-import { useAppSelector } from "../hooks/redux-hooks";
+import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { useCreateCommandMutation } from "../store/apiquery/CommandApiSlice";
 import LoadingButton from "../components/LoadingButton";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useAsyncError, useNavigate } from "react-router-dom";
+import { deleteProductInCart } from "../store/productSlice";
 
 const Checkout = () => {
   const productCart = useAppSelector((state) => state.productCart);
-  const [createCommand, result] = useCreateCommandMutation();
+  const [createcom, result] = useCreateCommandMutation();
+  const [error, setError] = useState<string>();
+  const dispatch = useAppDispatch();
+  const [show, setShow] = useState<boolean>(false);
   const total = getTotal();
   const nav = useNavigate();
-  // Form data state
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
-    location: "Chennai", // default location
+    location: "",
     address: "",
     orderNotes: "",
-    addressSkip: false,
   });
 
   // Handle input change
@@ -37,7 +40,6 @@ const Checkout = () => {
     });
   };
 
-  // Handle checkbox change
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
     setFormData({
@@ -46,10 +48,8 @@ const Checkout = () => {
     });
   };
 
-  // Handle form submission
   const submitCheckout = async (e: FormEvent) => {
     e.preventDefault();
-
     const commandData = {
       products: productCart.map((product) => ({
         id: product.id,
@@ -59,31 +59,47 @@ const Checkout = () => {
       })),
       total,
     };
-    try {
-      const res = await axios.post(
-        `${import.meta.env.VITE_API}/customer-details`,
-        {
-          data: {
-            Name: `${formData.firstName} ${formData.lastName}`,
-            Email: formData.email,
-            PhoneNumber: formData.phone,
-            Location: formData.location,
-            Address: formData.address,
-            Totalprice: total, // Use calculated total or default value
-            ProductDetails: {
-              Product: commandData.products,
-            },
-          },
-        }
-      );
-      console.log("Response:", res.data);
-      console.log("Form submitted:", formData);
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    } finally {
-      alert("Your order is placed successfully");
+    if (productCart.length === 0) {
+      alert("Add product to the cart");
     }
-    nav("/");
+    try {
+      if (
+        formData.firstName != "" &&
+        formData.lastName != "" &&
+        formData.address != "" &&
+        formData.email != "" &&
+        formData.location != "" &&
+        formData.phone != ""
+      ) {
+        const res = await axios.post(
+          `${import.meta.env.VITE_API}/customer-details`,
+          {
+            data: {
+              Name: `${formData.firstName} ${formData.lastName}`,
+              Email: formData.email,
+              PhoneNumber: formData.phone,
+              Location: formData.location,
+              Address: formData.address,
+              Totalprice: total, // Use calculated total or default value
+              ProductDetails: {
+                Product: commandData.products,
+              },
+            },
+          }
+        );
+        console.log("Response:", res.data);
+        console.log("Form submitted:", formData);
+        alert("your order is placed successfully");
+        dispatch(deleteProductInCart(productCart));
+        nav("/");
+      } else {
+        alert("Fill all the information");
+      }
+    } catch (err) {
+      console.error("Error submitting form:", err);
+      setError(err);
+      alert(error);
+    }
   };
 
   return (
@@ -150,15 +166,14 @@ const Checkout = () => {
           <div className="my-4">
             <label className="w-100">
               <span>Location *</span>
-              <select
+              <input
+                type="text"
                 name="location"
-                value={formData.location}
                 onChange={handleChange}
-                className="form-control"
-              >
-                <option value="Chennai">Chennai</option>
-                <option value="Chengalpattu">Chengalpattu</option>
-              </select>
+                value={formData.location}
+                className="form-control w-100 rounded-0 p-2"
+                required
+              />
             </label>
           </div>
           <div>
@@ -200,9 +215,7 @@ const Checkout = () => {
           </div>
         </form>
         <div className="col-12 col-lg-3 checkout-validate">
-          <div
-            className="bg-white p-3 border border-1"
-          >
+          <div className="bg-white p-3 border border-1">
             <h5 className="fw-bold">Checkout Summary</h5>
             <hr />
             <div>
