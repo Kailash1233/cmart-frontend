@@ -32,6 +32,7 @@ const PrivateRoute = ({
   children,
 }: PropsWithChildren<{ type: number }>) => {
   const user = getItem("loginjwt");
+  console.log("logged in")
   if (!user) {
     return <Navigate to={RoutePaths.login} replace />;
   }
