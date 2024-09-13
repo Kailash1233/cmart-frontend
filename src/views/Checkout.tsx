@@ -13,9 +13,7 @@ import { deleteProductInCart } from "../store/productSlice";
 const Checkout = () => {
   const productCart = useAppSelector((state) => state.productCart);
   const [createcom, result] = useCreateCommandMutation();
-  const [error, setError] = useState<string>();
   const dispatch = useAppDispatch();
-  const [show, setShow] = useState<boolean>(false);
   const total = getTotal();
   const nav = useNavigate();
 
@@ -27,6 +25,7 @@ const Checkout = () => {
     location: "",
     address: "",
     orderNotes: "",
+    addressSkip: false
   });
 
   // Handle input change
@@ -90,15 +89,13 @@ const Checkout = () => {
         console.log("Response:", res.data);
         console.log("Form submitted:", formData);
         alert("your order is placed successfully");
-        dispatch(deleteProductInCart(productCart));
         nav("/");
       } else {
         alert("Fill all the information");
       }
     } catch (err) {
       console.error("Error submitting form:", err);
-      setError(err);
-      alert(error);
+      alert(err);
     }
   };
 

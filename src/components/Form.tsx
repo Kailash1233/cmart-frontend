@@ -8,32 +8,46 @@ import { HandleResult } from "./HandleResult";
 import LoadingButton from "./LoadingButton";
 import RoutePaths from "../config";
 import { checkLogin, getItem, setItem } from "../Utils/Generals";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+
+type LoginFormState = {
+  email: string;
+  password: string;
+};
+
+type SignUpFormState = {
+  firstname: string;
+  email: string;
+  password: string;
+};
 
 const LoginForm = () => {
   if (checkLogin()) {
     return <Navigate to={RoutePaths.userAccount} replace />;
   }
 
-  const [data, setData] = useState({});
+  const [data, setData] = useState<LoginFormState>({ email: "", password: "" });
   const [sendUserInfo, result] = useLoginMutation();
 
   const handleChange = (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
-
     setData({ ...data, [target.name]: target.value });
   };
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     try {
-        const res = await axios.post("https://cozy-bell-fec76d07e6.strapiapp.com/api/auth/local", {
-            identifier: data.email,
-            password: data.password
-        });
-        setItem("loginjwt",res.data.jwt)  // Assuming the JWT is in the `data` object of the response
+      const res = await axios.post(
+        "https://cozy-bell-fec76d07e6.strapiapp.com/api/auth/local",
+        {
+          identifier: data.email,
+          password: data.password,
+        }
+      );
+      setItem("loginjwt", res.data.jwt); // Assuming the JWT is in the `data` object of the response
     } catch (error) {
-        console.error(error.response ? error.response.data : error.message);  // More detailed error handling
+      const err = error as AxiosError;
+      console.error(err.response ? err.response.data : err.message);
     }
   };
 
@@ -116,32 +130,40 @@ const LoginForm = () => {
 };
 
 const SignUpForm = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   if (checkLogin()) {
     return <Navigate to={RoutePaths.userAccount} replace />;
   }
 
-  const [data, setData] = useState({});
+  const [data, setData] = useState<SignUpFormState>({
+    firstname: "",
+    email: "",
+    password: "",
+  });
   const [sendUserInfo, result] = useRegisterMutation();
 
   const handleChange = (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
-
     setData({ ...data, [target.name]: target.value });
   };
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     try {
-        const res = await axios.post("https://cozy-bell-fec76d07e6.strapiapp.com/api/auth/local/register", {
-            username: data.firstname,
-            email: data.email,
-            password: data.password
-        });
-        setItem("jwt",res.data.jwt)
-        navigate(RoutePaths.login)
+      const res = await axios.post(
+        "https://cozy-bell-fec76d07e6.strapiapp.com/api/auth/local/register",
+        {
+          username: data.firstname,
+          email: data.email,
+          password: data.password,
+        }
+      );
+
+      setItem("jwt", res.data.jwt);
+      navigate(RoutePaths.login);
     } catch (error) {
-        console.error(error.response ? error.response.data : error.message);  
+      const err = error as AxiosError;
+      console.error(err.response ? err.response.data : err.message);
     }
   };
 
