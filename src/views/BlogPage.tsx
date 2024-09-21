@@ -7,7 +7,7 @@ import Banner from "../components/Banner";
 import SearchBar from "../components/SearchBar";
 import { Link } from "react-router-dom";
 import Tags from "../components/Tags";
-import Archives from "../components/Archives";
+// import Archives from "../components/Archives";
 
 const BlogPage = () => {
   return (
@@ -21,7 +21,7 @@ const BlogPage = () => {
           </div>
           <aside className="col-12 col-lg-3 mt-4 mt-lg-0">
             <SearchBar />
-            <div className="category-list text-black bg-white w-100 border border-1 fd-hover-border-primary p-3 my-5">
+            {/* <div className="category-list text-black bg-white w-100 border border-1 fd-hover-border-primary p-3 my-5">
               <h5>Categories</h5>
               <hr />
               <div className="d-flex flex-column gap-2">
@@ -29,7 +29,7 @@ const BlogPage = () => {
                   <Category category={category} key={category.id} />
                 ))}
               </div>
-            </div>
+            </div> */}
             <div className="top-posts text-black bg-white w-100 border border-1 fd-hover-border-primary p-3 my-5">
               <h5>Recents Posts</h5>
               <hr />
@@ -66,7 +66,7 @@ const BlogPage = () => {
               })}
             </div>
             <Tags />
-            <Archives />
+            {/* <Archives /> */}
           </aside>
         </div>
       </div>
