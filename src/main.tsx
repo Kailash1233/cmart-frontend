@@ -12,13 +12,17 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import {store} from '../store';
 import ScrollToTop from './components/ScrollToTop';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
           <ScrollToTop />
-          <App />
+          <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+            <App />
+          </GoogleOAuthProvider>;
         </BrowserRouter>
     </Provider>
   </React.StrictMode>,

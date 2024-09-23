@@ -30,6 +30,8 @@ import AdminAccount from "./components/Admin/AdminAccount";
 import SlidesMain from "./components/Admin/SlidesMain";
 import PrivateRoute from "./components/PrivateRoute";
 import RedirectIfAuthenticate from "./components/RedirectIfAuthenticate";
+import { jwtDecode } from "jwt-decode";
+import { GoogleLogin } from '@react-oauth/google';
 
 function App() {
   return (

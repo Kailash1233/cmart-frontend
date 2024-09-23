@@ -9,6 +9,7 @@ import LoadingButton from "./LoadingButton";
 import RoutePaths from "../config";
 import { checkLogin, getItem, setItem } from "../Utils/Generals";
 import axios, { AxiosError } from "axios";
+import { GoogleLogin } from '@react-oauth/google';
 
 type LoginFormState = {
   email: string;
@@ -59,6 +60,14 @@ const LoginForm = () => {
       <h3 className="fw-bold text-center">Sign In</h3>
       <form action="" onSubmit={handleSubmit}>
         <div className="d-flex gap-2 sign-oauth my-4 text-white text-center">
+          <GoogleLogin
+            onSuccess={credentialResponse => {
+              console.log(credentialResponse);
+            }}
+            onError={() => {
+              console.log('Login Failed');
+            }}
+          />;
           <a href="#" className="d-block s-google w-50 bg-danger p-3 rounded-3">
             <i className="bi bi-google"></i>
             <span> Google</span>
