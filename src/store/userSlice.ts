@@ -12,17 +12,12 @@ export const userSlice = createSlice({
     reducers : {
 
         setUser : (state, action) => {
-
             state = action.payload;
-
             return state;
         },
 
-        logoutCurrentUser : (state, action) => {
-
-            state = {};
-            // console.log('hello')
-            return state;
+        logoutCurrentUser : (state) => {
+            return {}
         },
     }
 

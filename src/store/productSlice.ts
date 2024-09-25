@@ -121,6 +121,18 @@ export const productCartSlice = createSlice({
 
 });
 
+export const userAuth = createSlice({
+    name: "UserAuth",
+
+    initialState : [],
+
+    reducers: {
+        
+    }
+
+}
+)
+
 export const {fillProductsList} = productSlice.actions;
 
 export const { fillWishList, addToWishlist, deleteProductInWishlist } = productWhishListSlice.actions;

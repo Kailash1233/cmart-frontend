@@ -25,7 +25,7 @@ const Checkout = () => {
     location: "",
     address: "",
     orderNotes: "",
-    addressSkip: false
+    addressSkip: false,
   });
 
   // Handle input change

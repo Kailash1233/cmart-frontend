@@ -32,11 +32,11 @@ const PrivateRoute = ({
   children,
 }: PropsWithChildren<{ type: number }>) => {
   const user = getItem("loginjwt");
-  console.log("logged in")
-  if (!user) {
+  const googleuser = getItem("GoogleJwt")
+  if (!user || !googleuser) {
     return <Navigate to={RoutePaths.login} replace />;
   }
-    if (type == 1 && user) {
+    if (type == 1 && user || googleuser) {
       <Navigate to={RoutePaths.home} replace />;
     }
 

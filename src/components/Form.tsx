@@ -4,13 +4,14 @@ import {
   useRegisterMutation,
   useLoginMutation,
 } from "../store/apiquery/AuthApiSlice";
-import { HandleResult } from "./HandleResult";
 import LoadingButton from "./LoadingButton";
 import RoutePaths from "../config";
 import { checkLogin, getItem, setItem } from "../Utils/Generals";
 import axios, { AxiosError } from "axios";
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
+import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
+import { logoutCurrentUser, setUser } from "../store/userSlice";
 
 type LoginFormState = {
   email: string;
@@ -23,13 +24,29 @@ type SignUpFormState = {
   password: string;
 };
 
+const LogOut = () => {
+  const dispatch = useAppDispatch();
+
+  const handleLogOut = () => {
+    googleLogout();
+    localStorage.removeItem("GoogleJwt");
+    dispatch(logoutCurrentUser());
+  };
+
+  return <button onClick={handleLogOut}>Log Out</button>;
+};
+
+export default LogOut;
+
 const LoginForm = () => {
+  const dispatch = useAppDispatch();
+  const [googleUserFlag, setGoogleUserFlag] = useState<boolean>(false);
+  const [data, setData] = useState<LoginFormState>({ email: "", password: "" });
+  const [sendUserInfo, result] = useLoginMutation();
+
   if (checkLogin()) {
     return <Navigate to={RoutePaths.userAccount} replace />;
   }
-
-  const [data, setData] = useState<LoginFormState>({ email: "", password: "" });
-  const [sendUserInfo, result] = useLoginMutation();
 
   const handleChange = (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
@@ -46,7 +63,7 @@ const LoginForm = () => {
           password: data.password,
         }
       );
-      setItem("loginjwt", res.data.jwt); // Assuming the JWT is in the `data` object of the response
+      setItem("loginjwt", res.data.jwt);
     } catch (error) {
       const err = error as AxiosError;
       console.error(err.response ? err.response.data : err.message);
@@ -55,43 +72,34 @@ const LoginForm = () => {
 
   return (
     <div
-      className="login-form  bg-white shadow col-11 col-lg-4 mx-auto my-5 text-black p-3"
+      className="login-form bg-white shadow col-11 col-lg-4 mx-auto my-5 text-black p-3"
       style={{ minHeight: "500px" }}
     >
+      {/* LogOut Component */}
       <h3 className="fw-bold text-center">Sign In</h3>
-      <form action="" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <div className="d-flex gap-2 sign-oauth my-4 text-white text-center">
           <GoogleLogin
-            onSuccess={credentialResponse => {
+            onSuccess={(credentialResponse) => {
+              const token = credentialResponse.credential;
               console.log(credentialResponse);
-              const token : any = credentialResponse.credential;
-                const decoded = jwtDecode(token);
+              if (token) {
+                localStorage.setItem("GoogleJwt", token);
+                const decoded: any = jwtDecode(token);
                 console.log(decoded);
-                const decodedHeader = jwtDecode(token, { header: true });
-                console.log(decodedHeader);
+                alert(`Welcome ${decoded.name}!`);
+                dispatch(setUser(decoded));
+              }
             }}
             onError={() => {
-              console.log('Login Failed');
+              console.log("Login Failed");
             }}
-          />;
-          {/* <a href="#" className="d-block s-google w-50 bg-danger p-3 rounded-3">
-            <i className="bi bi-google"></i>
-            <span> Google</span>
-          </a>
-          <a
-            href="#"
-            className="d-block s-facebook w-25 fd-bg-secondary rounded-3"
-          >
-            <i className="bi bi-facebook" style={{ lineHeight: "55px" }}></i>
-          </a>
-          <a href="#" className="d-block s-twitter w-25 bg-info rounded-3">
-            <i className="bi bi-twitter" style={{ lineHeight: "55px" }}></i>
-          </a> */}
+          />
         </div>
         <div className="my-4">
           <div className="username w-100">
             <label className="w-100">
-              <span>Email :</span>{" "}
+              <span>Email :</span>
               <input
                 type="email"
                 name="email"
@@ -102,7 +110,7 @@ const LoginForm = () => {
           </div>
           <div className="user-pass my-4">
             <label className="w-100">
-              <span>Password :</span>{" "}
+              <span>Password :</span>
               <input
                 type="password"
                 name="password"
@@ -117,7 +125,6 @@ const LoginForm = () => {
               <span> Remember Me</span>
             </label>
           </div>
-          {/* <HandleResult result={result} /> */}
           <div className="submit text-center my-4">
             <LoadingButton loadingState={result.isLoading}>
               <button type="submit" className="w-100 border-0 fd-btn">
@@ -132,7 +139,7 @@ const LoginForm = () => {
               </Link>
             </div>
             <div className="signup mt-2">
-              <span>Don't have account ?</span>
+              <span>Don't have an account?</span>
               <Link to="/signup" className="fd-color-primary">
                 Sign Up
               </Link>
