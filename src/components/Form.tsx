@@ -10,6 +10,7 @@ import RoutePaths from "../config";
 import { checkLogin, getItem, setItem } from "../Utils/Generals";
 import axios, { AxiosError } from "axios";
 import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
 
 type LoginFormState = {
   email: string;
@@ -63,12 +64,17 @@ const LoginForm = () => {
           <GoogleLogin
             onSuccess={credentialResponse => {
               console.log(credentialResponse);
+              const token : any = credentialResponse.credential;
+                const decoded = jwtDecode(token);
+                console.log(decoded);
+                const decodedHeader = jwtDecode(token, { header: true });
+                console.log(decodedHeader);
             }}
             onError={() => {
               console.log('Login Failed');
             }}
           />;
-          <a href="#" className="d-block s-google w-50 bg-danger p-3 rounded-3">
+          {/* <a href="#" className="d-block s-google w-50 bg-danger p-3 rounded-3">
             <i className="bi bi-google"></i>
             <span> Google</span>
           </a>
@@ -80,7 +86,7 @@ const LoginForm = () => {
           </a>
           <a href="#" className="d-block s-twitter w-25 bg-info rounded-3">
             <i className="bi bi-twitter" style={{ lineHeight: "55px" }}></i>
-          </a>
+          </a> */}
         </div>
         <div className="my-4">
           <div className="username w-100">
