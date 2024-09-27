@@ -29,6 +29,7 @@ const LogOut = () => {
 
   const handleLogOut = () => {
     googleLogout();
+    alert("Are you sure you want to log out?");
     localStorage.removeItem("GoogleJwt");
     dispatch(logoutCurrentUser());
   };
@@ -43,10 +44,11 @@ const LoginForm = () => {
   const [googleUserFlag, setGoogleUserFlag] = useState<boolean>(false);
   const [data, setData] = useState<LoginFormState>({ email: "", password: "" });
   const [sendUserInfo, result] = useLoginMutation();
-
   if (checkLogin()) {
     return <Navigate to={RoutePaths.userAccount} replace />;
   }
+
+  const navigate = useNavigate();
 
   const handleChange = (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
@@ -86,9 +88,9 @@ const LoginForm = () => {
               if (token) {
                 localStorage.setItem("GoogleJwt", token);
                 const decoded: any = jwtDecode(token);
-                console.log(decoded);
                 alert(`Welcome ${decoded.name}!`);
                 dispatch(setUser(decoded));
+                navigate("/");
               }
             }}
             onError={() => {

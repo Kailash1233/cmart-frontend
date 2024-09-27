@@ -19,7 +19,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { setUser } from "../../store/userSlice";
 import { useGetUserQuery } from "../../store/apiquery/usersApiSlice";
-import  LogOut  from "../../components/Form";
+import LogOut from "../../components/Form";
 const navsBar = [
   { path: RoutePaths.home, name: "Home" },
   { path: RoutePaths.shop, name: "Shop" },
@@ -35,7 +35,7 @@ const Header: FC = () => {
     (state) => state.productCart
   );
   const userDetails: any = useAppSelector((state) => state.user);
-  // console.log(userDetails.image);
+  console.log(userDetails);
 
   const dispatch = useAppDispatch();
 
