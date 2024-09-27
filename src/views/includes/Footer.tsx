@@ -132,7 +132,7 @@ const Footer = () => {
             <img src="/img/payment.png" alt="" className="w-100" />
           </p> */}
           <p className="opacity-75">
-            Copyright &copy; 2024 By <span className="fw-bold">Adszoo</span>
+            Copyright &copy; 2024 By <span className="fw-bold">@Adszoo</span>
           </p>
         </div>
       </div>
