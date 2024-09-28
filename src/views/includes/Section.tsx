@@ -299,8 +299,14 @@ const PopularProducts = ({
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(
-          "https://cozy-bell-fec76d07e6.strapiapp.com/api/products?populate=*"
+        const response = await axios.post(
+          // `${import.meta.env.VITE_API}/products?populate=*`,
+          "https://kvm-content-manager.vercel.app/api/products?populate=*",
+          {
+            data: {
+              "message": "Products"
+            },
+          }
         );
         const data = response.data.data;
 

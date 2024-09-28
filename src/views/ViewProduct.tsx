@@ -48,7 +48,8 @@ const ViewProduct = () => {
     const fetchProductDetails = async () => {
       try {
         const response = await axios.get(
-          `https://cozy-bell-fec76d07e6.strapiapp.com/api/products/${id}?populate=*`
+          // `${import.meta.env.VITE_API}/products/${id}?populate=*`
+          "https://kvm-content-manager.vercel.app/api/products/${id}?populate=*"
         );
         setDetails(response.data.data);
         setIsLoading(false);
