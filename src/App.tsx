@@ -60,10 +60,10 @@ function App() {
       {/* USERS ROUTES */}
 
       <Route element={<PrivateRoute type={0} />}>
-        <Route
+        {/* <Route
           path={RoutePaths.userSignIn}
           element={<UserAccount currentComponent={<UserSignIn />} />}
-        ></Route>
+        ></Route> */}
         <Route path={RoutePaths.userAccount} element={<UserAccount />}></Route>
         <Route
           path={RoutePaths.userOrders}

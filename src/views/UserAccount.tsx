@@ -13,6 +13,8 @@ import Swal from "sweetalert2";
 import { useGetCommandQuery } from "../store/apiquery/CommandApiSlice";
 import { API } from "../Utils/constant";
 import { setToken } from "../Utils/helpers";
+import { googleLogout } from "@react-oauth/google";
+import { logoutCurrentUser } from "../store/userSlice";
 
 export const UserSignIn: React.FC = () => {
   const navigate = useNavigate();
@@ -122,7 +124,7 @@ export const UserSignIn: React.FC = () => {
 
 export const UserDashboard = () => {
   return (
-    <div className="user-dashboard p-3 border border-2 text-black">
+    <div className="user-dashboard p-3 border text-black">
       <h3>Dashboard</h3>
       <p className="opacity-75">
         From your account dashboard you can view your recent orders, manage your
@@ -147,7 +149,7 @@ export const UserOrders = () => {
   // }, [commands])
 
   return (
-    <div className="user-orders p-3 border border-2 text-black">
+    <div className="user-orders p-3 border text-black">
       <h3>Orders</h3>
       <div className="table-responsive">
         {!isLoading ? (
@@ -173,11 +175,49 @@ export const UserOrders = () => {
   );
 };
 
+export const LogOut = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleLogOut = (e: SyntheticEvent) => {
+    e.preventDefault();
+
+    // SweetAlert2 confirmation modal
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Are you sure you want to log out?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, log out!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // If confirmed, proceed with logout actions
+        googleLogout();
+        localStorage.removeItem("GoogleJwt");
+
+        // Dispatch the logout action
+        dispatch(logoutCurrentUser());
+
+        // Optionally navigate to the home or login page after logging out
+        navigate(RoutePaths.home);
+      }
+    });
+  };
+
+  return (
+    <a href="#" className="d-block p-3 text-black" onClick={handleLogOut}>
+      Logout<i className="bi bi-person-slash float-end"></i>
+    </a>
+  );
+};
+
 export const UserAddress = () => {
   const user: User = useAppSelector((state) => state.user);
 
   return (
-    <div className="user-address p-3 border border-2 text-black">
+    <div className="user-address p-3 border text-black">
       <h3>Billing Address</h3>
       <div className="opacity-75">
         <h6>{user.address}</h6>
@@ -205,7 +245,7 @@ export const UserDetails = () => {
   };
 
   return (
-    <div className="user-edit-details p-3 border border-2 text-black">
+    <div className="user-edit-details p-3 border text-black">
       <h3>Account Details</h3>
       <form
         action=""
@@ -319,14 +359,14 @@ const UserAccount = ({
       <Header />
       <div className="row justify-content-between gap-3 px-3 px-lg-5 my-5 w-100">
         <aside className="user-page col-12 col-lg-3 fw-bold border border-1 h-25">
-          <div>
+          {/* <div>
             <Link
               to={RoutePaths.userSignIn}
               className={toggleLinkClass(RoutePaths.userSignIn)}
             >
               SignIn<i className="bi bi-person float-end"></i>
             </Link>
-          </div>
+          </div> */}
           <div>
             <Link
               to={RoutePaths.userAccount}
@@ -360,14 +400,10 @@ const UserAccount = ({
             </Link>
           </div>
           <div>
-            <a href="#" className="d-block p-3 text-black" onClick={logoutUser}>
-              Logout<i className="bi bi-person-slash float-end"></i>
-            </a>
+            <LogOut />
           </div>
         </aside>
         <div className="col-12 col-lg-8 mt-3">{currentComponent}</div>
-        {/* // !isFetching && !isError ? <div className="w-75 mt-3">{currentComponent}</div> :
-                // <Spinner /> */}
       </div>
       <Footer />
     </>

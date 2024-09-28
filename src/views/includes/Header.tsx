@@ -19,7 +19,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { setUser } from "../../store/userSlice";
 import { useGetUserQuery } from "../../store/apiquery/usersApiSlice";
-import LogOut from "../../components/Form";
+// import LogOut from "../../components/Form";
 const navsBar = [
   { path: RoutePaths.home, name: "Home" },
   { path: RoutePaths.shop, name: "Shop" },
@@ -69,6 +69,8 @@ const Header: FC = () => {
     setShowSearch(true);
   };
 
+  console.log(userDetails.picture);
+
   return (
     <>
       <div className="header bg-white shadow sticky-top">
@@ -76,7 +78,8 @@ const Header: FC = () => {
         <div className="d-lg-flex justify-content-between font-light fd-bg-secondary px-3 py-1 px-lg-4 top-header-section d-none d-lg-flex">
           <div className="d-flex header-contacts gap-3">
             <span>
-              <i className=""></i>&nbsp; kvmcmart@gmail.com
+              <i className="bi bi-envelope fd-color-primary"></i>&nbsp;
+              kvmcmart@gmail.com
             </span>
             <span>
               <i className="bi bi-geo-alt fd-color-primary"></i>&nbsp; Chennai -
@@ -186,10 +189,11 @@ const Header: FC = () => {
 
           {/* Adjusted cart and account section with smaller padding for large screens */}
           <div className="d-none d-lg-flex col-lg-3 gap-2 my-2 my-lg-0 align-self-center justify-content-end">
-            <div className="">
+            {/* <div className="">
               <img width={50} src={userDetails.picture} />
-            </div>
-            {userDetails.name && <LogOut />}
+
+              {userDetails.name && <LogOut />}
+            </div> */}
             <div onClick={viewCart}>
               <a
                 href="#"
@@ -231,7 +235,11 @@ const Header: FC = () => {
                 }
                 className="position-relative border-3 shadow border-light py-2 px-3 text-dark fd-hover-bg-primary"
               >
-                <i className="bi bi-person"></i>
+                {userDetails && userDetails.picture ? (
+                  <img src={userDetails.picture} alt="Profile" width={20} />
+                ) : (
+                  <i className="bi bi-person"></i>
+                )}
               </Link>
             </div>
           </div>

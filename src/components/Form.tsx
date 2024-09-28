@@ -6,12 +6,13 @@ import {
 } from "../store/apiquery/AuthApiSlice";
 import LoadingButton from "./LoadingButton";
 import RoutePaths from "../config";
-import { checkLogin, getItem, setItem } from "../Utils/Generals";
+import { checkLogin, getItem, removeItem, setItem } from "../Utils/Generals";
 import axios, { AxiosError } from "axios";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { logoutCurrentUser, setUser } from "../store/userSlice";
+import Swal from "sweetalert2";
 
 type LoginFormState = {
   email: string;
@@ -24,20 +25,41 @@ type SignUpFormState = {
   password: string;
 };
 
-const LogOut = () => {
-  const dispatch = useAppDispatch();
+// const LogOut = () => {
+//   const dispatch = useAppDispatch();
+//   const navigate = useNavigate();
 
-  const handleLogOut = () => {
-    googleLogout();
-    alert("Are you sure you want to log out?");
-    localStorage.removeItem("GoogleJwt");
-    dispatch(logoutCurrentUser());
-  };
+//   const handleLogOut = (e: SyntheticEvent) => {
+//     e.preventDefault();
 
-  return <button onClick={handleLogOut}>Log Out</button>;
-};
+//     // SweetAlert2 confirmation modal
+//     Swal.fire({
+//       title: "Are you sure?",
+//       text: "Are you sure you want to log out?",
+//       icon: "warning",
+//       showCancelButton: true,
+//       confirmButtonColor: "#3085d6",
+//       cancelButtonColor: "#d33",
+//       confirmButtonText: "Yes, log out!",
+//     }).then((result) => {
+//       if (result.isConfirmed) {
+//         // If confirmed, proceed with logout actions
+//         googleLogout();
+//         localStorage.removeItem("GoogleJwt");
 
-export default LogOut;
+//         // Dispatch the logout action
+//         dispatch(logoutCurrentUser());
+
+//         // Optionally navigate to the home or login page after logging out
+//         navigate(RoutePaths.home);
+//       }
+//     });
+//   };
+
+//   return <button onClick={handleLogOut}>Log Out</button>;
+// };
+
+// export default LogOut;
 
 const LoginForm = () => {
   const dispatch = useAppDispatch();
