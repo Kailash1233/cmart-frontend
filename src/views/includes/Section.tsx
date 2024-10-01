@@ -296,43 +296,38 @@ const PopularProducts = ({
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  const fetchProducts = async () => {
+    console.log("fetched");
+    var res = [];
+    try {
+      const response = await axios.get("http://localhost:3000/api/products");
+      const res = response.data.data;
+
+      const products: ProductType[] = res.data.map((item: any) => ({
+        id: item.id,
+        img: item.attributes.img.data.attributes.url,
+        reviews: 4.5, // Static value for reviews, can be replaced if available
+        name: item.attributes.Name,
+        price: item.attributes.Price,
+        reduction: null, // Can be updated to fetch reduction data if available
+        type: "list", // or "grid" depending on what you're aiming for
+        desc: item.attributes.Desc,
+        quantity: 1,
+        total_quantity: 1, // You can change this based on available data
+        categorie_id: 1, // Static category ID, adjust accordingly
+      }));
+
+      setProductsList(products);
+    } catch (error) {
+      console.error(error);
+      setError("Failed to fetch products");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.post(
-          // `${import.meta.env.VITE_API}/products?populate=*`,
-          "https://kvm-content-manager.vercel.app/api/products?populate=*",
-          {
-            data: {
-              "message": "Products"
-            },
-          }
-        );
-        const data = response.data.data;
-
-        const products: ProductType[] = data.map((item: any) => ({
-          id: item.id,
-          img: item.attributes.img.data.attributes.url,
-          reviews: 4.5, // Static value for reviews, can be replaced if available
-          name: item.attributes.Name,
-          price: item.attributes.Price,
-          reduction: null, // Can be updated to fetch reduction data if available
-          type: "list", // or "grid" depending on what you're aiming for
-          desc: item.attributes.Desc,
-          quantity: 1,
-          total_quantity: 1, // You can change this based on available data
-          categorie_id: 1, // Static category ID, adjust accordingly
-        }));
-
-        setProductsList(products);
-      } catch (error) {
-        console.error(error);
-        setError("Failed to fetch products");
-      } finally {
-        setLoading(false);
-      }
-    };
-
+    // Set the function in state, not invoking it directly
     fetchProducts();
   }, []);
 
@@ -347,14 +342,17 @@ const PopularProducts = ({
   } else {
     content = productsList.map((product: ProductType) => (
       <div className="col-6 col-lg-3" key={product.id}>
-        {" "}
-        {/* Responsive grid: 2 in mobile, 4 in larger */}
         <ProductCart {...product} type={type} />
       </div>
     ));
   }
 
-  return <div className="row gx-3 gy-4">{content}</div>;
+  return (
+    <>
+      {/* <button onClick={() => fet && fet()}>Fetch Products</button> */}
+      <div className="row gx-3 gy-4">{content}</div>
+    </>
+  );
 };
 
 export default PopularProducts;

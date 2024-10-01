@@ -35,7 +35,6 @@ const Header: FC = () => {
     (state) => state.productCart
   );
   const userDetails: any = useAppSelector((state) => state.user);
-  console.log(userDetails);
 
   const dispatch = useAppDispatch();
 
@@ -68,9 +67,6 @@ const Header: FC = () => {
     e.preventDefault();
     setShowSearch(true);
   };
-
-  console.log(userDetails.picture);
-
   return (
     <>
       <div className="header bg-white shadow sticky-top">
