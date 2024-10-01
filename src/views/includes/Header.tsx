@@ -75,7 +75,7 @@ const Header: FC = () => {
           <div className="d-flex header-contacts gap-3">
             <span>
               <i className="bi bi-envelope fd-color-primary"></i>&nbsp;
-              kvmcmart@gmail.com
+              info@kvmcmart.in
             </span>
             <span>
               <i className="bi bi-geo-alt fd-color-primary"></i>&nbsp; Chennai -

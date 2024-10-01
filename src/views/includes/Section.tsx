@@ -299,21 +299,23 @@ const PopularProducts = ({
   const fetchProducts = async () => {
     console.log("fetched");
     try {
-      const response = await axios.get("http://localhost:3000/api/products");
+      const response = await axios.get(
+        "https://kvm-content-manager.vercel.app/api/products"
+      );
       const res = response.data.data;
 
       const products: ProductType[] = res.data.map((item: any) => ({
         id: item.id,
         img: item.attributes.img.data.attributes.url,
-        reviews: 4.5, 
+        reviews: 4.5,
         name: item.attributes.Name,
         price: item.attributes.Price,
         reduction: null,
-        type: "list", 
+        type: "list",
         desc: item.attributes.Desc,
         quantity: 1,
-        total_quantity: 1, 
-        categorie_id: 1, 
+        total_quantity: 1,
+        categorie_id: 1,
       }));
 
       setProductsList(products);

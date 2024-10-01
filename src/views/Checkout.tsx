@@ -86,8 +86,8 @@ const Checkout = () => {
             },
           }
         );
-        console.log("Response:", res.data);
-        console.log("Form submitted:", formData);
+        // console.log("Response:", res.data);
+        // console.log("Form submitted:", formData);
         alert("your order is placed successfully");
         nav("/");
       } else {

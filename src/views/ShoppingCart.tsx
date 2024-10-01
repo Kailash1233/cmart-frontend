@@ -102,7 +102,7 @@ const ShoppingCart = () => {
         </div>
         {shopping && shopping.length > 0 ? (
           <div className="coupon-total row justify-content-between gap-2 text-dark">
-            <div className="coupon col-12 col-lg-8 p-4 border border-1">
+            {/* <div className="coupon col-12 col-lg-8 p-4 border border-1">
               <h5 className="fw-bold">Use Coupon Code</h5>
               <hr />
               <div className="my-3">
@@ -120,7 +120,7 @@ const ShoppingCart = () => {
                   APPLY
                 </a>
               </div>
-            </div>
+            </div> */}
             <div className="total p-4 border border-1 col-12 col-lg-3">
               <h5 className="fw-bold">Order Total</h5>
               <hr />
