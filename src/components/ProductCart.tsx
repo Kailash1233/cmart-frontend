@@ -165,6 +165,7 @@ export type ProductType = {
   total_quantity: number;
   categorie_id?: number;
   attributes?: any;
+  data?:any
 };
 
 const ProductCart = (props: ProductType) => {

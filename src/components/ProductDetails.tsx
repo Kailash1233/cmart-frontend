@@ -12,20 +12,20 @@ import RoutePaths from "../config";
 // const ProductDetails = ({ product } : { product: ProductType }) => {
 const ProductDetails = (tempProduct: any) => {
   const props: ProductType = tempProduct.product;
-  console.log(props);
+  // console.log(props.data.attributes.Desc, "datasss");
   var product: ProductType = {
-    id: props.id,
-    img: props.attributes.img.data.attributes.url,
+    id: props.data.id,
+    img: props.data.attributes.img.data.attributes.url,
     reviews: 1,
-    name: props.attributes.Name,
-    price: props.attributes.Price,
+    name: props.data.attributes.Name,
+    price: props.data.attributes.Price,
     reduction: "string",
     type: "string",
-    desc: props.attributes.Desc,
-    quantity: props.quantity,
-    total_quantity: props.total_quantity,
-    categorie_id: props.categorie_id,
-    attributes: props.id,
+    desc: props.data.attributes.Desc,
+    quantity: props.data.quantity,
+    total_quantity: props.data.total_quantity,
+    categorie_id: props.data.categorie_id,
+    attributes: props.data.id,
   };
   // console.log('productDetails');
   // console.log(product);
@@ -33,8 +33,7 @@ const ProductDetails = (tempProduct: any) => {
   // console.log(product.attributes);
   // console.log('productDetailsattributesimg');
   // console.log(product.attributes.img);
-  // const imageUrl = product.attributes.img.data[0].attributes.url;
-
+  // const imageUrl = props.data.attributes.img.data.attributes.url;
   return (
     <div className="view-product px-3 px-lg-5">
       <div

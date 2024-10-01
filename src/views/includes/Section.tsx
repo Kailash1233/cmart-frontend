@@ -298,7 +298,6 @@ const PopularProducts = ({
 
   const fetchProducts = async () => {
     console.log("fetched");
-    var res = [];
     try {
       const response = await axios.get("http://localhost:3000/api/products");
       const res = response.data.data;
@@ -306,15 +305,15 @@ const PopularProducts = ({
       const products: ProductType[] = res.data.map((item: any) => ({
         id: item.id,
         img: item.attributes.img.data.attributes.url,
-        reviews: 4.5, // Static value for reviews, can be replaced if available
+        reviews: 4.5, 
         name: item.attributes.Name,
         price: item.attributes.Price,
-        reduction: null, // Can be updated to fetch reduction data if available
-        type: "list", // or "grid" depending on what you're aiming for
+        reduction: null,
+        type: "list", 
         desc: item.attributes.Desc,
         quantity: 1,
-        total_quantity: 1, // You can change this based on available data
-        categorie_id: 1, // Static category ID, adjust accordingly
+        total_quantity: 1, 
+        categorie_id: 1, 
       }));
 
       setProductsList(products);
@@ -327,7 +326,6 @@ const PopularProducts = ({
   };
 
   useEffect(() => {
-    // Set the function in state, not invoking it directly
     fetchProducts();
   }, []);
 

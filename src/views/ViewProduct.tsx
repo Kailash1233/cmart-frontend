@@ -49,9 +49,10 @@ const ViewProduct = () => {
       try {
         const response = await axios.get(
           // `${import.meta.env.VITE_API}/products/${id}?populate=*`
-          "https://kvm-content-manager.vercel.app/api/products/${id}?populate=*"
+          `http://localhost:3000/api/products/${id}`
         );
         setDetails(response.data.data);
+        // console.log(response.data.data.data);
         setIsLoading(false);
       } catch (error) {
         setIsError(true);
