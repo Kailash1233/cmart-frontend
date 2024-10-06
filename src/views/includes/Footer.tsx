@@ -23,7 +23,7 @@ const Footer = () => {
               </div>
               <div>
                 <i className="bi bi-envelope fd-color-primary me-2"></i>
-                kvmcmart@gmail.com
+                info@kvmcmart.in
               </div>
             </div>
             <SocialsNetworks />

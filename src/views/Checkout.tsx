@@ -84,6 +84,7 @@ const Checkout = () => {
         const res = await axios.post("http://localhost:3000/api/orders", data);
         console.log("Response:", res.data);
         console.log("Form submitted:", formData);
+
         alert("your order is placed successfully");
         nav("/");
       } else {

@@ -106,7 +106,7 @@ const LoginForm = () => {
           <GoogleLogin
             onSuccess={(credentialResponse) => {
               const token = credentialResponse.credential;
-              console.log(credentialResponse);
+              // console.log(credentialResponse);
               if (token) {
                 localStorage.setItem("GoogleJwt", token);
                 const decoded: any = jwtDecode(token);

@@ -112,7 +112,7 @@ const AdminDetails = () => {
             type="email"
             name="email"
             className="form-control w-100 rounded-2 p-2"
-            value="kvmcmart@gmail.com"
+            value="info@kvmcmart.in"
             disabled
           />
         </label>
@@ -191,7 +191,7 @@ const AdminList = () => {
             <td scope="row w-25">{++count}</td>
             <td className="fw-bold">Naveen</td>
             <td className="opacity-75">M R</td>
-            <td className="opacity-75">kvmcmart@gmail.com</td>
+            <td className="opacity-75">info@kvmcmart.in</td>
             <td className="opacity-75">96457545</td>
           </tr>
           <tr className="p-3">
