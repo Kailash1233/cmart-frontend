@@ -49,6 +49,7 @@ const Checkout = () => {
 
   const submitCheckout = async (e: FormEvent) => {
     e.preventDefault();
+    let data = {};
     const commandData = {
       products: productCart.map((product) => ({
         id: product.id,
@@ -58,9 +59,19 @@ const Checkout = () => {
       })),
       total,
     };
+    data = {
+      Name: `${formData.firstName} ${formData.lastName}`,
+      Email: formData.email,
+      PhoneNumber: formData.phone,
+      Location: formData.location,
+      Address: formData.address,
+      TotalPrice: `${total}`,
+      ProductDetails: commandData.products,
+    };
     if (productCart.length === 0) {
       alert("Add product to the cart");
     }
+    console.log(data);
     try {
       if (
         formData.firstName != "" &&
@@ -70,22 +81,7 @@ const Checkout = () => {
         formData.location != "" &&
         formData.phone != ""
       ) {
-        const res = await axios.post(
-          `${import.meta.env.VITE_API}/customer-details`,
-          {
-            data: {
-              Name: `${formData.firstName} ${formData.lastName}`,
-              Email: formData.email,
-              PhoneNumber: formData.phone,
-              Location: formData.location,
-              Address: formData.address,
-              Totalprice: total, // Use calculated total or default value
-              ProductDetails: {
-                Product: commandData.products,
-              },
-            },
-          }
-        );
+        const res = await axios.post("http://localhost:3000/api/orders", data);
         console.log("Response:", res.data);
         console.log("Form submitted:", formData);
         alert("your order is placed successfully");
