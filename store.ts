@@ -10,6 +10,7 @@ import { commandApiSlice } from "./src/store/apiquery/CommandApiSlice";
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
+import { countSlice } from "./src/store/countSlice";
 
 const rootReducer = combineReducers({
     [productApiSlice.reducerPath]: productApiSlice.reducer,
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
     productWishlist: productWhishListSlice.reducer,
     productCart: productCartSlice.reducer,
     user: userSlice.reducer,
+    count : countSlice.reducer
 });
 
 const persistConfig = {

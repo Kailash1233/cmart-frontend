@@ -7,7 +7,7 @@ import { useAppDispatch } from "../hooks/redux-hooks";
 type OptionsType = {
   product: ProductType;
   initialValue?: number;
-  step?: number;
+  // step?: number;
   min?: number;
   max?: number;
 };
@@ -15,28 +15,28 @@ type OptionsType = {
 const Numberquantity = ({
   product,
   initialValue = 1,
-  step = 1,
   min,
   max,
 }: OptionsType) => {
   const [quantity, setQuantity] = useState(product.quantity ?? initialValue);
+  const [type, setType] = useState<number>(1);
   const dispatch = useAppDispatch();
-
+  let step = type;
   const increment = () => {
     if (max && quantity >= max) {
       return quantity;
     }
     setQuantity((state) => state + step);
-    const quantitySaved = quantity + 1;
+    const quantitySaved = quantity + type;
     dispatch(setProductQuantity({ product, quantitySaved }));
   };
 
   const decrement = () => {
     if (min && quantity <= min) {
-      return quantity;
+      return 1;
     }
     setQuantity((state) => state - step);
-    const quantitySaved = quantity - 1;
+    const quantitySaved = quantity - type;
     dispatch(setProductQuantity({ product, quantitySaved }));
   };
   return (
@@ -58,6 +58,16 @@ const Numberquantity = ({
       >
         <i className="bi bi-plus" style={{ lineHeight: "40px" }}></i>
       </div>
+      <select
+        name="CountType"
+        onChange={(e) => setType(parseInt(e.target.value))}
+      >
+        <option value="1">1</option>
+        <option value="10">10</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+        <option value="500">500</option>
+      </select>
     </div>
   );
 };

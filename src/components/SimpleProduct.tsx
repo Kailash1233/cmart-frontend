@@ -21,9 +21,7 @@ const SimpleProduct = ({ product }: { product: ProductType }) => {
         </Link>
         <div className="d-flex justify-content-between">
           <div className="d-flex mt-2 gap-2">
-            <span className="fd-color-primary fw-bold me-1">
-              {product.price}
-            </span>
+            <span className="fd-color-primary fw-bold me-1">{"₹" + product.price } </span>
             <span>
               <i className="bi bi-x"></i>
             </span>

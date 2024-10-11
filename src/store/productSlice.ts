@@ -1,131 +1,133 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { cartKeyName, getItem, setItem, wishlistKeyName } from "../Utils/Generals";
+import {
+  cartKeyName,
+  getItem,
+  setItem,
+  wishlistKeyName,
+} from "../Utils/Generals";
 import { ProductType } from "../components/ProductCart";
 
 export const productSlice = createSlice({
+  name: "products",
 
-    name : 'products',
+  initialState: Array<ProductType>,
 
-    initialState : Array<ProductType>,
+  reducers: {
+    fillProductsList: (state, action: PayloadAction<ProductType[]>) => {
+      state = action.payload;
 
-    reducers : {
-
-        fillProductsList : (state, action : PayloadAction<ProductType[]>) => {
-
-            state = action.payload;
-
-            return state;
-        }
-    }
-
-})
+      return state;
+    },
+  },
+});
 
 export const productWhishListSlice = createSlice({
+  name: "wishlist",
 
-    name : 'wishlist',
+  initialState: Array<ProductType>,
 
-    initialState : Array<ProductType>,
+  reducers: {
+    fillWishList: (state, action: PayloadAction<string>) => {
+      state = JSON.parse(action.payload);
 
-    reducers : {
+      return state;
+    },
 
-        fillWishList : (state, action : PayloadAction<string>) => {
+    addToWishlist: (state, action: PayloadAction<ProductType>) => {
+      const getProducts = getItem(wishlistKeyName);
 
-            state = JSON.parse(action.payload);
+      if (getProducts) {
+        const oldProducts = JSON.parse(getProducts);
+        const newProducts: ProductType[] = [...oldProducts, action.payload];
 
-            return state;
-        },
+        setItem(wishlistKeyName, newProducts);
+        state = newProducts;
+        return state;
+      }
 
-        addToWishlist : (state, action : PayloadAction<ProductType>) => {
+      state = [action.payload];
 
-            const getProducts = getItem(wishlistKeyName);
+      setItem(wishlistKeyName, [action.payload]);
 
-            if (getProducts) {
-                const oldProducts = JSON.parse(getProducts);
-                const newProducts : ProductType[] = [...oldProducts, action.payload];
+      return state;
+    },
 
-                setItem(wishlistKeyName, newProducts);
-                state = newProducts;
-                return state;
-            }
-
-            state = [action.payload];
-
-            setItem(wishlistKeyName, [action.payload]);
-
-            return state;
-        },
-
-        deleteProductInWishlist(state, action : PayloadAction<ProductType>) {
-
-            state = state.filter((product) => product.id != action.payload.id);
-            setItem(wishlistKeyName, state);
-            return state;
-        }
-    }
-
+    deleteProductInWishlist(state, action: PayloadAction<ProductType>) {
+      state = state.filter((product) => product.id != action.payload.id);
+      setItem(wishlistKeyName, state);
+      return state;
+    },
+  },
 });
 
 export const productCartSlice = createSlice({
+  name: "cart",
 
-    name : 'cart',
+  initialState: Array<ProductType>,
 
-    initialState : Array<ProductType>,
+  reducers: {
+    fillShoppingCart: (state, action: PayloadAction<string>) => {
+      state = JSON.parse(action.payload);
 
-    reducers : {
+      return state;
+    },
 
-        fillShoppingCart : (state, action : PayloadAction<string>) => {
+    addToShoppingCart: (state, action: PayloadAction<ProductType>) => {
+      const getProducts = getItem(cartKeyName);
 
-            state = JSON.parse(action.payload);
+      if (getProducts) {
+        const oldProducts = JSON.parse(getProducts);
+        const newProducts: ProductType[] = [...oldProducts, action.payload];
 
-            return state;
-        },
+        setItem(cartKeyName, newProducts);
+        state = newProducts;
+        return state;
+      }
 
-        addToShoppingCart : (state, action : PayloadAction<ProductType>) => {
+      state = [action.payload];
 
-            const getProducts = getItem(cartKeyName);
+      setItem(cartKeyName, [action.payload]);
 
-            if (getProducts) {
-                const oldProducts = JSON.parse(getProducts);
-                const newProducts : ProductType[] = [...oldProducts, action.payload];
+      return state;
+    },
 
-                setItem(cartKeyName, newProducts);
-                state = newProducts;
-                return state;
-            }
+    deleteProductInCart(state, action: PayloadAction<ProductType>) {
+      const updatedState = state.filter(
+        (product) => product.id != action.payload.id
+      );
+      setItem(cartKeyName, updatedState);
+      return updatedState;
+    },
 
-            state = [action.payload];
+    setProductQuantity(
+      state,
+      action: PayloadAction<{ product: ProductType; quantitySaved: number }>
+    ) {
+      const product = state.find(
+        (product) => product.id == action.payload.product.id
+      );
+      
+      if (product) {
+        product.quantity = action.payload.quantitySaved;
+        setItem(cartKeyName, state);
+      }
 
-            setItem(cartKeyName, [action.payload]);
-
-            return state;
-        },
-
-        deleteProductInCart(state, action : PayloadAction<ProductType>) {
-            const updatedState = state.filter((product) => product.id != action.payload.id);
-            setItem(cartKeyName, updatedState);
-            return updatedState;
-        },
-
-        setProductQuantity(state, action : PayloadAction<{product : ProductType, quantitySaved : number}>) {
-
-            const product = state.find((product) => product.id == action.payload.product.id);
-
-            if (product) {
-             product.quantity = action.payload.quantitySaved;
-             setItem(cartKeyName, state);
-           }
-
-           return state;
-        }
-    }
-
+      return state;
+    },
+  },
 });
 
-export const {fillProductsList} = productSlice.actions;
+export const { fillProductsList } = productSlice.actions;
 
-export const { fillWishList, addToWishlist, deleteProductInWishlist } = productWhishListSlice.actions;
+export const { fillWishList, addToWishlist, deleteProductInWishlist } =
+  productWhishListSlice.actions;
 
-export const {fillShoppingCart, addToShoppingCart, deleteProductInCart, setProductQuantity} = productCartSlice.actions;
+export const {
+  fillShoppingCart,
+  addToShoppingCart,
+  deleteProductInCart,
+  setProductQuantity,
+} = productCartSlice.actions;
 
 // import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // import { BASE_URL } from "../Utils/Generals";
