@@ -81,7 +81,7 @@ const Checkout = () => {
         formData.location != "" &&
         formData.phone != ""
       ) {
-        const res = await axios.post("http://localhost:3000/api/orders", data);
+        const res = await axios.post("https://kvm-content-manager.vercel.app/api/orders", data);
         console.log("Response:", res.data);
         console.log("Form submitted:", formData);
 
