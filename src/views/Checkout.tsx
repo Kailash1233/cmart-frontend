@@ -85,6 +85,8 @@ const Checkout = () => {
         console.log("Response:", res.data);
         console.log("Form submitted:", formData);
 
+        const mailRes = await axios.post("https://kvm-content-manager.vercel.app/api/mailer", data);
+        console.log("Response:", mailRes.data);
         alert("your order is placed successfully");
         nav("/");
       } else {
