@@ -47,9 +47,9 @@ const ViewProduct = () => {
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await axios.get(
-          // `${import.meta.env.VITE_API}/products/${id}?populate=*`
-          `https://kvm-content-manager.vercel.app/api/products/${id}`
+        const response = await axios.post(
+          `https://kvm-content-manager.vercel.app/api/products/${id}`,
+          { message: "hi" }
         );
         setDetails(response.data.data);
         // console.log(response.data.data.data);

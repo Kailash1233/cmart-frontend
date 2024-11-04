@@ -299,9 +299,8 @@ const PopularProducts = ({
   const fetchProducts = async () => {
     console.log("fetched");
     try {
-      const response = await axios.get(
-        "https://kvm-content-manager.vercel.app/api/products"
-      );
+      let message = "hi";
+      const response = await axios.post("https://kvm-content-manager.vercel.app/api/products",{message : "hi"});
       const res = response.data.data;
 
       const products: ProductType[] = res.data.map((item: any) => ({
