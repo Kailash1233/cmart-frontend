@@ -307,12 +307,13 @@ const PopularProducts = ({
     });
   }
   const fetchProducts = async () => {
-    console.log("fetched");
+    // console.log("fetched");
     try {
       const db = await openDB("Products", 1);
       const key = await db.getKey('ProductList', 'items')
       
       if (!key) {
+        console.log("key is loading...")
         const response = await axios.post(
           "https://kvm-content-manager.vercel.app/api/products",
           { message: "hi" }
