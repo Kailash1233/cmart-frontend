@@ -309,28 +309,29 @@ const PopularProducts = ({
   const fetchProducts = async () => {
     console.log("fetched");
     try {
-      let message = "hi";
       const db = await openDB("Products", 1);
-      if (!db.objectStoreNames.contains("ProductList")) {
-        console.log("hi bro");
+      const key = await db.getKey('ProductList', 'items')
+      
+      if (!key) {
         const response = await axios.post(
           "https://kvm-content-manager.vercel.app/api/products",
           { message: "hi" }
         );
         const res = response.data.data;
+
         db.add("ProductList", res, "items");
       }
 
       const prod = await db.getAll("ProductList", "items");
-      const products: ProductType[] = prod[0].map((item: any) => ({
+      const products: ProductType[] = prod[0].data.map((item: any) => ({
         id: item.id,
-        img: item.img,
+        img: item.attributes.img.data.attributes.url,
         reviews: 4.5,
-        name: item.name,
-        price: item.price,
+        name: item.attributes.Name,
+        price: item.attributes.Price,
         reduction: null,
         type: "list",
-        desc: item.desc,
+        desc: item.attributes.Desc,
         quantity: 1,
         total_quantity: 1,
         categorie_id: 1,
@@ -347,16 +348,8 @@ const PopularProducts = ({
 
   useEffect(() => {
     createDB();
-    retrive();
     fetchProducts();
   }, []);
-  async function retrive() {
-    const db = await openDB("Products", 1);
-    const prod = await db.getAll("ProductList", "items");
-    // for (let i of prod[0]) {
-    //   console.log(i);
-    // }
-  }
 
   let content: React.ReactNode;
 
