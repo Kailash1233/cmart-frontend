@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import Spinner from "../../components/Spinner";
 import RoutePaths from "../../config";
 import { PROD_URL } from "../../Utils/Generals";
+import { openDB } from "idb";
 
 const BASE_URL = PROD_URL;
 
@@ -296,22 +297,40 @@ const PopularProducts = ({
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  function createDB() {
+    openDB("Products", 1, {
+      upgrade(db) {
+        if (!db.objectStoreNames.contains("ProductList")) {
+          db.createObjectStore("ProductList");
+        }
+      },
+    });
+  }
   const fetchProducts = async () => {
     console.log("fetched");
     try {
       let message = "hi";
-      const response = await axios.post("https://kvm-content-manager.vercel.app/api/products",{message : "hi"});
-      const res = response.data.data;
+      const db = await openDB("Products", 1);
+      if (!db.objectStoreNames.contains("ProductList")) {
+        console.log("hi bro");
+        const response = await axios.post(
+          "https://kvm-content-manager.vercel.app/api/products",
+          { message: "hi" }
+        );
+        const res = response.data.data;
+        db.add("ProductList", res, "items");
+      }
 
-      const products: ProductType[] = res.data.map((item: any) => ({
+      const prod = await db.getAll("ProductList", "items");
+      const products: ProductType[] = prod[0].map((item: any) => ({
         id: item.id,
-        img: item.attributes.img.data.attributes.url,
+        img: item.img,
         reviews: 4.5,
-        name: item.attributes.Name,
-        price: item.attributes.Price,
+        name: item.name,
+        price: item.price,
         reduction: null,
         type: "list",
-        desc: item.attributes.Desc,
+        desc: item.desc,
         quantity: 1,
         total_quantity: 1,
         categorie_id: 1,
@@ -327,8 +346,17 @@ const PopularProducts = ({
   };
 
   useEffect(() => {
+    createDB();
+    retrive();
     fetchProducts();
   }, []);
+  async function retrive() {
+    const db = await openDB("Products", 1);
+    const prod = await db.getAll("ProductList", "items");
+    // for (let i of prod[0]) {
+    //   console.log(i);
+    // }
+  }
 
   let content: React.ReactNode;
 

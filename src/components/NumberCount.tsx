@@ -35,9 +35,16 @@ const Numberquantity = ({
     if (min && quantity <= min) {
       return 1;
     }
-    setQuantity((state) => state - step);
+    if (!(quantity < step)){
+      setQuantity((state) => state - step);
     const quantitySaved = quantity - type;
     dispatch(setProductQuantity({ product, quantitySaved }));
+    }else{
+      setQuantity(1)
+      const quantitySaved = quantity
+      dispatch(setProductQuantity({product,quantitySaved}))
+    }
+    
   };
   return (
     <div className="d-flex">
