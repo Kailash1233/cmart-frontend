@@ -3,7 +3,7 @@ import SlideShow from "../../components/SlideShow";
 import axios from "axios";
 import ProductCart from "../../components/ProductCart";
 import ProductSort from "../../components/ProductSort";
-import ProductOfDay from "../../components/ProductOfDay";
+// import ProductOfDay from "../../components/ProductOfDay";
 import Blog from "../../components/Blog";
 import { CategoryType, blogInfo } from "../VirtualData";
 import { Link } from "react-router-dom";
@@ -44,50 +44,22 @@ const About: FC = () => {
       style={{ minHeight: "100px" }}
     >
       <div className="container-fluid">
-        <div className="row">
-          <div className="col-12 col-lg-3 py-3 py-lg-0 d-flex gap-2">
-            <div className="w-25 text-center align-self-center">
-              <i className="bi bi-clock fa-2x"></i>
-            </div>
-            <div>
-              <h6 className="fw-bold">24 Hrs Delivery</h6>
-              <span className="font-light opacity-75">
-                Get your materials delivered within 24 hours.
-              </span>
-            </div>
+        <div className="row row-cols-2 row-cols-lg-4 g-3 text-center">
+          <div className="col d-flex flex-column align-items-center justify-content-center py-3">
+            <i className="bi bi-clock fa-2x mb-2"></i>
+            <h6 className="fw-bold">24 Hrs Delivery</h6>
           </div>
-          <div className="col-12 col-lg-3 py-3 py-lg-0 d-flex gap-2">
-            <div className="w-25 text-center align-self-center">
-              <i className="bi bi-award fa-2x"></i>
-            </div>
-            <div>
-              <h6 className="fw-bold">Best Quality</h6>
-              <span className="font-light opacity-75">
-                We provide only the best quality construction materials.
-              </span>
-            </div>
+          <div className="col d-flex flex-column align-items-center justify-content-center py-3">
+            <i className="bi bi-award fa-2x mb-2"></i>
+            <h6 className="fw-bold">Best Quality</h6>
           </div>
-          <div className="col-12 col-lg-3 py-3 py-lg-0 d-flex gap-2">
-            <div className="w-25 text-center align-self-center">
-              <i className="bi bi-shield-lock fa-2x"></i>
-            </div>
-            <div>
-              <h6 className="fw-bold">COD Available</h6>
-              <span className="font-light opacity-75">
-                We use secure payment methods for the payments.
-              </span>
-            </div>
+          <div className="col d-flex flex-column align-items-center justify-content-center py-3">
+            <i className="bi bi-shield-lock fa-2x mb-2"></i>
+            <h6 className="fw-bold">COD Available</h6>
           </div>
-          <div className="col-12 col-lg-3 py-3 py-lg-0 d-flex gap-2">
-            <div className="w-25 text-center align-self-center">
-              <i className="bi bi-box-seam fa-2x"></i>
-            </div>
-            <div>
-              <h6 className="fw-bold">All types of Supply</h6>
-              <span className="font-light opacity-75">
-                You can also order in bulk and save more on your purchases.
-              </span>
-            </div>
+          <div className="col d-flex flex-column align-items-center justify-content-center py-3">
+            <i className="bi bi-box-seam fa-2x mb-2"></i>
+            <h6 className="fw-bold">All types of Supply</h6>
           </div>
         </div>
       </div>
@@ -310,10 +282,10 @@ const PopularProducts = ({
     // console.log("fetched");
     try {
       const db = await openDB("Products", 1);
-      const key = await db.getKey('ProductList', 'items')
-      
+      const key = await db.getKey("ProductList", "items");
+
       if (!key) {
-        console.log("key is loading...")
+        console.log("key is loading...");
         const response = await axios.post(
           "https://kvm-content-manager.vercel.app/api/products",
           { message: "hi" }

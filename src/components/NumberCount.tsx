@@ -1,82 +1,104 @@
-import React, { FC, SyntheticEvent, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ProductType } from "./ProductCart";
-import { cartKeyName } from "../Utils/Generals";
 import { setProductQuantity } from "../store/productSlice";
 import { useAppDispatch } from "../hooks/redux-hooks";
 
-type OptionsType = {
+type Props = {
   product: ProductType;
   initialValue?: number;
-  // step?: number;
   min?: number;
   max?: number;
 };
 
-const Numberquantity = ({
+const NumberQuantity = ({
   product,
   initialValue = 1,
-  min,
-  max,
-}: OptionsType) => {
-  const [quantity, setQuantity] = useState(product.quantity ?? initialValue);
-  const [type, setType] = useState<number>(1);
+  min = 1,
+  max = 1000,
+}: Props) => {
   const dispatch = useAppDispatch();
-  let step = type;
-  const increment = () => {
-    if (max && quantity >= max) {
-      return quantity;
-    }
-    setQuantity((state) => state + step);
-    const quantitySaved = quantity + type;
-    dispatch(setProductQuantity({ product, quantitySaved }));
+  const [quantity, setQuantity] = useState<number>(
+    product.quantity ?? initialValue
+  );
+  const [inputValue, setInputValue] = useState<string>(quantity.toString());
+  const [step, setStep] = useState<number>(1);
+
+  const updateQuantity = (newQty: number) => {
+    const clamped = Math.max(min, Math.min(max, newQty));
+    setQuantity(clamped);
+    setInputValue(clamped.toString());
+    dispatch(setProductQuantity({ product, quantitySaved: clamped }));
   };
 
-  const decrement = () => {
-    if (min && quantity <= min) {
-      return 1;
+  const increment = () => updateQuantity(quantity + step);
+  const decrement = () => updateQuantity(quantity - step);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setInputValue(val);
+
+    const parsed = parseInt(val);
+    if (!isNaN(parsed)) {
+      setQuantity(parsed); // Allow temp update without dispatch
     }
-    if (!(quantity < step)){
-      setQuantity((state) => state - step);
-    const quantitySaved = quantity - type;
-    dispatch(setProductQuantity({ product, quantitySaved }));
-    }else{
-      setQuantity(1)
-      const quantitySaved = quantity
-      dispatch(setProductQuantity({product,quantitySaved}))
-    }
-    
   };
+
+  const handleInputBlur = () => {
+    const parsed = parseInt(inputValue);
+    if (!isNaN(parsed)) {
+      updateQuantity(parsed);
+    } else {
+      updateQuantity(initialValue); // fallback to default
+    }
+  };
+
   return (
-    <div className="d-flex">
-      <div
-        className="fd-bg-primary py-1 px-3 text-white cursor-pointer rounded-3"
+    <div className="d-flex align-items-center gap-2 flex-wrap">
+      <button
+        className="btn btn-outline-primary"
         onClick={decrement}
+        disabled={quantity <= min}
+        title="Decrease"
       >
-        <i className="bi" style={{ lineHeight: "40px" }}>
-          -
-        </i>
-      </div>
-      <div className="bg-white px-4">
-        <span style={{ lineHeight: "40px" }}>{quantity}</span>
-      </div>
-      <div
-        className="fd-bg-primary py-1 px-3 text-white cursor-pointer rounded-3"
+        <i className="bi bi-dash"></i>
+      </button>
+
+      <input
+        type="text"
+        inputMode="numeric"
+        value={inputValue}
+        onChange={handleInputChange}
+        onBlur={handleInputBlur}
+        className="form-control text-center"
+        style={{ width: "80px" }}
+      />
+
+      <button
+        className="btn btn-outline-primary"
         onClick={increment}
+        disabled={quantity >= max}
+        title="Increase"
       >
-        <i className="bi bi-plus" style={{ lineHeight: "40px" }}></i>
+        <i className="bi bi-plus"></i>
+      </button>
+
+      <div className="ms-2 d-flex align-items-center">
+        <label className="me-2 small fw-semibold mb-0">Step</label>
+        <select
+          className="form-select form-select-sm"
+          value={step}
+          onChange={(e) => setStep(parseInt(e.target.value))}
+          style={{ width: "80px" }}
+        >
+          {[1, 5, 10, 25, 50, 100].map((val) => (
+            <option key={val} value={val}>
+              {val}
+            </option>
+          ))}
+        </select>
       </div>
-      <select
-        name="CountType"
-        onChange={(e) => setType(parseInt(e.target.value))}
-      >
-        <option value="1">1</option>
-        <option value="10">10</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-        <option value="500">500</option>
-      </select>
     </div>
   );
 };
 
-export default Numberquantity;
+export default NumberQuantity;

@@ -1,6 +1,8 @@
 // import React from "react";
 // import NewsLetter from "../../components/NewsLetter";
+import { Link } from "react-router-dom";
 import { SocialsNetworks } from "../../components/SocialsNetworks";
+import RoutePaths from "../../config";
 // import { Link } from "react-router-dom";
 // import RoutePaths from "../../config";
 
@@ -32,7 +34,7 @@ const Footer = () => {
             <h5 className="my-5">Information</h5>
             <div className="opacity-75">
               <div>
-                <a href="#">About Us</a>
+                <Link to={RoutePaths.about}>About Us</Link>
               </div>
               <div>
                 <a href="#">Contact Us</a>
@@ -132,7 +134,12 @@ const Footer = () => {
             <img src="/img/payment.png" alt="" className="w-100" />
           </p> */}
           <p className="opacity-75">
-            Copyright &copy; 2024 By <span className="fw-bold">@Adszoo</span>
+            Copyright &copy; 2025 By{" "}
+            <span className="fw-bold">
+              <a href="https://adszoo.in" target="_blank">
+                Adszoo
+              </a>
+            </span>
           </p>
         </div>
       </div>

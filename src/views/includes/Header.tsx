@@ -12,7 +12,7 @@ import {
 } from "../../Utils/Generals";
 import { ProductType } from "../../components/ProductCart";
 import {
-  fillProductsList,
+  // fillProductsList,
   fillShoppingCart,
   fillWishList,
 } from "../../store/productSlice";
@@ -22,9 +22,10 @@ import { useGetUserQuery } from "../../store/apiquery/usersApiSlice";
 // import LogOut from "../../components/Form";
 const navsBar = [
   { path: RoutePaths.home, name: "Home" },
+  { path: RoutePaths.about, name: "About Us" },
   { path: RoutePaths.shop, name: "Shop" },
   { path: RoutePaths.blog, name: "Blog" },
-  { path: RoutePaths.contact, name: "Contact US" },
+  { path: RoutePaths.contact, name: "Contact Us" },
 ];
 
 const Header: FC = () => {
@@ -122,14 +123,14 @@ const Header: FC = () => {
                   </span>
                 </Link>
               </div>
-              <div onClick={viewSearch}>
+              {/* <div onClick={viewSearch}>
                 <a
                   href="#"
                   className="position-relative border-3 shadow border-light py-2 px-3 text-dark fd-hover-bg-primary"
                 >
                   <i className="bi bi-search"></i>
                 </a>
-              </div>
+              </div> */}
               <div>
                 <Link
                   to={
@@ -212,14 +213,14 @@ const Header: FC = () => {
                 </span>
               </Link>
             </div>
-            <div onClick={viewSearch}>
+            {/* <div onClick={viewSearch}>
               <a
                 href="#"
                 className="position-relative border-3 shadow border-light py-2 px-3 text-dark fd-hover-bg-primary"
               >
                 <i className="bi bi-search"></i>
               </a>
-            </div>
+            </div> */}
             <div>
               <Link
                 to={

@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 
 const Banner = ({ page, path }: { page: string; path: string[] }) => {
   return (

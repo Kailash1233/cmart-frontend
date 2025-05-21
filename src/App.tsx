@@ -17,7 +17,7 @@ import UserAccount, {
   UserAddress,
   UserDetails,
   UserOrders,
-  UserSignIn,
+  // UserSignIn,
 } from "./views/UserAccount";
 import AdminPanel from "./views/Admin/AdminPanel";
 import DashMain from "./components/Admin/DashMain";
@@ -30,13 +30,15 @@ import AdminAccount from "./components/Admin/AdminAccount";
 import SlidesMain from "./components/Admin/SlidesMain";
 import PrivateRoute from "./components/PrivateRoute";
 import RedirectIfAuthenticate from "./components/RedirectIfAuthenticate";
-import { jwtDecode } from "jwt-decode";
-import { GoogleLogin } from '@react-oauth/google';
+import About from "./views/About";
+// import { jwtDecode } from "jwt-decode";
+// import { GoogleLogin } from '@react-oauth/google';
 
 function App() {
   return (
     <Routes>
       <Route path={RoutePaths.home} element={<Home />}></Route>
+      <Route path={RoutePaths.about} element={<About />}></Route>
       <Route path={RoutePaths.shop} element={<Shop />}></Route>
       <Route path={RoutePaths.wishlist} element={<WishList />}></Route>
       <Route path={RoutePaths.blog} element={<BlogPage />}></Route>

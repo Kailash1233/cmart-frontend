@@ -7,7 +7,12 @@ const AdminFooter = () => {
         <span>CMart</span>
       </p>
       <p className="opacity-75">
-        Copyright &copy; 2024 By <span className="fw-bold">Adszoo</span>
+        Copyright &copy; 2025 By{" "}
+        <span className="fw-bold">
+          <a href="https://adszoo.in" target="_blank">
+            Adszoo
+          </a>
+        </span>
       </p>
     </div>
   );

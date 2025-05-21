@@ -165,27 +165,51 @@ export type ProductType = {
   total_quantity: number;
   categorie_id?: number;
   attributes?: any;
-  data?:any
+  data?: any;
 };
 
 const ProductCart = (props: ProductType) => {
   return (
     <div
-      className="position-relative bg-white mt-4 border-1 border fd-hover-border-primary product-cart"
+      className="position-relative bg-white mt-4 border fd-hover-border-primary product-cart shadow-sm"
       style={{
-        height: "320px", // Adjusted to make the card smaller
-        padding: "10px", // Added padding for better layout
+        padding: "12px",
+        borderRadius: "8px",
+        maxWidth: "100%",
+        height: "auto",
+        minHeight: "320px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        boxSizing: "border-box",
+        transition: "box-shadow 0.3s ease",
       }}
     >
-      <Link to={`/product/${props.id}`} className="product-link">
-        <div className="position-relative h-60 product-img">
+      <Link
+        to={`/product/${props.id}`}
+        className="product-link d-flex flex-column align-items-center text-decoration-none"
+        style={{ color: "inherit", flexGrow: 1 }}
+      >
+        <div
+          className="position-relative product-img mb-3"
+          style={{
+            width: "100%",
+            maxHeight: "160px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            overflow: "hidden",
+          }}
+        >
           <img
             src={link(props.img)}
             alt={props.name}
-            className="w-100 h-100"
+            className="img-fluid"
             style={{
+              maxHeight: "160px",
+              width: "auto",
               objectFit: "contain",
-              maxHeight: "150px", // Reduced image size for smaller card
+              transition: "transform 0.3s ease",
             }}
           />
         </div>
@@ -193,8 +217,10 @@ const ProductCart = (props: ProductType) => {
           <span
             className="position-absolute top-0 start-0 fd-btn"
             style={{
-              padding: "3px 15px",
-              fontSize: "18px", // Adjusted size for smaller card
+              padding: "4px 18px",
+              fontSize: "16px",
+              borderRadius: "0 0 8px 0",
+              zIndex: 10,
             }}
           >
             SALE
@@ -203,66 +229,88 @@ const ProductCart = (props: ProductType) => {
           <span
             className="position-absolute top-0 start-0 fd-btn-red"
             style={{
-              padding: "3px 15px",
-              fontSize: "10px", // Adjusted size for smaller card
+              padding: "4px 12px",
+              fontSize: "12px",
+              borderRadius: "0 0 8px 0",
+              zIndex: 10,
             }}
           >
             {props.reduction}
           </span>
         )}
-        <div className="text-center mt-2">
+        <div
+          className="text-center mt-1"
+          style={{ flexGrow: 1, width: "100%" }}
+        >
           <h6
             className="product-name fw-bold text-dark"
             style={{
-              fontSize: "16px", // Smaller text size for name
-              lineHeight: "1.2",
+              fontSize: "0.95rem",
+              lineHeight: "1.3",
+              maxHeight: "2.6rem",
+              overflow: "hidden",
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              textAlign: "center",
+              padding: "0 4px",
             }}
+            title={props.name}
           >
             {props.name}
           </h6>
         </div>
+
         <div
-          className="d-flex justify-content-center text-black"
-          style={{ fontSize: "16px", marginTop: "5px" }} // Reduced price font size
+          className="d-flex justify-content-center text-black fw-semibold"
+          style={{
+            fontSize: "1.1rem",
+            marginTop: "4px",
+            letterSpacing: "0.02em",
+          }}
         >
-          ₹ {props.price}
+          ₹ {props.price.toLocaleString()}
         </div>
       </Link>
 
-      <div className="d-flex justify-content-center mt-1">
+      <div className="d-flex justify-content-center mt-2">
         <Reviews rating={props.reviews} />
       </div>
 
       <div
-        className="d-flex justify-content-center gap-2 mt-2"
+        className="d-flex justify-content-center gap-2 mt-3 flex-wrap"
         style={{
-          display: "flex",
           alignItems: "center",
         }}
       >
         <AddToCart
           product={props}
-          classSup="small-cart-btn" // Apply CSS class to handle mobile styling
+          classSup="small-cart-btn"
+          // style={{ flex: "1 1 auto", minWidth: "90px" }}
         />
 
         <AddToWishlist
           product={props}
-          classSup="small-wishlist-btn rounded-3" // Smaller Wishlist button
+          classSup="small-wishlist-btn rounded-3"
           supStyle={{
-            padding: "4px 10px",
-            fontSize: "12px",
+            padding: "6px 14px",
+            fontSize: "13px",
           }}
+          // style={{ flex: "1 1 auto", minWidth: "90px" }}
         />
-        <Link
+        {/* <Link
           to={`/product/${props.id}`}
-          className="fd-btn rounded-3"
+          className="fd-btn rounded-3 text-center"
           style={{
-            padding: "4px 10px", // Smaller padding for view button
-            fontSize: "12px",
+            padding: "6px 14px",
+            fontSize: "13px",
+            flex: "1 1 auto",
+            minWidth: "90px",
           }}
+          aria-label={`View details of ${props.name}`}
         >
-          <i className="bi bi-eye"></i>
-        </Link>
+          <i className="bi bi-eye" style={{ fontSize: "1.1rem" }}></i>
+        </Link> */}
       </div>
     </div>
   );

@@ -46,16 +46,11 @@
 
 // export default SlideShow;
 
-import React from "react";
 import { Carousel } from "react-responsive-carousel";
-// import { useGetAllSlidesQuery } from "../store/apiquery/slideApiSlice";
-// import { Slide } from "../views/VirtualData";
 import { Link } from "react-router-dom";
 import RoutePaths from "../config";
-// import Spinner from "./Spinner";
 
 const SlideShow = () => {
-  // Dummy slide data for the frontend
   const slides = [
     {
       id: 1,
@@ -85,10 +80,7 @@ const SlideShow = () => {
       interval={3000}
     >
       {slides.map((slide) => (
-        <div
-          className="f-slide position-relative shadow h-100 "
-          key={slide.id}
-        >
+        <div className="f-slide position-relative shadow h-100 " key={slide.id}>
           <img src={slide.image} alt={slide.text} className="w-100 h-100" />
           <div
             className="f-slide-text position-absolute text-start"

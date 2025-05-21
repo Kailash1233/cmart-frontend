@@ -1,9 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./includes/Header";
 import Banner from "../components/Banner";
 import Footer from "./includes/Footer";
 
 const ContactUs = () => {
+  const [formStatus, setFormStatus] = useState<
+    "idle" | "sending" | "success" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus("sending");
+
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch("https://formspree.io/f/mnndyqbw", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+        },
+        body: formData,
+      });
+
+      if (response.ok) {
+        setFormStatus("success");
+        e.currentTarget.reset();
+
+        // Optional redirect after 3 seconds
+        // setTimeout(() => window.location.href = "/", 3000);
+      } else {
+        const result = await response.json();
+        setErrorMessage(
+          result.error || "Something went wrong, please try again."
+        );
+        setFormStatus("error");
+      }
+    } catch (error) {
+      setErrorMessage("Network error, please try again later.");
+      setFormStatus("error");
+    }
+  };
+
   return (
     <>
       <Header />
@@ -15,7 +55,7 @@ const ContactUs = () => {
       >
         <div className="col-12 col-lg-7 c-form text-black">
           <h2 className="fw-bold">Get In Touch</h2>
-          <form action="">
+          <form onSubmit={handleSubmit}>
             <div className="d-flex gap-2 mt-5">
               <div className="position-relative w-50">
                 <input
@@ -23,6 +63,7 @@ const ContactUs = () => {
                   name="name"
                   className="form-control w-100 rounded-0 p-2 px-3"
                   placeholder="Your Name"
+                  required
                 />
                 <div
                   className="position-absolute fd-color-primary"
@@ -37,6 +78,7 @@ const ContactUs = () => {
                   name="email"
                   className="form-control w-100 rounded-0 p-2 px-3"
                   placeholder="Your Email"
+                  required
                 />
                 <div
                   className="position-absolute fd-color-primary"
@@ -78,12 +120,12 @@ const ContactUs = () => {
             </div>
             <div className="position-relative w-100 mb-4">
               <textarea
-                name="description"
-                id="usernameMessage"
+                name="message"
                 cols={100}
                 rows={10}
                 placeholder="Write Message..."
                 className="w-100 p-2 border"
+                required
               ></textarea>
               <div
                 className="position-absolute fd-color-primary"
@@ -92,26 +134,38 @@ const ContactUs = () => {
                 <i className="bi bi-pen"></i>
               </div>
             </div>
+
+            {/* Feedback messages */}
+            {formStatus === "sending" && (
+              <p className="text-info">Sending message...</p>
+            )}
+            {formStatus === "success" && (
+              <p className="text-success">Thank you! Your message was sent.</p>
+            )}
+            {formStatus === "error" && (
+              <p className="text-danger">Error: {errorMessage}</p>
+            )}
+
             <div>
-              <a href="#" className="fd-btn w-50 text-center">
+              <button
+                type="submit"
+                className="fd-btn w-50 text-center"
+                disabled={formStatus === "sending"}
+              >
                 SEND MESSAGE
-              </a>
+              </button>
             </div>
           </form>
         </div>
+
         <div
           className="position-relative contact-banner d-none d-lg-block p-4 col-3"
           style={{
-            backgroundImage: "url('/img/contact.jpg')",
+            backgroundImage: "url('/contact.png')",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
           }}
-        >
-          <div
-            className="position-absolute w-100 h-100 top-0 start-0"
-            style={{ zIndex: "1", backgroundColor: "rgba(123,175,0,0.45)" }}
-          ></div>
-        </div>
+        ></div>
       </div>
 
       <Footer />
