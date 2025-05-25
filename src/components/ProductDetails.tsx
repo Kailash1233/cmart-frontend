@@ -12,9 +12,10 @@ import RoutePaths from "../config";
 // const ProductDetails = ({ product } : { product: ProductType }) => {
 const ProductDetails = (tempProduct: any) => {
   const props: ProductType = tempProduct.product;
-  // console.log(props.data.attributes.Desc, "datasss");
+  console.log(props, "datasss");
   var product: ProductType = {
     id: props.data.id,
+    category: props.category,
     img: props.data.attributes.img.data.attributes.url,
     reviews: 1,
     name: props.data.attributes.Name,
@@ -27,8 +28,7 @@ const ProductDetails = (tempProduct: any) => {
     categorie_id: props.data.categorie_id,
     attributes: props.data.id,
   };
-  // console.log('productDetails');
-  // console.log(product);
+  console.log("productDetails");
   // console.log('productDetailsattributes');
   // console.log(product.attributes);
   // console.log('productDetailsattributesimg');

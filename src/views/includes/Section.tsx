@@ -247,6 +247,7 @@ const Promotion2 = () => {
 interface ProductType {
   id: number;
   img: string;
+  category: string;
   reviews: number;
   name: string;
   price: number;
@@ -268,6 +269,7 @@ const PopularProducts = ({
   const [productsList, setProductsList] = useState<ProductType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [objKeys, setObjKeys] = useState<string[]>([]);
 
   function createDB() {
     openDB("Products", 1, {
@@ -283,32 +285,35 @@ const PopularProducts = ({
     try {
       const db = await openDB("Products", 1);
       const key = await db.getKey("ProductList", "items");
+      console.log("key is loading...");
+      const response = await axios.post("https://kvm-content-manager.vercel.app/api/products", {
+        message: "hi",
+      });
+      const res = response.data.data;
 
-      if (!key) {
-        console.log("key is loading...");
-        const response = await axios.post(
-          "https://kvm-content-manager.vercel.app/api/products",
-          { message: "hi" }
-        );
-        const res = response.data.data;
+      db.add("ProductList", res, "items");
 
-        db.add("ProductList", res, "items");
-      }
-
+      console.log(res.data);
       const prod = await db.getAll("ProductList", "items");
-      const products: ProductType[] = prod[0].data.map((item: any) => ({
-        id: item.id,
-        img: item.attributes.img.data.attributes.url,
-        reviews: 4.5,
-        name: item.attributes.Name,
-        price: item.attributes.Price,
-        reduction: null,
-        type: "list",
-        desc: item.attributes.Desc,
-        quantity: 1,
-        total_quantity: 1,
-        categorie_id: 1,
-      }));
+      var keys = Object.keys(res.data);
+      console.log(keys,"keys")
+      setObjKeys(keys);
+      const products: ProductType[] = keys.flatMap((key: any) =>
+        res.data[key].data.map((item: any) => ({
+          id: item.id,
+          category: key,
+          img: item.attributes.img.data.attributes.url,
+          reviews: 4.5,
+          name: item.attributes.Name,
+          price: item.attributes.Price,
+          reduction: null,
+          type: "list",
+          desc: item.attributes.Desc,
+          quantity: 1,
+          total_quantity: 1,
+          categorie_id: 1,
+        }))
+      );
 
       setProductsList(products);
     } catch (error) {
@@ -333,9 +338,18 @@ const PopularProducts = ({
   } else if (productsList.length === 0) {
     content = <div>No products available</div>;
   } else {
-    content = productsList.map((product: ProductType) => (
-      <div className="col-6 col-lg-3" key={product.id}>
-        <ProductCart {...product} type={type} />
+    content = objKeys?.map((key) => (
+      <div key={key}>
+        <h1>{key}</h1>
+        <div className="row g-3">
+          {productsList
+            .filter((product: ProductType) => product.category === key)
+            .map((product: ProductType) => (
+              <div className="col-6 col-lg-3" key={product.id}>
+                <ProductCart {...product} type={type} />
+              </div>
+            ))}
+        </div>
       </div>
     ));
   }

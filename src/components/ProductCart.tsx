@@ -154,6 +154,7 @@ import { link } from "../Utils/Generals";
 
 export type ProductType = {
   id: number;
+  category: string;
   img: string;
   reviews: number;
   name: string;

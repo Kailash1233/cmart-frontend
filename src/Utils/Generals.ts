@@ -7,7 +7,7 @@ import { SyntheticEvent } from "react";
 
 // export const BASE_URL = 'http://localhost:8000/api/'; // BASE URL FOR API FETCHING
 export const BASE_URL =
-  "https://cozy-bell-fec76d07e6.strapiapp.com/api"; // BASE URL FOR API FETCHING
+  "http://localhost:3000/api"; // BASE URL FOR API FETCHING
 
 export const PROD_URL =
   "https://cozy-bell-fec76d07e6.strapiapp.com/api/products?populate=*";
